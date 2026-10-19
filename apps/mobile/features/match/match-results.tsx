@@ -140,6 +140,8 @@ export function MatchResults({ result }: Props) {
       <ThemedText style={styles.footer}>
         {t.results.footer(
           result.matches.length,
+          new Date(result.searchWindow.from).getUTCFullYear(),
+          new Date(result.searchWindow.to).getUTCFullYear(),
           stats.pairsEvaluated.toLocaleString(t.localeTag),
           stats.elapsedMs,
         )}

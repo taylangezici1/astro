@@ -6,6 +6,7 @@ import { Fonts, type Theme } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { useT } from "@/lib/i18n";
 import {
+  DEFAULT_MAX_AGE_GAP,
   DEFAULT_ORB,
   DEFAULT_SYNASTRY_RULES,
   type MatchRequest,
@@ -26,11 +27,16 @@ interface Props {
 interface Settings {
   orb: number;
   rules: SynastryRule[];
+  maxAgeGap: number;
 }
 
 const SETTINGS_KEY = "synastry.matchSettings.v1";
 
-const DEFAULTS: Settings = { orb: DEFAULT_ORB, rules: [...DEFAULT_SYNASTRY_RULES] };
+const DEFAULTS: Settings = {
+  orb: DEFAULT_ORB,
+  rules: [...DEFAULT_SYNASTRY_RULES],
+  maxAgeGap: DEFAULT_MAX_AGE_GAP,
+};
 
 /**
  * Match form. Birth data is captured at signup, so this screen only carries
@@ -48,7 +54,8 @@ export function MatchForm({ onSubmit, loading, error }: Props) {
   useEffect(() => {
     let cancelled = false;
     loadJSON(SETTINGS_KEY, isSettings).then((saved) => {
-      if (saved && !cancelled) setSettings(saved);
+      // Settings saved by older versions may lack newer fields.
+      if (saved && !cancelled) setSettings({ ...DEFAULTS, ...saved });
     });
     return () => {
       cancelled = true;
@@ -66,7 +73,7 @@ export function MatchForm({ onSubmit, loading, error }: Props) {
       return;
     }
     setValidationError(null);
-    onSubmit({ orb: settings.orb, rules: settings.rules });
+    onSubmit({ orb: settings.orb, rules: settings.rules, maxAgeGap: settings.maxAgeGap });
   };
 
   const displayedError = validationError ?? error ?? null;
@@ -85,6 +92,8 @@ export function MatchForm({ onSubmit, loading, error }: Props) {
         onToggle={() => setAdvancedOpen((v) => !v)}
         orb={settings.orb}
         onOrbChange={(orb) => update({ ...settings, orb })}
+        maxAgeGap={settings.maxAgeGap}
+        onMaxAgeGapChange={(maxAgeGap) => update({ ...settings, maxAgeGap })}
         rules={settings.rules}
         onRulesChange={(rules) => update({ ...settings, rules })}
         onReset={() => update(DEFAULTS)}
@@ -116,9 +125,10 @@ export function MatchForm({ onSubmit, loading, error }: Props) {
   );
 }
 
-function isSettings(value: unknown): value is Settings {
+function isSettings(value: unknown): value is Partial<Settings> & Pick<Settings, "orb" | "rules"> {
   const v = value as Settings | null;
   return (
+    (v?.maxAgeGap === undefined || (typeof v.maxAgeGap === "number" && v.maxAgeGap >= 1 && v.maxAgeGap <= 40)) &&
     typeof v?.orb === "number" &&
     v.orb > 0 &&
     v.orb <= 10 &&

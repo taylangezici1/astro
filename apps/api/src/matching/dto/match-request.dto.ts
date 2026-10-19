@@ -75,6 +75,13 @@ export class MatchRequestDto {
   @Max(200)
   limit?: number;
 
+  /** Only partners born within this many years of the user. Defaults to 10. */
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(40)
+  maxAgeGap?: number;
+
   /** Optional override for the Phase 3 house rule set. */
   @IsOptional()
   @IsArray()

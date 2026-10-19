@@ -54,7 +54,7 @@ export type {
   UpdateBirthRequest,
   User,
 } from "@synastry/api-types";
-export { DEFAULT_ORB, DEFAULT_SYNASTRY_RULES } from "@synastry/api-types";
+export { DEFAULT_MAX_AGE_GAP, DEFAULT_ORB, DEFAULT_SYNASTRY_RULES } from "@synastry/api-types";
 
 const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://localhost:3000";
 /** Matching can take a couple of seconds uncached; anything past this is stuck. */

@@ -227,6 +227,12 @@ export interface MatchRequest {
   orb?: number;
   limit?: number;
   houseRules?: HouseRule[];
+  /**
+   * Only consider partners born within this many years of the user.
+   * Defaults to DEFAULT_MAX_AGE_GAP. Partners are always at least
+   * MIN_PARTNER_AGE years old today, whatever the gap.
+   */
+  maxAgeGap?: number;
 }
 
 /** Server-resolved birth instant + IANA timezone, echoed for transparency. */
@@ -241,6 +247,8 @@ export interface MatchResult {
   natal: PlanetaryChart;
   bands: GoldenDegreeBand[];
   orb: number;
+  /** Births considered: [from, to), ISO-8601 UTC. Empty when from >= to. */
+  searchWindow: { from: string; to: string };
   matches: SkyMatch[];
   refinement: RefinementResult;
 }
@@ -258,6 +266,12 @@ export interface DistrictsResponse {
 
 /** Orb tolerance in degrees (workflow.md §3). */
 export const DEFAULT_ORB = 3;
+
+/** Partners are born within this many years of the user by default. */
+export const DEFAULT_MAX_AGE_GAP = 10;
+
+/** Nobody younger than this is ever suggested as a match. */
+export const MIN_PARTNER_AGE = 18;
 
 /** The classic four-rule synastry set (workflow.md §3–4). */
 export const DEFAULT_SYNASTRY_RULES: readonly SynastryRule[] = [

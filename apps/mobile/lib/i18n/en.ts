@@ -78,6 +78,11 @@ export const en: Translations = {
       hintLine2:
         "Wider = more alignments count, but looser. Tighter = only near-exact alignments count.",
     },
+    age: {
+      title: "Age difference",
+      hint: "Only people born within this many years of you. Nobody under 18 is ever suggested.",
+      value: (years) => `±${years} year${years === 1 ? "" : "s"}`,
+    },
     rules: {
       title: "Cosmic alignments",
       hint: {
@@ -104,7 +109,7 @@ export const en: Translations = {
     },
     empty: {
       title: "No matches found",
-      hint: "Nothing in 40 years of sky comes close to these alignments. Try a wider orb or different alignments.",
+      hint: "Nobody born close to your age comes near these alignments. Try a wider orb, a bigger age difference, or different alignments.",
     },
     why: {
       title: "WHY THIS IS YOUR MATCH",
@@ -125,8 +130,8 @@ export const en: Translations = {
         "The partner-planet positions that would form each of your chosen alignments.",
       separator: "  or  ",
     },
-    footer: (days, pairs, ms) =>
-      `Ranked ${days} candidate days from 40 years of sky, then checked ${pairs} birthplace combinations in ${ms} ms.`,
+    footer: (days, fromYear, toYear, pairs, ms) =>
+      `Ranked ${days} candidate days among births from ${fromYear}–${toYear}, then checked ${pairs} birthplace combinations in ${ms} ms.`,
   },
   detail: {
     backLabel: "Results",

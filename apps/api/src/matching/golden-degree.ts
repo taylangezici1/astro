@@ -80,6 +80,37 @@ export function computeGoldenDegrees(
   return rules.map((rule) => ({ rule, targets: computeTargets(rule, natal) }));
 }
 
+// ---------- age window ----------
+
+export interface BirthWindow {
+  /** Inclusive. */
+  from: Date;
+  /** Exclusive. */
+  to: Date;
+}
+
+function addYears(date: Date, years: number): Date {
+  const out = new Date(date);
+  out.setUTCFullYear(out.getUTCFullYear() + years);
+  return out;
+}
+
+/**
+ * Births a partner may have: within `maxAgeGap` years of the user, and at
+ * least `minAge` years old at `now`. `from >= to` means nobody qualifies.
+ */
+export function birthWindow(
+  userBirth: Date,
+  maxAgeGap: number,
+  minAge: number,
+  now: Date,
+): BirthWindow {
+  const from = addYears(userBirth, -maxAgeGap);
+  const latestByGap = addYears(userBirth, maxAgeGap);
+  const latestAdult = addYears(now, -minAge);
+  return { from, to: latestByGap < latestAdult ? latestByGap : latestAdult };
+}
+
 /** Degrees between `chart[band.rule.other]` and the nearest target of `band`. */
 export function bandDistance(band: GoldenDegreeBand, chart: PlanetaryChart): number {
   const value = chart[band.rule.other];
@@ -143,6 +174,23 @@ function distanceSql(band: GoldenDegreeBand): Prisma.Sql {
     : Prisma.sql`LEAST(${Prisma.join(perTarget, ", ")})`;
 }
 
+/**
+ * Keep rows (already sorted best first) that are at least `minGapMs` from
+ * every better row. The SQL keeps one row per UTC day, but two days' bests
+ * can sit either side of midnight — the same person twice.
+ */
+export function dropNearDuplicates<T extends { timestamp: Date }>(
+  rows: readonly T[],
+  minGapMs = 12 * 60 * 60_000,
+): T[] {
+  const kept: T[] = [];
+  for (const row of rows) {
+    const t = row.timestamp.getTime();
+    if (kept.every((k) => Math.abs(k.timestamp.getTime() - t) >= minGapMs)) kept.push(row);
+  }
+  return kept;
+}
+
 /** Shape of each row returned by `buildSkySearchSql`. */
 export interface SkySearchRow extends PlanetaryChart {
   id: number;
@@ -154,8 +202,9 @@ export interface SkySearchRow extends PlanetaryChart {
  * Phase 2 query (workflow.md §4): rank GlobalSky by aspect fit and return
  * the best tick of each UTC day, best days first.
  *
- *   1. WHERE keeps rows that meet at least one rule within the orb — rows
- *      that meet none would score 0 anyway. Each branch is an index range.
+ *   1. WHERE keeps rows inside the birth window that meet at least one rule
+ *      within the orb — rows that meet none would score 0 anyway. Each
+ *      branch is an index range.
  *   2. Every remaining row is scored with the same formula as
  *      `scoring.aspectCredit` (keep the two in sync).
  *   3. DISTINCT ON collapses each day to its best tick. Neighbouring
@@ -166,6 +215,7 @@ export function buildSkySearchSql(
   bands: readonly GoldenDegreeBand[],
   orb: number,
   limit: number,
+  window: BirthWindow,
 ): Prisma.Sql {
   if (bands.length === 0) throw new Error("At least one rule is required");
 
@@ -185,7 +235,8 @@ export function buildSkySearchSql(
         "id", "timestamp", "sun", "moon", "mercury", "venus", "mars", "jupiter", "saturn",
         ${aspectFit} AS "aspect_fit"
       FROM "GlobalSky"
-      WHERE ${anyRuleInOrb}
+      WHERE "timestamp" >= ${window.from} AND "timestamp" < ${window.to}
+        AND (${anyRuleInOrb})
       ORDER BY date_trunc('day', "timestamp"), "aspect_fit" DESC, "timestamp" ASC
     ) AS best_per_day
     ORDER BY "aspect_fit" DESC, "timestamp" ASC

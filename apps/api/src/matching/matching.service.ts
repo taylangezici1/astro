@@ -6,8 +6,10 @@ import { createHash } from "node:crypto";
 import type { User as PrismaUser } from "@synastry/database";
 import {
   DEFAULT_HOUSE_RULES,
+  DEFAULT_MAX_AGE_GAP,
   DEFAULT_ORB,
   DEFAULT_SYNASTRY_RULES,
+  MIN_PARTNER_AGE,
   type AspectHit,
   type GoldenDegreeBand,
   type HouseRule,
@@ -23,8 +25,10 @@ import { PRISMA, type PrismaInstance } from "../prisma/prisma.module";
 import { RefinementService } from "../refinement/refinement.service";
 import {
   bandDistance,
+  birthWindow,
   buildSkySearchSql,
   computeGoldenDegrees,
+  dropNearDuplicates,
   type SkySearchRow,
 } from "./golden-degree";
 import { aspectCredit, mean } from "./scoring";
@@ -48,7 +52,7 @@ const DEFAULT_LIMIT = 50;
  */
 const REFINEMENT_INPUT_CAP = 30;
 /** Bump whenever scoring changes so stale cached results are never served. */
-const ENGINE_VERSION = 2;
+const ENGINE_VERSION = 3;
 
 @Injectable()
 export class MatchingService {
@@ -75,6 +79,10 @@ export class MatchingService {
       orb: request.orb ?? DEFAULT_ORB,
       limit: request.limit ?? DEFAULT_LIMIT,
       houseRules: request.houseRules ?? DEFAULT_HOUSE_RULES,
+      maxAgeGap: request.maxAgeGap ?? DEFAULT_MAX_AGE_GAP,
+      // Day-granular, so the "18 or older" cutoff is part of the cache key
+      // without making every request unique.
+      today: new Date().toISOString().slice(0, 10),
     };
 
     const cacheKey = buildCacheKey(user, params);
@@ -100,15 +108,25 @@ export class MatchingService {
   private async compute(user: PrismaUser, params: MatchParams): Promise<MatchResult> {
     const natal = natalOf(user);
 
-    // Phase 2 — Golden Degrees, then the ranked GlobalSky search.
+    // Phase 2 — Golden Degrees, then the ranked GlobalSky search over
+    // partners of a plausible age.
     const bands = computeGoldenDegrees(params.rules, natal);
-    const t0 = Date.now();
-    const rows = await this.prisma.$queryRaw<SkySearchRow[]>(
-      buildSkySearchSql(bands, params.orb, params.limit),
+    const window = birthWindow(
+      user.birthUtc,
+      params.maxAgeGap,
+      MIN_PARTNER_AGE,
+      new Date(`${params.today}T00:00:00Z`),
     );
+    const t0 = Date.now();
+    const rows =
+      window.from < window.to
+        ? await this.prisma.$queryRaw<SkySearchRow[]>(
+            buildSkySearchSql(bands, params.orb, params.limit, window),
+          )
+        : [];
     this.logger.debug(`Phase 2 query: ${rows.length} rows in ${Date.now() - t0}ms`);
 
-    const candidates = rows.map((row) => {
+    const candidates = dropNearDuplicates(rows).map((row) => {
       const chart = natalOf(row);
       const aspects = aspectHits(bands, chart, params.orb);
       return {
@@ -152,6 +170,7 @@ export class MatchingService {
       natal,
       bands,
       orb: params.orb,
+      searchWindow: { from: window.from.toISOString(), to: window.to.toISOString() },
       matches,
       refinement,
     };
@@ -163,6 +182,9 @@ interface MatchParams {
   orb: number;
   limit: number;
   houseRules: readonly HouseRule[];
+  maxAgeGap: number;
+  /** YYYY-MM-DD (UTC) the request was computed for. */
+  today: string;
 }
 
 /**

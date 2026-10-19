@@ -4,7 +4,9 @@ import type { PlanetaryChart } from "@synastry/api-types";
 import {
   ASPECTS,
   bandDistance,
+  birthWindow,
   buildSkySearchSql,
+  dropNearDuplicates,
   computeGoldenDegrees,
   computeTargets,
   rangeConditions,
@@ -127,7 +129,45 @@ describe("bandDistance", () => {
   });
 });
 
+describe("birthWindow", () => {
+  const now = new Date("2026-10-20T00:00:00Z");
+
+  it("spans the age gap on both sides of the user's birth", () => {
+    const w = birthWindow(new Date("1980-06-01T00:00:00Z"), 10, 18, now);
+    expect(w.from.toISOString()).toBe("1970-06-01T00:00:00.000Z");
+    expect(w.to.toISOString()).toBe("1990-06-01T00:00:00.000Z");
+  });
+
+  it("never reaches anyone younger than the minimum age", () => {
+    const w = birthWindow(new Date("1994-10-12T14:15:00Z"), 20, 18, now);
+    expect(w.to.toISOString()).toBe("2008-10-20T00:00:00.000Z");
+  });
+
+  it("is empty when nobody qualifies", () => {
+    const w = birthWindow(new Date("2015-01-01T00:00:00Z"), 1, 18, now);
+    expect(w.from >= w.to).toBe(true);
+  });
+});
+
+describe("dropNearDuplicates", () => {
+  const at = (iso: string) => ({ timestamp: new Date(iso) });
+
+  it("drops a weaker row within 12 hours of a better one, across midnight", () => {
+    const rows = [at("1994-09-16T21:15:00Z"), at("2001-04-27T00:45:00Z"), at("1994-09-17T00:00:00Z")];
+    expect(dropNearDuplicates(rows)).toEqual(rows.slice(0, 2));
+  });
+
+  it("keeps rows that are far enough apart", () => {
+    const rows = [at("1994-09-16T00:00:00Z"), at("1994-09-17T00:00:00Z")];
+    expect(dropNearDuplicates(rows)).toEqual(rows);
+  });
+});
+
 describe("buildSkySearchSql", () => {
+  const window = {
+    from: new Date("1984-01-01T00:00:00Z"),
+    to: new Date("2004-01-01T00:00:00Z"),
+  };
   const bands = computeGoldenDegrees(
     [
       { self: "venus", aspect: "trine", other: "mars" },
@@ -137,7 +177,7 @@ describe("buildSkySearchSql", () => {
   );
 
   it("keeps rows meeting any rule, scores them, and keeps one per day", () => {
-    const query = buildSkySearchSql(bands, 3, 50);
+    const query = buildSkySearchSql(bands, 3, 50, window);
     expect(query.sql).toMatch(/WHERE[\s\S]+ OR /);
     expect(query.sql).toContain("DISTINCT ON (date_trunc('day', \"timestamp\"))");
     expect(query.sql).toContain('"mars"');
@@ -146,12 +186,19 @@ describe("buildSkySearchSql", () => {
   });
 
   it("passes every number as a bound parameter", () => {
-    const query = buildSkySearchSql(bands, 3, 50);
+    const query = buildSkySearchSql(bands, 3, 50, window);
     expect(query.sql).not.toMatch(/\d{3}\.\d/);
     expect(query.values).toContain(3);
   });
 
+  it("limits rows to the birth window", () => {
+    const query = buildSkySearchSql(bands, 3, 50, window);
+    expect(query.sql).toContain(`"timestamp" >= ? AND "timestamp" < ?`);
+    expect(query.values).toContain(window.from);
+    expect(query.values).toContain(window.to);
+  });
+
   it("requires at least one rule", () => {
-    expect(() => buildSkySearchSql([], 3, 50)).toThrow();
+    expect(() => buildSkySearchSql([], 3, 50, window)).toThrow();
   });
 });

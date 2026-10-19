@@ -20,6 +20,8 @@ interface Props {
   onToggle: () => void;
   orb: number;
   onOrbChange: (next: number) => void;
+  maxAgeGap: number;
+  onMaxAgeGapChange: (next: number) => void;
   rules: SynastryRule[];
   onRulesChange: (next: SynastryRule[]) => void;
   onReset: () => void;
@@ -29,12 +31,16 @@ const ORB_MIN = 0.5;
 const ORB_MAX = 10;
 const ORB_STEP = 0.5;
 const MAX_RULES = 6;
+const AGE_MIN = 1;
+const AGE_MAX = 40;
 
 export function AdvancedControls({
   open,
   onToggle,
   orb,
   onOrbChange,
+  maxAgeGap,
+  onMaxAgeGapChange,
   rules,
   onRulesChange,
   onReset,
@@ -83,6 +89,8 @@ export function AdvancedControls({
 
   const decOrb = () => onOrbChange(Math.max(ORB_MIN, +(orb - ORB_STEP).toFixed(1)));
   const incOrb = () => onOrbChange(Math.min(ORB_MAX, +(orb + ORB_STEP).toFixed(1)));
+  const decAge = () => onMaxAgeGapChange(Math.max(AGE_MIN, maxAgeGap - 1));
+  const incAge = () => onMaxAgeGapChange(Math.min(AGE_MAX, maxAgeGap + 1));
 
   return (
     <View style={styles.wrap}>
@@ -135,6 +143,39 @@ export function AdvancedControls({
             <ThemedText style={styles.fieldHint}>
               {t.advanced.orb.hintLine2}
             </ThemedText>
+          </View>
+
+          {/* ---------- age gap ---------- */}
+          <View style={styles.field}>
+            <ThemedText style={styles.fieldLabel}>{t.advanced.age.title}</ThemedText>
+            <ThemedText style={styles.fieldHint}>{t.advanced.age.hint}</ThemedText>
+            <View style={styles.stepper}>
+              <Pressable
+                onPress={decAge}
+                disabled={maxAgeGap <= AGE_MIN}
+                style={({ pressed }) => [
+                  styles.stepperButton,
+                  pressed && styles.stepperButtonPressed,
+                  maxAgeGap <= AGE_MIN && styles.stepperButtonDisabled,
+                ]}>
+                <ThemedText style={styles.stepperButtonText}>−</ThemedText>
+              </Pressable>
+              <View style={styles.stepperValue}>
+                <ThemedText style={styles.stepperValueText}>
+                  {t.advanced.age.value(maxAgeGap)}
+                </ThemedText>
+              </View>
+              <Pressable
+                onPress={incAge}
+                disabled={maxAgeGap >= AGE_MAX}
+                style={({ pressed }) => [
+                  styles.stepperButton,
+                  pressed && styles.stepperButtonPressed,
+                  maxAgeGap >= AGE_MAX && styles.stepperButtonDisabled,
+                ]}>
+                <ThemedText style={styles.stepperButtonText}>+</ThemedText>
+              </Pressable>
+            </View>
           </View>
 
           {/* ---------- rules ---------- */}

@@ -64,13 +64,21 @@ async function seedFixture(databaseUrl: string): Promise<void> {
   );
   await prisma.district.createMany({ data: districts });
 
-  // Two months of sky: the Moon laps the zodiac twice, so every Moon-based
-  // rule has candidates, while the slow planets mostly don't — a realistic
-  // mix of rules met and missed.
+  // Two months of sky inside the test user's default ±10-year window (born
+  // 1994): the Moon laps the zodiac twice, so every Moon-based rule has
+  // candidates while the slow planets mostly don't — a realistic mix of
+  // rules met and missed. Plus one month of 2024, which is outside the
+  // window and under 18, so it must never appear in results.
+  const windows: [Date, Date][] = [
+    [new Date(Date.UTC(1995, 0, 1)), new Date(Date.UTC(1995, 2, 1))],
+    [new Date(Date.UTC(2024, 0, 1)), new Date(Date.UTC(2024, 1, 1))],
+  ];
   const rows = [];
-  for (let t = Date.UTC(2024, 0, 1); t < Date.UTC(2024, 2, 1); t += 15 * 60_000) {
-    const timestamp = new Date(t);
-    rows.push({ timestamp, ...calcChart(timestamp) });
+  for (const [from, to] of windows) {
+    for (let t = from.getTime(); t < to.getTime(); t += 15 * 60_000) {
+      const timestamp = new Date(t);
+      rows.push({ timestamp, ...calcChart(timestamp) });
+    }
   }
   await prisma.globalSky.createMany({ data: rows });
   await prisma.$disconnect();
@@ -239,9 +247,20 @@ describe.skipIf(!E2E_URL)("API end-to-end", () => {
       expect(scores).toEqual([...scores].sort((a, b) => b - a));
       for (const hit of top) {
         expect(hit.timezone).toBe("Europe/Istanbul");
-        expect(hit.localISO).toMatch(/^2024-0[12]-\d{2}T\d{2}:\d{2}:00$/);
+        expect(hit.localISO).toMatch(/^1995-0[12]-\d{2}T\d{2}:\d{2}:00$/);
         expect(hit.aspects).toHaveLength(first.bands.length);
       }
+    });
+
+    it("only suggests adults born within the age gap", async () => {
+      expect(first.searchWindow.from.slice(0, 10)).toBe("1984-10-12");
+      expect(first.searchWindow.to.slice(0, 10)).toBe("2004-10-12");
+      for (const m of first.matches) expect(m.timestamp.startsWith("1995-")).toBe(true);
+
+      // Even with the widest gap, the 2024 sky (under-18s) never shows up.
+      const wide = await call<MatchResult>("POST", "/match", { maxAgeGap: 40 }, token);
+      expect(wide.status).toBe(200);
+      for (const m of wide.body.matches) expect(m.timestamp.startsWith("1995-")).toBe(true);
     });
 
     it("serves an identical repeat request from the cache", async () => {
@@ -267,6 +286,7 @@ describe.skipIf(!E2E_URL)("API end-to-end", () => {
     it("validates the request body", async () => {
       expect((await call("POST", "/match", { orb: 50 }, token)).status).toBe(400);
       expect((await call("POST", "/match", { limit: 1000 }, token)).status).toBe(400);
+      expect((await call("POST", "/match", { maxAgeGap: 0 }, token)).status).toBe(400);
       expect((await call("POST", "/match", { surprise: true }, token)).status).toBe(400);
       expect(
         (await call("POST", "/match", { rules: [{ self: "pluto", aspect: "trine", other: "sun" }] }, token))

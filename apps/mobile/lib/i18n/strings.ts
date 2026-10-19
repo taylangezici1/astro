@@ -77,6 +77,11 @@ export interface Translations {
       hintLine1: string;
       hintLine2: string;
     };
+    age: {
+      title: string;
+      hint: string;
+      value: (years: number) => string;
+    };
     rules: {
       title: string;
       hint: { their: string; tail: string };
@@ -118,7 +123,7 @@ export interface Translations {
       subtitle: string;
       separator: string;
     };
-    footer: (days: number, pairs: string, ms: number) => string;
+    footer: (days: number, fromYear: number, toYear: number, pairs: string, ms: number) => string;
   };
   detail: {
     backLabel: string;

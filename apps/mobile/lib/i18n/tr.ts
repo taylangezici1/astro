@@ -109,6 +109,11 @@ export const tr: Translations = {
       hintLine2:
         "Geniş = daha çok hizalanma sayılır ama gevşek; dar = yalnızca tama yakın hizalanmalar sayılır.",
     },
+    age: {
+      title: "Yaş farkı",
+      hint: "Yalnızca sizinle aranızda en fazla bu kadar yaş farkı olan kişiler. 18 yaşından küçük kimse önerilmez.",
+      value: (years) => `±${years} yıl`,
+    },
     rules: {
       title: "Kozmik hizalanmalar",
       hint: {
@@ -135,7 +140,7 @@ export const tr: Translations = {
     },
     empty: {
       title: "Eşleşme bulunamadı",
-      hint: "40 yıllık gökyüzünde bu hizalanmalara yaklaşan bir an yok. Daha geniş bir tolerans ya da farklı hizalanmalar deneyin.",
+      hint: "Yaşınıza yakın doğmuş kimse bu hizalanmalara yaklaşmıyor. Daha geniş bir tolerans, daha büyük bir yaş farkı ya da farklı hizalanmalar deneyin.",
     },
     why: {
       title: "NEDEN BU EŞLEŞME",
@@ -156,8 +161,8 @@ export const tr: Translations = {
         "Seçtiğiniz her hizalanmayı oluşturacak partner gezegeni konumları.",
       separator: "  ya da  ",
     },
-    footer: (days, pairs, ms) =>
-      `40 yıllık gökyüzünden ${days} aday gün sıralandı, ardından ${pairs} doğum yeri kombinasyonu ${ms} ms'de kontrol edildi.`,
+    footer: (days, fromYear, toYear, pairs, ms) =>
+      `${fromYear}–${toYear} arası doğumlardan ${days} aday gün sıralandı, ardından ${pairs} doğum yeri kombinasyonu ${ms} ms'de kontrol edildi.`,
   },
   detail: {
     backLabel: "Sonuçlar",

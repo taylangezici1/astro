@@ -34,6 +34,7 @@ export class MatchingController {
       orb: dto.orb,
       limit: dto.limit,
       houseRules: dto.houseRules,
+      maxAgeGap: dto.maxAgeGap,
     });
   }
 }
