@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -27,6 +27,14 @@ export default function HomeScreen() {
   const [result, setResult] = useState<MatchResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Results computed from an old chart are wrong once the birth details
+  // change (edited in the About tab) — clear them.
+  const birthKey = user ? `${user.birthUtcISO}|${user.latitude}|${user.longitude}` : null;
+  useEffect(() => {
+    setResult(null);
+    setError(null);
+  }, [birthKey]);
 
   const handleSubmit = useCallback(
     async (values: MatchFormValues) => {
