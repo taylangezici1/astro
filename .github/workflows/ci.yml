@@ -1,0 +1,162 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+# A newer push to the same branch/PR cancels the in-flight run.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  TURBO_TELEMETRY_DISABLED: "1"
+  CHECKPOINT_DISABLE: "1" # Prisma telemetry/update check
+  PRISMA_HIDE_UPDATE_MESSAGE: "1"
+  # Throwaway Postgres service container (see `services:` below). Not a secret.
+  DATABASE_URL: postgresql://synastry:synastry@localhost:5432/synastry?schema=public
+
+jobs:
+  check:
+    name: Typecheck, lint, test, migrations
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: synastry
+          POSTGRES_PASSWORD: synastry
+          POSTGRES_DB: synastry
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U synastry -d synastry"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      # CI-only value so code paths that need a secret (and future e2e tests)
+      # can run. Never use it anywhere else.
+      JWT_SECRET: ci-only-insecure-jwt-secret
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: yarn
+
+      # Full workspace install, including the nohoisted Expo/React Native tree
+      # for apps/mobile. It's large; that's expected. Also compiles sweph.
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Generate Prisma client
+        run: yarn db:generate
+
+      - name: Apply migrations to a fresh Postgres 16
+        run: yarn db:deploy
+
+      # Fails when schema.prisma changed without a matching migration. The
+      # migrated DB is compared to the schema, and exit code 2 means a diff.
+      - name: Check schema.prisma has no unmigrated changes
+        run: >-
+          yarn workspace @synastry/database prisma migrate diff
+          --from-url "$DATABASE_URL"
+          --to-schema-datamodel prisma/schema.prisma
+          --exit-code
+
+      # Every workspace `lint` is a typecheck (tsc --noEmit), except apps/mobile,
+      # whose `lint` is `expo lint` (ESLint). Tests are vitest (api, ephemeris).
+      - name: Lint + typecheck + unit tests
+        run: yarn turbo run lint test
+
+      - name: Typecheck mobile app
+        run: npx tsc --noEmit -p apps/mobile
+
+  docker:
+    name: Docker image (build + boot smoke test)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: synastry
+          POSTGRES_PASSWORD: synastry
+          POSTGRES_DB: synastry
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U synastry -d synastry"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: docker/setup-buildx-action@v3
+
+      # Builds only (no registry push). `load: true` hands the image to the local
+      # daemon for the smoke test below.
+      - name: Build apps/api/Dockerfile
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: apps/api/Dockerfile
+          push: false
+          load: true
+          tags: synastry-api:ci
+          cache-from: type=gha,scope=synastry-api
+          cache-to: type=gha,mode=max,scope=synastry-api
+
+      # Runs the built image against the Postgres service, end to end:
+      #   1. entrypoint migrations (Prisma schema engine) + both seeders (tsx,
+      #      native sweph, Prisma query engine) over a one-day sky window
+      #   2. API boot (swc-node + Nest DI). DistrictsService loads the District
+      #      table at startup, so a non-empty GET /districts proves the DB
+      #      round trip.
+      # --network host lets the container reach the service on localhost:5432.
+      - name: Smoke test the image
+        env:
+          IMAGE: synastry-api:ci
+        run: |
+          set -euo pipefail
+
+          echo "::group::Migrate + seed (districts, 1-day sky window)"
+          docker run --rm --network host -e DATABASE_URL="$DATABASE_URL" "$IMAGE" \
+            sh -c 'yarn workspace @synastry/database seed:districts && yarn workspace @synastry/database seed --start=2024-01-01 --end=2024-01-02'
+          echo "::endgroup::"
+
+          docker run -d --name api --network host \
+            -e DATABASE_URL="$DATABASE_URL" \
+            -e JWT_SECRET=ci-only-insecure-jwt-secret \
+            "$IMAGE"
+          trap 'echo "::group::API logs"; docker logs api || true; echo "::endgroup::"' EXIT
+
+          body="$RUNNER_TEMP/districts.json"
+          code=000
+          for i in $(seq 1 60); do
+            if [ "$(docker inspect -f '{{.State.Running}}' api)" != "true" ]; then
+              echo "::error::API container exited during startup"
+              exit 1
+            fi
+            code=$(curl -s -o "$body" -w '%{http_code}' 'http://127.0.0.1:3000/districts?limit=1' || true)
+            if [ "$code" != "000" ]; then break; fi
+            sleep 2
+          done
+
+          echo "GET /districts?limit=1 -> HTTP $code"
+          if [ "$code" != "200" ]; then
+            echo "::error::expected HTTP 200 from the API"
+            exit 1
+          fi
+          cat "$body"; echo
+          if ! grep -q '"districts":\[{' "$body"; then
+            echo "::error::API returned no districts (DB not reachable or not seeded?)"
+            exit 1
+          fi

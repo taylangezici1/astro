@@ -28,6 +28,7 @@
     "dev": "turbo run dev",
     "db:generate": "yarn workspace @synastry/database generate",
     "db:migrate": "yarn workspace @synastry/database migrate",
+    "db:deploy": "yarn workspace @synastry/database migrate:deploy",
     "db:seed": "yarn workspace @synastry/database seed",
     "mobile": "yarn workspace mobile start"
   },
