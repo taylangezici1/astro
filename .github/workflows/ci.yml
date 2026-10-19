@@ -143,9 +143,11 @@ jobs:
             sh -c 'yarn workspace @synastry/database seed:districts && yarn workspace @synastry/database seed --start=2024-01-01 --end=2024-01-02'
           echo "::endgroup::"
 
+          # The image runs with NODE_ENV=production, which rejects secrets
+          # shorter than 32 characters — so generate a real one.
           docker run -d --name api --network host \
             -e DATABASE_URL="$DATABASE_URL" \
-            -e JWT_SECRET=ci-only-insecure-jwt-secret \
+            -e JWT_SECRET="$(openssl rand -hex 32)" \
             "$IMAGE"
           trap 'echo "::group::API logs"; docker logs api || true; echo "::endgroup::"' EXIT
 
