@@ -39,7 +39,7 @@ back empty just because no moment meets every rule at once. Scoring lives in
 | Path | What |
 | --- | --- |
 | [apps/api](apps/api) | NestJS API: auth, `/match`, `/districts`, `/health` |
-| [apps/mobile](apps/mobile) | Expo (SDK 54) app, Turkish + English |
+| [apps/mobile](apps/mobile) | Expo (SDK 57) app, Turkish + English |
 | [packages/api-types](packages/api-types) | Wire types and default rule sets shared by API and app |
 | [packages/database](packages/database) | Prisma schema, migrations, seeders, district data |
 | [packages/ephemeris](packages/ephemeris) | Typed wrapper around `sweph` (Swiss Ephemeris, Moshier mode) |

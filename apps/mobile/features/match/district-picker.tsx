@@ -47,7 +47,6 @@ export function DistrictPicker({ value, onChange }: Props) {
 
   useEffect(() => {
     let cancelled = false;
-    setFailed(false);
     loadDistricts()
       .then((all) => {
         if (!cancelled) setDistricts(all);
@@ -120,7 +119,12 @@ export function DistrictPicker({ value, onChange }: Props) {
           {failed ? (
             <View style={styles.errorBanner}>
               <ThemedText style={styles.errorText}>{t.districts.loadFailed}</ThemedText>
-              <Pressable onPress={() => setAttempt((n) => n + 1)} hitSlop={8}>
+              <Pressable
+                onPress={() => {
+                  setFailed(false);
+                  setAttempt((n) => n + 1);
+                }}
+                hitSlop={8}>
                 <ThemedText style={styles.retry}>{t.common.retry}</ThemedText>
               </Pressable>
             </View>

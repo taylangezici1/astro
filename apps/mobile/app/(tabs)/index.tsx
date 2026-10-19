@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -24,25 +24,23 @@ export default function HomeScreen() {
   const { token, user, logout } = useAuth();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const [result, setResult] = useState<MatchResult | null>(null);
+  // Results and errors are tagged with the birth details they were computed
+  // for, and only shown while those still match. Editing birth details (About
+  // tab) hides them at once — including a request still in flight, whose
+  // answer was computed from the old chart.
+  const birthKey = user ? `${user.birthUtcISO}|${user.latitude}|${user.longitude}` : "";
+  const [result, setResult] = useState<{ birthKey: string; value: MatchResult } | null>(null);
+  const [error, setError] = useState<{ birthKey: string; message: string } | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  // Results computed from an old chart are wrong once the birth details
-  // change (edited in the About tab) — clear them.
-  const birthKey = user ? `${user.birthUtcISO}|${user.latitude}|${user.longitude}` : null;
-  useEffect(() => {
-    setResult(null);
-    setError(null);
-  }, [birthKey]);
 
   const handleSubmit = useCallback(
     async (values: MatchFormValues) => {
       if (!token) return;
+      const requestedFor = birthKey;
       setLoading(true);
       setError(null);
       try {
-        setResult(await postMatch(values, token));
+        setResult({ birthKey: requestedFor, value: await postMatch(values, token) });
       } catch (err) {
         if (err instanceof ApiError && err.status === 401) {
           // Token expired or the account is gone — back to the login screen.
@@ -50,13 +48,16 @@ export default function HomeScreen() {
           return;
         }
         // Keep the previous result on screen; the banner explains the failure.
-        setError(describeError(err, t));
+        setError({ birthKey: requestedFor, message: describeError(err, t) });
       } finally {
         setLoading(false);
       }
     },
-    [t, token, logout],
+    [t, token, logout, birthKey],
   );
+
+  const shownResult = result?.birthKey === birthKey ? result.value : null;
+  const shownError = error?.birthKey === birthKey ? error.message : null;
 
   return (
     <SafeAreaView
@@ -80,9 +81,9 @@ export default function HomeScreen() {
             ) : null}
           </View>
 
-          <MatchForm onSubmit={handleSubmit} loading={loading} error={error} />
+          <MatchForm onSubmit={handleSubmit} loading={loading} error={shownError} />
 
-          {result ? <MatchResults result={result} /> : null}
+          {shownResult ? <MatchResults result={shownResult} /> : null}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

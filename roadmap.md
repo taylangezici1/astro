@@ -90,6 +90,12 @@ In rough order of value for effort:
 
 ## Engineering
 
+- **Expo SDK 58.** The app is on SDK 57, the version the App Store's Expo Go
+  supports today. Expo Go for SDK 58 is due "within a few weeks" of 15 Oct
+  2026; once your phone updates to it, run
+  `npx expo install expo@^58.0.0 --fix` in apps/mobile. Better long-term:
+  switch to an EAS development build so Expo Go updates stop mattering.
+
 - **Redis** for the match cache and rate-limit counters once there's more
   than one API instance (both are in-memory today).
 - **If Phase 2 gets hot:** load the sky into typed arrays in the API (~40 MB)

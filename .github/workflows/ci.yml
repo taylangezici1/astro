@@ -81,8 +81,8 @@ jobs:
       - name: Lint + typecheck + unit tests
         run: yarn turbo run lint test
 
-      - name: Typecheck mobile app
-        run: npx tsc --noEmit -p apps/mobile
+      - name: Typecheck mobile app (its own TypeScript 6, per Expo SDK 57)
+        run: yarn workspace @synastry/mobile typecheck
 
       # Boots the real API against the Postgres service and exercises auth +
       # matching over HTTP (apps/api/test/e2e).
