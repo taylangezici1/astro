@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(yarn turbo:*)",
+      "Bash(npx tsc:*)",
+      "Bash(ls node_modules/.bin/tsc*)",
+      "Bash(ls apps/mobile/node_modules/.bin/tsc*)",
+      "Bash(node_modules/.bin/tsc --noEmit)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(k,v\\) for k,v in {**d.get\\('dependencies',{}\\), **d.get\\('devDependencies',{}\\)}.items\\(\\)]\")",
+      "Bash(npx expo:*)"
+    ]
+  }
+}
