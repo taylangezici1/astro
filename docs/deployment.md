@@ -85,7 +85,7 @@ migrations first, so it works on an empty database. Both seeders are idempotent
 | Data | Command (inside the image / a dev checkout) | Size | Duration |
 | ---- | ------------------------------------------- | ---- | -------- |
 | Türkiye districts | `yarn workspace @synastry/database seed:districts` | 972 rows | Seconds. |
-| Sky, full window (default) | `yarn workspace @synastry/database seed` | ~1.4M rows (40 years of 15-minute ticks) | **Long.** Every tick is computed with Swiss Ephemeris and batch-inserted into an indexed table. Budget tens of minutes or more, depending on CPU and disk. The seeder logs progress after every 30-day chunk. |
+| Sky, full window (default) | `yarn workspace @synastry/database seed` | ~1.4M rows (40 years of 15-minute ticks) | Several minutes: every tick is computed with Swiss Ephemeris and batch-inserted into an indexed table (measured ~4,000 rows/s on a laptop). The seeder logs progress after every 30-day chunk. |
 | Sky, demo (`SEED_ARGS=--years=1`) | `... seed --years=1` (also `yarn workspace @synastry/database seed:small`) | ~35k rows (last 12 months) | About 1/40 of the full run. |
 | Sky, custom window | `... seed --start=2000-01-01 --end=2001-01-01` | ~35k rows per year | Proportional to the window. |
 

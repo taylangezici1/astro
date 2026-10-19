@@ -16,11 +16,12 @@ at 04:00 in Akören, Konya."_
    (~1.4M rows), computed once with the Swiss Ephemeris.
 2. **Golden Degrees (Phase 2).** From your natal chart we compute where a
    partner's planets would need to be to form each requested aspect with yours
-   (e.g. _their Moon trine your Sun_). Every moment in the table is scored by
-   how close it gets: a rule within the orb (±3° by default) earns half its
-   credit, and the other half depends on how exact it is. The best moment of
-   each day is kept, so results are distinct people rather than neighbouring
-   15-minute ticks of the same one.
+   (e.g. _their Moon trine your Sun_). Every moment in the table where a
+   partner could have been born — within ±10 years of you by default, and
+   never anyone under 18 — is scored by how close it gets: a rule within the
+   orb (±3° by default) earns half its credit, and the other half depends on
+   how exact it is. The best moment of each day is kept, so results are
+   distinct people rather than neighbouring 15-minute ticks of the same one.
 3. **Local Refinement (Phase 3).** For the 30 best days we compute the
    partner's Placidus houses in each of Türkiye's 972 districts and keep the
    district where the house rules fit best (planet mid-house beats planet on
@@ -56,14 +57,16 @@ yarn install
 
 # Configure
 cp apps/api/.env.example apps/api/.env            # set DATABASE_URL + JWT_SECRET
+cp packages/database/.env.example packages/database/.env  # same DATABASE_URL, for the Prisma CLI
 cp apps/mobile/.env.example apps/mobile/.env      # set EXPO_PUBLIC_API_URL
-#   (packages/database/.env needs the same DATABASE_URL for the Prisma CLI)
 
 # Database
 yarn db:deploy                                    # apply migrations
 yarn workspace @synastry/database seed:districts  # 972 districts, seconds
 yarn workspace @synastry/database seed            # 40-year sky, ~1.4M rows, several minutes
-#   or `seed --years=1` for a quick demo window; re-running only fills gaps
+#   or `seed --years=1` for a quick demo window; re-running only fills gaps.
+#   Matches can only be born inside the seeded range — see roadmap.md
+#   "Before launch" for covering older users.
 
 # Run
 yarn workspace @synastry/api dev                  # API on :3000
@@ -100,7 +103,7 @@ above against Postgres 16 and also builds and boots the API Docker image.
 | `GET` | `/auth/me` | JWT | Current user. |
 | `PATCH` | `/auth/me` | JWT | Replace birth details; chart is recomputed. |
 | `DELETE` | `/auth/me` | JWT | Delete the account (password required). |
-| `POST` | `/match` | JWT | Optional `rules`, `orb`, `limit`, `houseRules`. Cached 24 h per user + settings. |
+| `POST` | `/match` | JWT | Optional `rules`, `orb`, `limit`, `houseRules`, `maxAgeGap`. Cached 24 h per user + settings. |
 | `GET` | `/districts` | – | All districts, or `?q=` search. |
 | `GET` | `/health` | – | 200 when the API and Postgres are up. |
 
