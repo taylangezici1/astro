@@ -136,7 +136,10 @@ export function calcHouses(
   initEphemeris();
   const jd = dateToJulianDayUT(timestamp);
   const result = houses_ex2(jd, 0, latitude, longitude, "P");
-  if (result.error) {
+  // Placidus is undefined inside the polar circles; Swiss Ephemeris then
+  // computes Porphyry cusps (the usual fallback) and reports it as an
+  // error. Accept those cusps instead of failing every match for the user.
+  if (result.error && !/switched to Porphyry/.test(result.error)) {
     throw new Error(
       `sweph.houses_ex2 failed at jd=${jd} lat=${latitude} lon=${longitude}: ${result.error}`,
     );

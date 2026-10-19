@@ -149,7 +149,7 @@ export function rangeConditions(
       // e.g. target=2, orb=3 → [-1, 5] → [359, 360] ∪ [0, 5]
       out.push(Prisma.sql`${col} >= ${num(low + 360)}`);
       out.push(Prisma.sql`${col} <= ${num(high)}`);
-    } else if (high > 360) {
+    } else if (high >= 360) {
       // e.g. target=358, orb=3 → [355, 361] → [355, 360] ∪ [0, 1]
       out.push(Prisma.sql`${col} >= ${num(low)}`);
       out.push(Prisma.sql`${col} <= ${num(high - 360)}`);

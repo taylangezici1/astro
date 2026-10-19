@@ -87,7 +87,9 @@ export class TimezoneService {
         `birthLocalDate must be YYYY-MM-DD, got "${input.localDate}"`,
       );
     }
-    if (!/^\d{2}:\d{2}$/.test(input.localTime)) {
+    // 00:00–23:59 only: Luxon would accept "24:00" and roll it to the next
+    // day, which the DST check below would then misreport as a gap.
+    if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(input.localTime)) {
       throw new BadRequestException(
         `birthLocalTime must be HH:MM, got "${input.localTime}"`,
       );

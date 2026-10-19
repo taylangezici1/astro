@@ -79,6 +79,23 @@ describe("TimezoneService.resolveLocalInstant", () => {
     expect(result.utcISO).toBe("2020-06-15T12:00:00.000Z");
   });
 
+  it("rejects 24:00 as malformed rather than as a DST gap", () => {
+    try {
+      tz.resolveLocalInstant({
+        localDate: "2000-01-01",
+        localTime: "24:00",
+        latitude: IZMIR.latitude,
+        longitude: IZMIR.longitude,
+      });
+      expect.unreachable();
+    } catch (err) {
+      expect(err).toBeInstanceOf(BadRequestException);
+      expect((err as BadRequestException).getResponse()).not.toMatchObject({
+        code: "BIRTH_TIME_IN_DST_GAP",
+      });
+    }
+  });
+
   it("tags a DST-gap rejection with a machine-readable code", () => {
     try {
       tz.resolveLocalInstant({

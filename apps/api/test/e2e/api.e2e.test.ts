@@ -314,7 +314,9 @@ describe.skipIf(!E2E_URL)("API end-to-end", () => {
     });
 
     it("deletes the account only with the right password", async () => {
-      expect((await call("DELETE", "/auth/me", { password: "nope" }, token)).status).toBe(401);
+      const wrong = await call<{ code?: string }>("DELETE", "/auth/me", { password: "nope" }, token);
+      expect(wrong.status).toBe(401);
+      expect(wrong.body.code).toBe("INVALID_PASSWORD");
       expect((await call("DELETE", "/auth/me", { password: ALICE.password }, token)).status).toBe(204);
       expect((await call("GET", "/auth/me", undefined, token)).status).toBe(401);
       expect((await call("POST", "/auth/login", { email: ALICE.email, password: ALICE.password })).status).toBe(401);

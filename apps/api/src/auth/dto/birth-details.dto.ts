@@ -14,7 +14,7 @@ export class BirthDetailsDto implements UpdateBirthRequest {
   @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: "birthLocalDate must be YYYY-MM-DD" })
   birthLocalDate!: string;
 
-  @Matches(/^\d{2}:\d{2}$/, { message: "birthLocalTime must be HH:MM" })
+  @Matches(/^([01]\d|2[0-3]):[0-5]\d$/, { message: "birthLocalTime must be HH:MM (00:00–23:59)" })
   birthLocalTime!: string;
 
   @IsLatitude()

@@ -214,7 +214,9 @@ export interface DeleteAccountRequest {
  */
 export type ApiErrorCode =
   /** The local birth time was skipped by a daylight-saving jump. */
-  "BIRTH_TIME_IN_DST_GAP";
+  | "BIRTH_TIME_IN_DST_GAP"
+  /** A password re-check (e.g. DELETE /auth/me) failed — not an expired session. */
+  | "INVALID_PASSWORD";
 
 // ---------- /match request + response ----------
 

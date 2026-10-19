@@ -39,7 +39,7 @@ export function isCompleteBirth(
     !!v.date &&
     /^\d{4}-\d{2}-\d{2}$/.test(v.date) &&
     !!v.time &&
-    /^\d{2}:\d{2}$/.test(v.time) &&
+    /^([01]\d|2[0-3]):[0-5]\d$/.test(v.time) &&
     !!v.district
   );
 }
@@ -56,17 +56,29 @@ export function BirthFields({
   const styles = useMemo(() => createStyles(theme), [theme]);
   const [pickerMode, setPickerMode] = useState<"date" | "time" | null>(null);
 
-  const onPickerChange = (event: DateTimePickerEvent, selected?: Date) => {
-    if (Platform.OS === "android") setPickerMode(null);
-    if (event.type === "dismissed" || !selected) return;
-    if (pickerMode === "date") {
+  const commit = (mode: "date" | "time", selected: Date) => {
+    if (mode === "date") {
       onChange({
         ...value,
         date: `${selected.getFullYear()}-${pad(selected.getMonth() + 1)}-${pad(selected.getDate())}`,
       });
-    } else if (pickerMode === "time") {
+    } else {
       onChange({ ...value, time: `${pad(selected.getHours())}:${pad(selected.getMinutes())}` });
     }
+  };
+
+  const onPickerChange = (event: DateTimePickerEvent, selected?: Date) => {
+    if (Platform.OS === "android") setPickerMode(null);
+    if (event.type === "dismissed" || !selected || !pickerMode) return;
+    commit(pickerMode, selected);
+  };
+
+  // The iOS spinner only fires onChange when scrolled, so "Done" on the
+  // value it opened with (e.g. someone born at exactly 12:00) must commit it.
+  const onIosDone = () => {
+    if (pickerMode === "date" && !value.date) commit("date", toPickerDate(value));
+    if (pickerMode === "time" && !value.time) commit("time", toPickerDate(value));
+    setPickerMode(null);
   };
 
   return (
@@ -127,7 +139,7 @@ export function BirthFields({
                 onChange={onPickerChange}
               />
               {Platform.OS === "ios" ? (
-                <Pressable onPress={() => setPickerMode(null)} style={styles.pickerDone}>
+                <Pressable onPress={onIosDone} style={styles.pickerDone}>
                   <ThemedText style={styles.pickerDoneText}>{t.common.done}</ThemedText>
                 </Pressable>
               ) : null}

@@ -37,10 +37,15 @@ export function AccountSection() {
       // redirects to the login screen.
       await deleteAccount(password);
     } catch (err) {
-      setError(
-        err instanceof ApiError && err.status === 401 ? t.account.wrongPassword : describeError(err, t),
-      );
       setDeleting(false);
+      if (err instanceof ApiError && err.code === "INVALID_PASSWORD") {
+        setError(t.account.wrongPassword);
+      } else if (err instanceof ApiError && err.status === 401) {
+        // The session expired; back to the login screen.
+        await logout();
+      } else {
+        setError(describeError(err, t));
+      }
     }
   };
 

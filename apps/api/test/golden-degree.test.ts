@@ -108,6 +108,13 @@ describe("rangeConditions", () => {
     expect(low.values).toEqual([1]);
   });
 
+  it("wraps when the upper edge lands exactly on 360°", () => {
+    // 355 ± 5 → [350, 360) ∪ [0, 0]: a partner at exactly 0° is 5° away.
+    const conds = rangeConditions("mars", [355], 5);
+    expect(conds).toHaveLength(2);
+    expect(conds[1].values).toEqual([0]);
+  });
+
   it("keys every condition on the partner-planet column", () => {
     for (const cond of rangeConditions("venus", [100, 200], ORB)) {
       expect(cond.sql).toContain('"venus"');

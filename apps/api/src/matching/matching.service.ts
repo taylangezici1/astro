@@ -189,12 +189,15 @@ interface MatchParams {
 
 /**
  * Everything the result depends on: the user's birth instant and place (for
- * their natal chart and their own houses) plus every tunable.
+ * their natal chart and their own houses), the local time and zone echoed
+ * back in `birth`, and every tunable.
  */
 function buildCacheKey(user: PrismaUser, params: MatchParams): string {
   const payload = JSON.stringify({
     v: ENGINE_VERSION,
     birthUtc: user.birthUtc.toISOString(),
+    birthLocal: `${user.birthLocalDate}T${user.birthLocalTime}`,
+    birthTimezone: user.birthTimezone,
     lat: user.latitude.toFixed(4),
     lng: user.longitude.toFixed(4),
     ...params,

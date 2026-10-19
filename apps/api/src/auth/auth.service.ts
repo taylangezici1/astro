@@ -21,6 +21,7 @@ import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcryptjs";
 import { calcChart } from "@synastry/ephemeris";
 import type {
+  ApiErrorCode,
   AuthResponse,
   UpdateBirthRequest,
   User as PublicUser,
@@ -117,7 +118,14 @@ export class AuthService {
   /** Permanently delete the account after re-checking the password. */
   async deleteAccount(user: PrismaUser, password: string): Promise<void> {
     if (!(await bcrypt.compare(password, user.passwordHash))) {
-      throw new UnauthorizedException("Invalid password");
+      // Coded, so clients can tell this apart from the guard's 401 for an
+      // expired token.
+      throw new UnauthorizedException({
+        statusCode: 401,
+        error: "Unauthorized",
+        code: "INVALID_PASSWORD" satisfies ApiErrorCode,
+        message: "Invalid password",
+      });
     }
     await this.prisma.user.delete({ where: { id: user.id } });
     this.logger.log(`account deleted: ${user.id}`);
