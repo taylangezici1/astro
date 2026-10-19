@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { houseOf, type HouseCusps } from "../src/index";
+import { houseOf, housePosition, type HouseCusps } from "../src/index";
 
 const EVENLY_SPACED: HouseCusps = [
   0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
@@ -38,5 +38,26 @@ describe("houseOf", () => {
   it("normalises out-of-range longitudes into [0, 360)", () => {
     expect(houseOf(370, EVENLY_SPACED)).toBe(houseOf(10, EVENLY_SPACED));
     expect(houseOf(-5, EVENLY_SPACED)).toBe(houseOf(355, EVENLY_SPACED));
+  });
+});
+
+describe("housePosition", () => {
+  it("reports how far through the house a longitude sits", () => {
+    expect(housePosition(120, EVENLY_SPACED)).toEqual({ house: 5, fraction: 0 });
+    expect(housePosition(135, EVENLY_SPACED)).toEqual({ house: 5, fraction: 0.5 });
+    expect(housePosition(147, EVENLY_SPACED).fraction).toBeCloseTo(0.9, 10);
+  });
+
+  it("measures the fraction across the 0° wraparound", () => {
+    // ROTATED_15 house 12 spans [345, 15): 0° is halfway through it.
+    expect(housePosition(0, ROTATED_15)).toEqual({ house: 12, fraction: 0.5 });
+    expect(housePosition(350, ROTATED_15).fraction).toBeCloseTo(5 / 30, 10);
+  });
+
+  it("handles unequal house widths", () => {
+    // Placidus houses are rarely 30° wide. House 1 here spans [10, 50).
+    const uneven: HouseCusps = [10, 50, 70, 95, 130, 165, 190, 230, 250, 275, 310, 345];
+    expect(housePosition(30, uneven)).toEqual({ house: 1, fraction: 0.5 });
+    expect(housePosition(60, uneven)).toEqual({ house: 2, fraction: 0.5 });
   });
 });

@@ -3,9 +3,11 @@ import type { PlanetaryChart } from "@synastry/api-types";
 
 import {
   ASPECTS,
-  buildSkyWhereClause,
+  bandDistance,
+  buildSkySearchSql,
   computeGoldenDegrees,
   computeTargets,
+  rangeConditions,
 } from "../src/matching/golden-degree";
 
 const NATAL: PlanetaryChart = {
@@ -83,71 +85,73 @@ describe("ASPECTS table", () => {
   });
 });
 
-describe("buildSkyWhereClause", () => {
+describe("rangeConditions", () => {
   const ORB = 3;
 
-  it("emits a single AND-of-OR clause for one rule", () => {
-    const bands = computeGoldenDegrees(
-      [{ self: "venus", aspect: "conjunction", other: "mars" }],
-      NATAL,
-    );
-    const where = buildSkyWhereClause(bands, ORB);
-    expect(where.AND).toHaveLength(1);
-    const inner = (where.AND as Array<{ OR: unknown[] }>)[0].OR;
-    // Conjunction → 1 target, no wraparound at venus=228 → 1 condition.
-    expect(inner).toHaveLength(1);
+  it("emits one range for a target away from 0°", () => {
+    expect(rangeConditions("mars", [228], ORB)).toHaveLength(1);
   });
 
   it("emits two ranges when a target sits near 0° (wraparound below)", () => {
-    const small: PlanetaryChart = { ...NATAL, venus: 2 };
-    const bands = computeGoldenDegrees(
-      [{ self: "venus", aspect: "conjunction", other: "mars" }],
-      small,
-    );
-    const where = buildSkyWhereClause(bands, ORB);
-    const inner = (where.AND as Array<{ OR: unknown[] }>)[0].OR;
-    // 2 ± 3 = [-1, 5] → wraps to [359, 360] ∪ [0, 5] → 2 conditions.
-    expect(inner).toHaveLength(2);
+    // 2 ± 3 = [-1, 5] → [359, 360] ∪ [0, 5]
+    const [high, low] = rangeConditions("mars", [2], ORB);
+    expect(high.values).toEqual([359]);
+    expect(low.values).toEqual([5]);
   });
 
   it("emits two ranges when a target sits near 360° (wraparound above)", () => {
-    const big: PlanetaryChart = { ...NATAL, venus: 358 };
-    const bands = computeGoldenDegrees(
-      [{ self: "venus", aspect: "conjunction", other: "mars" }],
-      big,
-    );
-    const where = buildSkyWhereClause(bands, ORB);
-    const inner = (where.AND as Array<{ OR: unknown[] }>)[0].OR;
-    // 358 ± 3 = [355, 361] → [355, 360] ∪ [0, 1] → 2 conditions.
-    expect(inner).toHaveLength(2);
+    // 358 ± 3 = [355, 361] → [355, 360] ∪ [0, 1]
+    const [high, low] = rangeConditions("mars", [358], ORB);
+    expect(high.values).toEqual([355]);
+    expect(low.values).toEqual([1]);
   });
 
-  it("ANDs multiple rules together", () => {
-    const bands = computeGoldenDegrees(
-      [
-        { self: "venus", aspect: "trine", other: "mars" },
-        { self: "sun", aspect: "trine", other: "moon" },
-      ],
-      NATAL,
-    );
-    const where = buildSkyWhereClause(bands, ORB);
-    expect(where.AND).toHaveLength(2);
-    // Each trine = 2 targets, no wraparound for mid-range natal → 2 conditions each.
-    const arr = where.AND as Array<{ OR: unknown[] }>;
-    expect(arr[0].OR.length).toBeGreaterThanOrEqual(2);
-    expect(arr[1].OR.length).toBeGreaterThanOrEqual(2);
-  });
-
-  it("targets the correct partner-planet column", () => {
-    const bands = computeGoldenDegrees(
-      [{ self: "venus", aspect: "trine", other: "mars" }],
-      NATAL,
-    );
-    const where = buildSkyWhereClause(bands, ORB);
-    const inner = (where.AND as Array<{ OR: Record<string, unknown>[] }>)[0].OR;
-    // Every emitted condition should key on `mars` (the partner planet).
-    for (const cond of inner) {
-      expect(Object.keys(cond)).toEqual(["mars"]);
+  it("keys every condition on the partner-planet column", () => {
+    for (const cond of rangeConditions("venus", [100, 200], ORB)) {
+      expect(cond.sql).toContain('"venus"');
     }
+  });
+
+  it("refuses columns that are not planets", () => {
+    expect(() =>
+      rangeConditions('sun"; DROP TABLE "User' as never, [10], ORB),
+    ).toThrow(/Unknown planet column/);
+  });
+});
+
+describe("bandDistance", () => {
+  it("measures to the nearest target, across 0°", () => {
+    const band = { rule: { self: "sun", aspect: "trine", other: "moon" } as const, targets: [1, 241] };
+    expect(bandDistance(band, { ...NATAL, moon: 359 })).toBeCloseTo(2, 10);
+    expect(bandDistance(band, { ...NATAL, moon: 236 })).toBeCloseTo(5, 10);
+  });
+});
+
+describe("buildSkySearchSql", () => {
+  const bands = computeGoldenDegrees(
+    [
+      { self: "venus", aspect: "trine", other: "mars" },
+      { self: "sun", aspect: "trine", other: "moon" },
+    ],
+    NATAL,
+  );
+
+  it("keeps rows meeting any rule, scores them, and keeps one per day", () => {
+    const query = buildSkySearchSql(bands, 3, 50);
+    expect(query.sql).toMatch(/WHERE[\s\S]+ OR /);
+    expect(query.sql).toContain("DISTINCT ON (date_trunc('day', \"timestamp\"))");
+    expect(query.sql).toContain('"mars"');
+    expect(query.sql).toContain('"moon"');
+    expect(query.values.at(-1)).toBe(50);
+  });
+
+  it("passes every number as a bound parameter", () => {
+    const query = buildSkySearchSql(bands, 3, 50);
+    expect(query.sql).not.toMatch(/\d{3}\.\d/);
+    expect(query.values).toContain(3);
+  });
+
+  it("requires at least one rule", () => {
+    expect(() => buildSkySearchSql([], 3, 50)).toThrow();
   });
 });

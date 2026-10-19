@@ -3,7 +3,9 @@
  * any client (currently the Expo mobile app).
  *
  * Rules of the road for this file:
- *   1. Pure TypeScript declarations. No runtime code, no transitive deps.
+ *   1. Zero dependencies. Types, plus small constant tables that both sides
+ *      must agree on (the default rule sets) — nothing that pulls in Node or
+ *      React Native APIs, so the mobile bundle can import it safely.
  *   2. Timestamps over the wire are ISO-8601 strings, never Date objects.
  *      Servers serialize Date → string at the boundary.
  *   3. If a type lives here, both sides must use it. No drift.
@@ -51,12 +53,28 @@ export interface GoldenDegreeBand {
   targets: number[];
 }
 
-/** A Phase 2 candidate row from the GlobalSky table, scored. */
+/** How closely one synastry rule is met by a candidate chart. */
+export interface AspectHit {
+  rule: SynastryRule;
+  /** Degrees away from the exact aspect (0 = exact). */
+  distance: number;
+  /** True when `distance` is within the requested orb. */
+  inOrb: boolean;
+}
+
+/**
+ * A Phase 2 candidate: the best-scoring 15-minute tick of one UTC day.
+ *
+ * `aspectFit` is 0..1. Each rule earns 0 outside the orb, and between 0.5
+ * (at the edge of the orb) and 1 (exact) inside it; the fit is the average.
+ */
 export interface SkyMatch extends PlanetaryChart {
   id: number;
   /** ISO-8601 UTC timestamp string. */
   timestamp: string;
-  score: number;
+  aspectFit: number;
+  /** How many of the rules fall within the orb. */
+  aspectsInOrb: number;
 }
 
 // ---------- Phase 3 (Local Refinement) ----------
@@ -82,12 +100,29 @@ export interface District {
   longitude: number;
 }
 
+/**
+ * One theoretical partner: a candidate birth moment from Phase 2, placed in
+ * the district where their houses fit the user best.
+ */
 export interface RefinementHit {
   /** ISO-8601 UTC timestamp string. */
   timestamp: string;
   natal: PlanetaryChart;
   district: District;
-  score: number;
+  /**
+   * 0..1 overall score shown to users as "% match":
+   * `ASPECT_WEIGHT * aspectFit + HOUSE_WEIGHT * houseFit`.
+   */
+  compatibility: number;
+  /** 0..1, see `SkyMatch.aspectFit`. */
+  aspectFit: number;
+  /**
+   * 0..1. Each house rule earns 0 when missed, and between 0.5 (planet on the
+   * edge of the house) and 1 (planet in the middle of it) when met.
+   */
+  houseFit: number;
+  /** Per-rule aspect detail, in request order. */
+  aspects: AspectHit[];
   /**
    * The structured rules this hit satisfied. Clients format the user-facing
    * text in their own language; the server only ships the data.
@@ -104,9 +139,12 @@ export interface RefinementStats {
 
 export interface RefinementResult {
   rules: HouseRule[];
-  /** Top hit overall — the Phase 3 "soulmate profile". May be null. */
+  /**
+   * Top hit overall — the Phase 3 "soulmate profile". Null only when Phase 2
+   * found no candidate at all.
+   */
   best: RefinementHit | null;
-  /** Top N hits, sorted by score desc. */
+  /** Top N hits — one per distinct birth day — sorted by compatibility desc. */
   top: RefinementHit[];
   stats: RefinementStats;
 }
@@ -186,3 +224,35 @@ export interface MatchResult {
 export interface DistrictsResponse {
   districts: District[];
 }
+
+// ---------- matching defaults ----------
+//
+// The server applies these when a /match request omits a field, and the
+// mobile app shows them as the starting values of its advanced controls.
+
+/** Orb tolerance in degrees (workflow.md §3). */
+export const DEFAULT_ORB = 3;
+
+/** The classic four-rule synastry set (workflow.md §3–4). */
+export const DEFAULT_SYNASTRY_RULES: readonly SynastryRule[] = [
+  { self: "sun", aspect: "trine", other: "moon" },
+  { self: "venus", aspect: "trine", other: "mars" },
+  { self: "mars", aspect: "trine", other: "venus" },
+  { self: "moon", aspect: "sextile", other: "venus" },
+];
+
+/**
+ * Default Phase 3 house rules — classic synastry "soulmate" placements:
+ *   - Partner's Venus in the user's 7th house (partnership).
+ *   - User's Sun in the partner's 7th house.
+ *   - Partner's Moon in the user's 1st house (identity).
+ */
+export const DEFAULT_HOUSE_RULES: readonly HouseRule[] = [
+  { planetOf: "other", planet: "venus", houseOf: "self", house: 7 },
+  { planetOf: "self", planet: "sun", houseOf: "other", house: 7 },
+  { planetOf: "other", planet: "moon", houseOf: "self", house: 1 },
+];
+
+/** Weights of the two halves of `RefinementHit.compatibility`. */
+export const ASPECT_WEIGHT = 0.6;
+export const HOUSE_WEIGHT = 0.4;

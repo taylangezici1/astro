@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, HttpCode, Post, Req, UseGuards } from "@nestjs/common";
 import type { Request } from "express";
 import type { User as PrismaUser } from "@synastry/database";
 
@@ -19,6 +19,7 @@ export class MatchingController {
    * fresh User row on `request.user` after token validation.
    */
   @Post()
+  @HttpCode(200)
   async match(
     @Req() req: Request,
     @Body() dto: MatchRequestDto,

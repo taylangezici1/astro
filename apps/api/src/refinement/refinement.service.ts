@@ -1,46 +1,46 @@
 /**
  * Phase 3 — Local Refinement (workflow.md §4 Phase 3).
  *
- * For every Phase 2 candidate timestamp, walk Türkiye's districts, compute
- * the partner's Placidus houses for each (timestamp, district) pair, and
- * score how many of the supplied house rules are satisfied. Return the top
- * (timestamp, district) result as the "Soulmate Profile".
+ * Each Phase 2 candidate is a moment someone could have been born. Their
+ * planets are fixed by that moment, but their houses depend on where they
+ * were born — so for every candidate we walk Türkiye's districts, compute the
+ * partner's Placidus houses there, and keep the district where the house
+ * rules fit best. The result is one theoretical person per candidate, ranked
+ * by overall compatibility; the top one is the "Soulmate Profile".
  *
- * Compute budget: candidates × districts house calls + per-rule scoring.
- * With the demo dataset (~40 districts) and a Phase 2 cap of 100 candidates
- * that's ~4 000 sweph.houses_ex2 calls, well under a second.
+ * Compute budget: candidates × districts `houses_ex2` calls at ~14 µs each
+ * (30 × 972 ≈ 0.4 s). Districts are only walked when a rule actually uses
+ * the partner's houses, and the loop yields to the event loop between
+ * candidates so one request never stalls the rest of the API.
  */
 
 import { Injectable, Logger } from "@nestjs/common";
+import { calcHouses, type HouseCusps } from "@synastry/ephemeris";
 import {
-  calcHouses,
-  houseOf,
-  type HouseCusps,
-} from "@synastry/ephemeris";
-import type {
-  District,
-  HouseRule,
-  PlanetaryChart,
-  PlanetKey,
-  RefinementHit,
-  RefinementResult,
+  DEFAULT_HOUSE_RULES,
+  type AspectHit,
+  type District,
+  type HouseRule,
+  type PlanetaryChart,
+  type RefinementHit,
+  type RefinementResult,
 } from "@synastry/api-types";
 
 import { DistrictsService } from "../districts/districts.service";
-import { DEFAULT_HOUSE_RULES } from "./house-rules";
+import { compatibility, scoreHouses, type HouseScore } from "../matching/scoring";
 
 // Re-export so existing imports from this module keep compiling.
 export type { District, RefinementHit, RefinementResult };
 
 export interface RefinementInput {
-  /** User's natal chart (already computed in Phase 2). */
+  /** User's natal chart. */
   selfNatal: PlanetaryChart;
   /** User's birth instant — needed to compute the user's own house cusps. */
   selfBirthTimestamp: Date;
-  /** User's birth location (for the user's own houses). */
+  /** User's birth location (for the user's own houses, and tie-breaks). */
   selfLatitude: number;
   selfLongitude: number;
-  /** Candidate timestamps + their natal charts from Phase 2. */
+  /** Phase 2 candidates, best first. */
   candidates: readonly RefinementCandidate[];
   /** Optional rule override. */
   rules?: readonly HouseRule[];
@@ -49,12 +49,13 @@ export interface RefinementInput {
 /**
  * Internal candidate shape used by the matching service. We accept Date here
  * because Phase 2 hands us GlobalSky rows that have native Date timestamps;
- * the wire-format conversion to ISO string happens just before we build the
- * RefinementHit on the way out.
+ * the wire-format conversion to ISO string happens on the way out.
  */
 export interface RefinementCandidate {
   timestamp: Date;
   natal: PlanetaryChart;
+  aspectFit: number;
+  aspects: AspectHit[];
 }
 
 const TOP_N = 10;
@@ -65,118 +66,104 @@ export class RefinementService {
 
   constructor(private readonly districtsService: DistrictsService) {}
 
-  refine(input: RefinementInput): RefinementResult {
+  async refine(input: RefinementInput): Promise<RefinementResult> {
     const rules = input.rules ?? DEFAULT_HOUSE_RULES;
-    const districts = this.districtsService.all();
     const t0 = Date.now();
 
-    // Self houses are fixed per request — compute once.
-    // selfNatal is recomputable but we already have it from Phase 2.
+    // When no rule looks at the partner's houses, the district can't change
+    // the score — every district ties, and the tie-break picks the nearest.
+    const usesOtherHouses = rules.some((r) => r.houseOf === "other");
+    const districts = this.districtsByDistanceFrom(input.selfLatitude, input.selfLongitude);
+    const searched = usesOtherHouses ? districts : districts.slice(0, 1);
+
     const selfHouses = calcHouses(
-      // We don't have the user's birth instant in this scope as a Date — it
-      // was used to derive selfNatal already, but we need it again here for
-      // their own house cusps. Caller passes it via the candidate-shaped
-      // wrapper below; see MatchingService for the call site.
       input.selfBirthTimestamp,
       input.selfLatitude,
       input.selfLongitude,
     );
 
     const hits: RefinementHit[] = [];
-
     for (const candidate of input.candidates) {
-      for (const district of districts) {
-        const otherHouses = calcHouses(
-          candidate.timestamp,
-          district.latitude,
-          district.longitude,
-        );
-
-        const { score, satisfied } = scorePair({
-          rules,
-          selfNatal: input.selfNatal,
-          otherNatal: candidate.natal,
-          selfHouses,
-          otherHouses,
+      const best = bestDistrict(rules, input.selfNatal, selfHouses, candidate, searched);
+      if (best) {
+        hits.push({
+          timestamp: candidate.timestamp.toISOString(),
+          natal: candidate.natal,
+          district: best.district,
+          compatibility: compatibility(candidate.aspectFit, best.score.houseFit),
+          aspectFit: candidate.aspectFit,
+          houseFit: best.score.houseFit,
+          aspects: candidate.aspects,
+          satisfiedRules: best.score.satisfied,
         });
-
-        if (score > 0) {
-          hits.push({
-            // Convert Date → ISO string at the boundary so the wire-format
-            // RefinementHit (defined in @synastry/api-types) is what we emit.
-            timestamp: candidate.timestamp.toISOString(),
-            natal: candidate.natal,
-            district,
-            score,
-            // Emit structured rules; clients format the user-facing text in
-            // their own language.
-            satisfiedRules: satisfied,
-          });
-        }
       }
+      await yieldToEventLoop();
     }
 
-    hits.sort((a, b) => {
-      if (b.score !== a.score) return b.score - a.score;
-      return a.district.name.localeCompare(b.district.name);
-    });
+    hits.sort(
+      (a, b) => b.compatibility - a.compatibility || a.timestamp.localeCompare(b.timestamp),
+    );
 
     const top = hits.slice(0, TOP_N);
-    const best = top[0] ?? null;
     const elapsedMs = Date.now() - t0;
+    const pairsEvaluated = input.candidates.length * searched.length;
 
     this.logger.debug(
-      `Phase 3: ${input.candidates.length} candidates × ${districts.length} districts = ` +
-        `${input.candidates.length * districts.length} pairs in ${elapsedMs}ms ` +
-        `→ ${hits.length} hits`,
+      `Phase 3: ${input.candidates.length} candidates × ${searched.length} districts = ` +
+        `${pairsEvaluated} pairs in ${elapsedMs}ms`,
     );
 
     return {
       // The wire type is HouseRule[] (mutable); copy out of the readonly input.
       rules: [...rules],
-      best,
+      best: top[0] ?? null,
       top,
       stats: {
         candidatesEvaluated: input.candidates.length,
-        districtsEvaluated: districts.length,
-        pairsEvaluated: input.candidates.length * districts.length,
+        districtsEvaluated: searched.length,
+        pairsEvaluated,
         elapsedMs,
       },
     };
   }
+
+  /**
+   * All districts, nearest to the given point first. Iterating in this order
+   * and only replacing the leader on a strictly better score makes "closest
+   * to the user's own birthplace" the tie-break.
+   */
+  private districtsByDistanceFrom(latitude: number, longitude: number): readonly District[] {
+    const cosLat = Math.cos((latitude * Math.PI) / 180);
+    const dist2 = (d: District) =>
+      (d.latitude - latitude) ** 2 + ((d.longitude - longitude) * cosLat) ** 2;
+    return [...this.districtsService.all()].sort((a, b) => dist2(a) - dist2(b));
+  }
 }
 
-// ---------- pair scoring ----------
-
-/** Inputs for `scorePair`. Exported so unit tests can call it directly. */
-export interface ScoreInput {
-  rules: readonly HouseRule[];
-  selfNatal: PlanetaryChart;
-  otherNatal: PlanetaryChart;
-  selfHouses: HouseCusps;
-  otherHouses: HouseCusps;
-}
-
-/** Pure scoring function — exported for testing. */
-export function scorePair(
-  input: ScoreInput,
-): { score: number; satisfied: HouseRule[] } {
-  const satisfied: HouseRule[] = [];
-  for (const rule of input.rules) {
-    const planet = pickPlanet(rule.planetOf, rule.planet, input);
-    const cusps = pickHouses(rule.houseOf, input);
-    if (houseOf(planet, cusps) === rule.house) {
-      satisfied.push(rule);
+/** The district where `candidate`'s houses best fit the rules. */
+export function bestDistrict(
+  rules: readonly HouseRule[],
+  selfNatal: PlanetaryChart,
+  selfHouses: HouseCusps,
+  candidate: RefinementCandidate,
+  districts: readonly District[],
+): { district: District; score: HouseScore } | null {
+  let best: { district: District; score: HouseScore } | null = null;
+  for (const district of districts) {
+    const score = scoreHouses({
+      rules,
+      selfNatal,
+      otherNatal: candidate.natal,
+      selfHouses,
+      otherHouses: calcHouses(candidate.timestamp, district.latitude, district.longitude),
+    });
+    if (!best || score.houseFit > best.score.houseFit) {
+      best = { district, score };
     }
   }
-  return { score: satisfied.length, satisfied };
+  return best;
 }
 
-function pickPlanet(party: "self" | "other", planet: PlanetKey, input: ScoreInput): number {
-  return party === "self" ? input.selfNatal[planet] : input.otherNatal[planet];
+function yieldToEventLoop(): Promise<void> {
+  return new Promise((resolve) => setImmediate(resolve));
 }
-
-function pickHouses(party: "self" | "other", input: ScoreInput): HouseCusps {
-  return party === "self" ? input.selfHouses : input.otherHouses;
-}
-

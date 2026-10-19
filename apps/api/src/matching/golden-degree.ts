@@ -7,8 +7,8 @@
  * Given a natal chart and a list of rules, this module produces:
  *   - The exact target longitudes (with wraparound) for each (planet, aspect)
  *     pair.
- *   - A Prisma `where` clause that the matching service can use to query
- *     GlobalSky.
+ *   - The parameterised SQL that ranks GlobalSky rows by how well they meet
+ *     those targets (Phase 2's "Fast Filter").
  */
 
 import type {
@@ -18,7 +18,9 @@ import type {
   PlanetaryChart,
   SynastryRule,
 } from "@synastry/api-types";
-import type { Prisma } from "@synastry/database";
+import { Prisma } from "@synastry/database";
+
+import { angularDistance } from "./scoring";
 
 // Re-export so existing imports from this module keep compiling.
 export type { AspectName, GoldenDegreeBand, SynastryRule };
@@ -26,7 +28,7 @@ export type { AspectName, GoldenDegreeBand, SynastryRule };
 // ---------- aspects ----------
 
 /**
- * Harmonious aspects (workflow.md §3). Each aspect is symmetric: a 120° trine
+ * Supported aspects (workflow.md §3). Each aspect is symmetric: a 120° trine
  * works the same whether you add or subtract. Keys must stay in sync with the
  * `AspectName` literal union in @synastry/api-types.
  */
@@ -38,23 +40,15 @@ export const ASPECTS: Record<AspectName, number> = {
   opposition: 180,
 };
 
-/**
- * Default rule set. Intentionally minimal so the demo flow returns rows
- * against a small seeded window — four strict ANDed rules at ±3° rarely
- * intersect inside a single year of GlobalSky data. The "classic" four-rule
- * synastry set (sun-moon, venus-mars, mars-venus, moon-venus) is left as a
- * commented reference for when the full 40-year seed is in place.
- */
-export const DEFAULT_RULES: readonly SynastryRule[] = [
-  { self: "venus", aspect: "trine", other: "mars" },
-  { self: "sun", aspect: "trine", other: "moon" },
+export const PLANET_KEYS: readonly PlanetKey[] = [
+  "sun",
+  "moon",
+  "mercury",
+  "venus",
+  "mars",
+  "jupiter",
+  "saturn",
 ];
-// export const STRICT_RULES: readonly SynastryRule[] = [
-//   { self: "sun", aspect: "trine", other: "moon" },
-//   { self: "venus", aspect: "trine", other: "mars" },
-//   { self: "mars", aspect: "trine", other: "venus" },
-//   { self: "moon", aspect: "sextile", other: "venus" },
-// ];
 
 // ---------- target degree calculation ----------
 
@@ -86,50 +80,115 @@ export function computeGoldenDegrees(
   return rules.map((rule) => ({ rule, targets: computeTargets(rule, natal) }));
 }
 
-// ---------- prisma where builder ----------
+/** Degrees between `chart[band.rule.other]` and the nearest target of `band`. */
+export function bandDistance(band: GoldenDegreeBand, chart: PlanetaryChart): number {
+  const value = chart[band.rule.other];
+  return Math.min(...band.targets.map((t) => angularDistance(value, t)));
+}
+
+// ---------- SQL ----------
+
+/** A whitelisted, quoted column identifier. Never interpolate unchecked input. */
+function column(planet: PlanetKey): Prisma.Sql {
+  if (!PLANET_KEYS.includes(planet)) {
+    throw new Error(`Unknown planet column: ${String(planet)}`);
+  }
+  return Prisma.raw(`"${planet}"`);
+}
+
+function num(value: number): Prisma.Sql {
+  return Prisma.sql`${value}::double precision`;
+}
 
 /**
- * For a given planet column, build the OR-list of range conditions that match
- * "this column lies within ±orb of any of the targets". Handles wraparound at
- * 0°/360° by emitting two ranges instead of one.
+ * Range conditions matching "this column lies within ±orb of a target".
+ * Wraparound at 0°/360° becomes two ranges instead of one.
  */
-function rangeConditionsForPlanet(
+export function rangeConditions(
   planet: PlanetKey,
-  targets: number[],
+  targets: readonly number[],
   orb: number,
-): Prisma.GlobalSkyWhereInput[] {
-  const out: Prisma.GlobalSkyWhereInput[] = [];
+): Prisma.Sql[] {
+  const col = column(planet);
+  const out: Prisma.Sql[] = [];
   for (const target of targets) {
     const low = target - orb;
     const high = target + orb;
-
     if (low < 0) {
       // e.g. target=2, orb=3 → [-1, 5] → [359, 360] ∪ [0, 5]
-      out.push({ [planet]: { gte: low + 360, lte: 360 } });
-      out.push({ [planet]: { gte: 0, lte: high } });
+      out.push(Prisma.sql`${col} >= ${num(low + 360)}`);
+      out.push(Prisma.sql`${col} <= ${num(high)}`);
     } else if (high > 360) {
       // e.g. target=358, orb=3 → [355, 361] → [355, 360] ∪ [0, 1]
-      out.push({ [planet]: { gte: low, lte: 360 } });
-      out.push({ [planet]: { gte: 0, lte: high - 360 } });
+      out.push(Prisma.sql`${col} >= ${num(low)}`);
+      out.push(Prisma.sql`${col} <= ${num(high - 360)}`);
     } else {
-      out.push({ [planet]: { gte: low, lte: high } });
+      out.push(Prisma.sql`${col} BETWEEN ${num(low)} AND ${num(high)}`);
     }
   }
   return out;
 }
 
+/** SQL for `bandDistance`: the angular distance to the nearest target. */
+function distanceSql(band: GoldenDegreeBand): Prisma.Sql {
+  const col = column(band.rule.other);
+  const perTarget = band.targets.map((t) => {
+    // |a − b| folded into [0, 180]. Postgres has no float modulo, so fold via
+    // floor: a − b − 360·⌊(a − b + 180) / 360⌋ lies in [−180, 180).
+    const diff = Prisma.sql`(${col} - ${num(t)})`;
+    return Prisma.sql`ABS(${diff} - 360 * FLOOR((${diff} + 180) / 360))`;
+  });
+  return perTarget.length === 1
+    ? perTarget[0]
+    : Prisma.sql`LEAST(${Prisma.join(perTarget, ", ")})`;
+}
+
+/** Shape of each row returned by `buildSkySearchSql`. */
+export interface SkySearchRow extends PlanetaryChart {
+  id: number;
+  timestamp: Date;
+  aspect_fit: number;
+}
+
 /**
- * Build the AND-of-ORs Prisma `where` clause that finds GlobalSky rows
- * satisfying every rule simultaneously. This is the "Fast Filter" of
- * workflow.md §4 Phase 2.
+ * Phase 2 query (workflow.md §4): rank GlobalSky by aspect fit and return
+ * the best tick of each UTC day, best days first.
+ *
+ *   1. WHERE keeps rows that meet at least one rule within the orb — rows
+ *      that meet none would score 0 anyway. Each branch is an index range.
+ *   2. Every remaining row is scored with the same formula as
+ *      `scoring.aspectCredit` (keep the two in sync).
+ *   3. DISTINCT ON collapses each day to its best tick. Neighbouring
+ *      15-minute ticks share almost the same chart, so without this the top
+ *      results would be one person repeated dozens of times.
  */
-export function buildSkyWhereClause(
-  bands: GoldenDegreeBand[],
+export function buildSkySearchSql(
+  bands: readonly GoldenDegreeBand[],
   orb: number,
-): Prisma.GlobalSkyWhereInput {
-  return {
-    AND: bands.map((band) => ({
-      OR: rangeConditionsForPlanet(band.rule.other, band.targets, orb),
-    })),
-  };
+  limit: number,
+): Prisma.Sql {
+  if (bands.length === 0) throw new Error("At least one rule is required");
+
+  const anyRuleInOrb = Prisma.join(
+    bands.flatMap((b) => rangeConditions(b.rule.other, b.targets, orb)),
+    " OR ",
+  );
+  const credits = bands.map((band) => {
+    const d = distanceSql(band);
+    return Prisma.sql`CASE WHEN ${d} <= ${num(orb)} THEN 1 - 0.5 * ${d} / ${num(orb)} ELSE 0 END`;
+  });
+  const aspectFit = Prisma.sql`(${Prisma.join(credits, " + ")}) / ${num(bands.length)}`;
+
+  return Prisma.sql`
+    SELECT * FROM (
+      SELECT DISTINCT ON (date_trunc('day', "timestamp"))
+        "id", "timestamp", "sun", "moon", "mercury", "venus", "mars", "jupiter", "saturn",
+        ${aspectFit} AS "aspect_fit"
+      FROM "GlobalSky"
+      WHERE ${anyRuleInOrb}
+      ORDER BY date_trunc('day', "timestamp"), "aspect_fit" DESC, "timestamp" ASC
+    ) AS best_per_day
+    ORDER BY "aspect_fit" DESC, "timestamp" ASC
+    LIMIT ${limit}
+  `;
 }

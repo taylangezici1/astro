@@ -13,30 +13,25 @@ import {
 import { Type } from "class-transformer";
 import type { HouseRule, Party, PlanetKey } from "@synastry/api-types";
 
-import { ASPECTS, type AspectName, type SynastryRule } from "../golden-degree";
-
-const PLANET_KEYS: PlanetKey[] = [
-  "sun",
-  "moon",
-  "mercury",
-  "venus",
-  "mars",
-  "jupiter",
-  "saturn",
-];
+import {
+  ASPECTS,
+  PLANET_KEYS,
+  type AspectName,
+  type SynastryRule,
+} from "../golden-degree";
 
 const ASPECT_NAMES = Object.keys(ASPECTS) as AspectName[];
 
 const PARTIES: Party[] = ["self", "other"];
 
 export class SynastryRuleDto implements SynastryRule {
-  @IsIn(PLANET_KEYS)
+  @IsIn(PLANET_KEYS as PlanetKey[])
   self!: PlanetKey;
 
   @IsIn(ASPECT_NAMES)
   aspect!: AspectName;
 
-  @IsIn(PLANET_KEYS)
+  @IsIn(PLANET_KEYS as PlanetKey[])
   other!: PlanetKey;
 }
 
@@ -44,7 +39,7 @@ export class HouseRuleDto implements HouseRule {
   @IsIn(PARTIES)
   planetOf!: Party;
 
-  @IsIn(PLANET_KEYS)
+  @IsIn(PLANET_KEYS as PlanetKey[])
   planet!: PlanetKey;
 
   @IsIn(PARTIES)
@@ -57,7 +52,7 @@ export class HouseRuleDto implements HouseRule {
 }
 
 export class MatchRequestDto {
-  /** Custom synastry rules. Falls back to DEFAULT_RULES when omitted. */
+  /** Custom synastry rules. Falls back to DEFAULT_SYNASTRY_RULES when omitted. */
   @IsOptional()
   @IsArray()
   @ArrayMinSize(1)
@@ -66,18 +61,18 @@ export class MatchRequestDto {
   @Type(() => SynastryRuleDto)
   rules?: SynastryRuleDto[];
 
-  /** Orb tolerance in degrees. Defaults to 5°. */
+  /** Orb tolerance in degrees. Defaults to DEFAULT_ORB (3°). */
   @IsOptional()
   @IsNumber()
   @Min(0.1)
   @Max(10)
   orb?: number;
 
-  /** Limit on returned candidate timestamps. */
+  /** How many Phase 2 candidates (distinct days) to return. Defaults to 50. */
   @IsOptional()
-  @IsNumber()
+  @IsInt()
   @Min(1)
-  @Max(5000)
+  @Max(200)
   limit?: number;
 
   /** Optional override for the Phase 3 house rule set. */

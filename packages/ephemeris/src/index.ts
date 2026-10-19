@@ -146,23 +146,40 @@ export function calcHouses(
   return result.data.houses as unknown as HouseCusps;
 }
 
+/** Where a longitude sits within the house system. */
+export interface HousePosition {
+  house: HouseNumber;
+  /** How far through the house the longitude is: 0 at its cusp, →1 at the next. */
+  fraction: number;
+}
+
 /**
- * Determine which house (1..12) a given ecliptic longitude falls in,
- * given a set of cusps. Houses run forward in zodiacal order with
+ * Determine which house (1..12) a given ecliptic longitude falls in, and how
+ * far through that house it sits. Houses run forward in zodiacal order with
  * wraparound at 0°/360°.
  */
-export function houseOf(longitude: number, cusps: HouseCusps): HouseNumber {
-  const lon = ((longitude % 360) + 360) % 360;
+export function housePosition(longitude: number, cusps: HouseCusps): HousePosition {
+  const lon = wrap360(longitude);
   for (let i = 0; i < 12; i++) {
     const start = cusps[i];
     const end = cusps[(i + 1) % 12];
-    if (start < end) {
-      if (lon >= start && lon < end) return (i + 1) as HouseNumber;
-    } else {
-      // Wraparound across 0°.
-      if (lon >= start || lon < end) return (i + 1) as HouseNumber;
+    // Arc lengths measured forward from the cusp, so wraparound across 0°
+    // needs no special case.
+    const width = wrap360(end - start);
+    const offset = wrap360(lon - start);
+    if (offset < width) {
+      return { house: (i + 1) as HouseNumber, fraction: offset / width };
     }
   }
   // Defensive fallback — should be unreachable for finite inputs.
-  return 1;
+  return { house: 1, fraction: 0 };
+}
+
+/** Which house (1..12) a given ecliptic longitude falls in. */
+export function houseOf(longitude: number, cusps: HouseCusps): HouseNumber {
+  return housePosition(longitude, cusps).house;
+}
+
+function wrap360(degrees: number): number {
+  return ((degrees % 360) + 360) % 360;
 }

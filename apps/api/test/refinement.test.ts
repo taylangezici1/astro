@@ -1,137 +1,127 @@
 import { describe, expect, it } from "vitest";
-import type {
-  HouseRule,
-  PlanetaryChart,
-} from "@synastry/api-types";
-import type { HouseCusps } from "@synastry/ephemeris";
+import type { District, HouseRule, PlanetaryChart } from "@synastry/api-types";
+import { calcChart, calcHouses } from "@synastry/ephemeris";
 
-import { scorePair } from "../src/refinement/refinement.service";
+import { scoreHouses } from "../src/matching/scoring";
+import type { DistrictsService } from "../src/districts/districts.service";
+import {
+  RefinementService,
+  bestDistrict,
+  type RefinementCandidate,
+} from "../src/refinement/refinement.service";
 
-// Hand-built fixtures: 12 evenly-spaced house cusps every 30° starting at 0°.
-// House 1 spans [0, 30), house 2 spans [30, 60), … house 12 spans [330, 360).
-const EVEN_HOUSES_FROM_0: HouseCusps = [
-  0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
+const DISTRICTS: District[] = [
+  { id: "edirne-merkez", name: "Merkez", province: "Edirne", latitude: 41.68, longitude: 26.56 },
+  { id: "izmir-konak", name: "Konak", province: "İzmir", latitude: 38.42, longitude: 27.13 },
+  { id: "ankara-cankaya", name: "Çankaya", province: "Ankara", latitude: 39.92, longitude: 32.85 },
+  { id: "van-ipekyolu", name: "İpekyolu", province: "Van", latitude: 38.5, longitude: 43.38 },
+  { id: "hakkari-merkez", name: "Merkez", province: "Hakkari", latitude: 37.58, longitude: 43.74 },
 ];
 
-// Same shape but rotated by 15° so we exercise non-zero ascendants too.
-const EVEN_HOUSES_FROM_15: HouseCusps = [
-  15, 45, 75, 105, 135, 165, 195, 225, 255, 285, 315, 345,
+const fakeDistricts = { all: () => DISTRICTS } as unknown as DistrictsService;
+
+const USER_BIRTH = new Date("1994-10-12T14:15:00Z");
+const USER_NATAL: PlanetaryChart = calcChart(USER_BIRTH);
+const USER_LAT = 38.42;
+const USER_LNG = 27.13; // İzmir
+
+function candidate(iso: string, aspectFit: number): RefinementCandidate {
+  const timestamp = new Date(iso);
+  return { timestamp, natal: calcChart(timestamp), aspectFit, aspects: [] };
+}
+
+async function refine(candidates: RefinementCandidate[], rules: HouseRule[]) {
+  return new RefinementService(fakeDistricts).refine({
+    selfNatal: USER_NATAL,
+    selfBirthTimestamp: USER_BIRTH,
+    selfLatitude: USER_LAT,
+    selfLongitude: USER_LNG,
+    candidates,
+    rules,
+  });
+}
+
+// Depends only on the user's houses, so every district scores the same.
+const SELF_ONLY: HouseRule[] = [{ planetOf: "other", planet: "venus", houseOf: "self", house: 7 }];
+
+// Depends on the partner's houses, so the district matters.
+const PARTNER_HOUSES: HouseRule[] = [
+  { planetOf: "self", planet: "sun", houseOf: "other", house: 7 },
+  { planetOf: "other", planet: "moon", houseOf: "other", house: 1 },
 ];
 
-// Convenience natal charts where every planet sits on a different cusp so
-// we can predict which house each falls into deterministically.
-const NATAL_A: PlanetaryChart = {
-  sun: 5, // house 1
-  moon: 35, // house 2
-  mercury: 65, // house 3
-  venus: 95, // house 4
-  mars: 125, // house 5
-  jupiter: 155, // house 6
-  saturn: 185, // house 7
-};
+describe("bestDistrict", () => {
+  it("picks the district with the highest house fit", () => {
+    const c = candidate("2001-03-04T09:30:00Z", 0.8);
+    const selfHouses = calcHouses(USER_BIRTH, USER_LAT, USER_LNG);
+    const best = bestDistrict(PARTNER_HOUSES, USER_NATAL, selfHouses, c, DISTRICTS);
 
-const NATAL_B: PlanetaryChart = {
-  sun: 195, // house 7
-  moon: 5, // house 1
-  mercury: 215, // house 8
-  venus: 245, // house 9
-  mars: 275, // house 10
-  jupiter: 305, // house 11
-  saturn: 335, // house 12
-};
+    const fits = DISTRICTS.map(
+      (d) =>
+        scoreHouses({
+          rules: PARTNER_HOUSES,
+          selfNatal: USER_NATAL,
+          otherNatal: c.natal,
+          selfHouses,
+          otherHouses: calcHouses(c.timestamp, d.latitude, d.longitude),
+        }).houseFit,
+    );
+    expect(best?.score.houseFit).toBe(Math.max(...fits));
+  });
 
-describe("scorePair", () => {
-  it("returns score 0 when no rules are satisfied", () => {
-    const rules: HouseRule[] = [
-      // user's sun is at 5° → house 1 of self, not house 7.
-      { planetOf: "self", planet: "sun", houseOf: "self", house: 7 },
+  it("keeps the first district on a tie", () => {
+    const c = candidate("2001-03-04T09:30:00Z", 0.8);
+    const selfHouses = calcHouses(USER_BIRTH, USER_LAT, USER_LNG);
+    const best = bestDistrict(SELF_ONLY, USER_NATAL, selfHouses, c, DISTRICTS);
+    expect(best?.district.id).toBe(DISTRICTS[0].id);
+  });
+});
+
+describe("RefinementService.refine", () => {
+  it("returns one hit per candidate, best compatibility first", async () => {
+    const result = await refine(
+      [
+        candidate("1990-01-01T00:00:00Z", 0.3),
+        candidate("2000-06-15T12:00:00Z", 0.9),
+        candidate("2010-11-20T06:45:00Z", 0.6),
+      ],
+      PARTNER_HOUSES,
+    );
+
+    expect(result.top).toHaveLength(3);
+    expect(new Set(result.top.map((h) => h.timestamp)).size).toBe(3);
+    const scores = result.top.map((h) => h.compatibility);
+    expect(scores).toEqual([...scores].sort((a, b) => b - a));
+    expect(result.best).toBe(result.top[0]);
+  });
+
+  it("breaks district ties by proximity to the user's birthplace", async () => {
+    const result = await refine([candidate("2000-06-15T12:00:00Z", 0.9)], SELF_ONLY);
+    expect(result.best?.district.id).toBe("izmir-konak");
+    // Self-only rules don't need the district walk at all.
+    expect(result.stats.districtsEvaluated).toBe(1);
+  });
+
+  it("walks every district when a rule uses the partner's houses", async () => {
+    const result = await refine([candidate("2000-06-15T12:00:00Z", 0.9)], PARTNER_HOUSES);
+    expect(result.stats.districtsEvaluated).toBe(DISTRICTS.length);
+  });
+
+  it("still returns a hit when no house rule is met", async () => {
+    // Venus can't be in house 7 *and* house 1 at once; at most one is met.
+    const impossible: HouseRule[] = [
+      { planetOf: "other", planet: "venus", houseOf: "self", house: 7 },
+      { planetOf: "other", planet: "venus", houseOf: "self", house: 1 },
     ];
-    const result = scorePair({
-      rules,
-      selfNatal: NATAL_A,
-      otherNatal: NATAL_B,
-      selfHouses: EVEN_HOUSES_FROM_0,
-      otherHouses: EVEN_HOUSES_FROM_0,
-    });
-    expect(result.score).toBe(0);
-    expect(result.satisfied).toEqual([]);
+    const result = await refine([candidate("2000-06-15T12:00:00Z", 0.9)], impossible);
+    expect(result.best).not.toBeNull();
+    expect(result.best!.houseFit).toBeLessThanOrEqual(0.5);
+    expect(result.best!.compatibility).toBeGreaterThan(0);
   });
 
-  it("scores 1 when one rule is satisfied", () => {
-    const rules: HouseRule[] = [
-      // self.saturn = 185 → falls in self's house 7 ([180, 210)).
-      { planetOf: "self", planet: "saturn", houseOf: "self", house: 7 },
-    ];
-    const result = scorePair({
-      rules,
-      selfNatal: NATAL_A,
-      otherNatal: NATAL_B,
-      selfHouses: EVEN_HOUSES_FROM_0,
-      otherHouses: EVEN_HOUSES_FROM_0,
-    });
-    expect(result.score).toBe(1);
-    expect(result.satisfied).toHaveLength(1);
-  });
-
-  it("looks up the right party's planet and house system", () => {
-    // Rule: partner's Venus (245) in self's 9th house ([240, 270)). True.
-    const ruleTrue: HouseRule = {
-      planetOf: "other",
-      planet: "venus",
-      houseOf: "self",
-      house: 9,
-    };
-    // Same Venus longitude in the *other's* house system would land in
-    // partner's 9th too, since both house systems are identical here.
-    const ruleAlsoTrue: HouseRule = {
-      planetOf: "other",
-      planet: "venus",
-      houseOf: "other",
-      house: 9,
-    };
-    const result = scorePair({
-      rules: [ruleTrue, ruleAlsoTrue],
-      selfNatal: NATAL_A,
-      otherNatal: NATAL_B,
-      selfHouses: EVEN_HOUSES_FROM_0,
-      otherHouses: EVEN_HOUSES_FROM_0,
-    });
-    expect(result.score).toBe(2);
-  });
-
-  it("uses the rotated cusp set when houses are different", () => {
-    // self.sun = 5° with EVEN_HOUSES_FROM_15:
-    //   house 12 spans [345, 360) ∪ [0, 15), so 5° → house 12.
-    const result = scorePair({
-      rules: [{ planetOf: "self", planet: "sun", houseOf: "self", house: 12 }],
-      selfNatal: NATAL_A,
-      otherNatal: NATAL_B,
-      selfHouses: EVEN_HOUSES_FROM_15,
-      otherHouses: EVEN_HOUSES_FROM_0,
-    });
-    expect(result.score).toBe(1);
-  });
-
-  it("returns the actual matched rule references in `satisfied`", () => {
-    const matchingRule: HouseRule = {
-      planetOf: "self",
-      planet: "saturn",
-      houseOf: "self",
-      house: 7,
-    };
-    const failingRule: HouseRule = {
-      planetOf: "self",
-      planet: "sun",
-      houseOf: "self",
-      house: 12,
-    };
-    const result = scorePair({
-      rules: [matchingRule, failingRule],
-      selfNatal: NATAL_A,
-      otherNatal: NATAL_B,
-      selfHouses: EVEN_HOUSES_FROM_0,
-      otherHouses: EVEN_HOUSES_FROM_0,
-    });
-    expect(result.satisfied).toEqual([matchingRule]);
+  it("returns no hits when Phase 2 found no candidates", async () => {
+    const result = await refine([], PARTNER_HOUSES);
+    expect(result.best).toBeNull();
+    expect(result.top).toEqual([]);
   });
 });

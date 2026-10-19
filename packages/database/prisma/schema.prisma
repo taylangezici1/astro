@@ -28,12 +28,18 @@ model GlobalSky {
   jupiter Float
   saturn  Float
 
-  // The composite index covers the most common "Golden Degree" lookups.
-  // Range queries on (sun, moon, venus, mars) are the hot path for Phase 2.
-  @@index([sun, moon, venus, mars])
+  // Phase 2 ORs one range condition per rule ("partner's <planet> within
+  // ±orb of a target"), which Postgres serves as a BitmapOr of per-column
+  // index scans. Every planet a rule can target needs its own index, or a
+  // single unindexed branch forces a full scan. (A composite index only
+  // helps its leading column, so it was dropped.)
+  @@index([sun])
+  @@index([moon])
+  @@index([mercury])
   @@index([venus])
   @@index([mars])
-  @@index([sun])
+  @@index([jupiter])
+  @@index([saturn])
 }
 
 /// One Türkiye district (ilçe) used by Phase 3 refinement.
