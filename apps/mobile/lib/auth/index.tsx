@@ -7,7 +7,8 @@
  *   - "anonymous" → no valid session. Renders the (auth) route group.
  *   - "authed"    → user + token available. Renders the (tabs) route group.
  *
- * The provider exposes `signup`, `login`, `logout`, and `refresh` actions.
+ * The provider exposes `signup`, `login`, `logout`, `refresh`, `updateBirth`
+ * and `deleteAccount` actions.
  * Anything that needs to call /match grabs the token via `useAuth()`.
  */
 
@@ -23,11 +24,14 @@ import type { ReactNode } from "react";
 
 import {
   ApiError,
+  deleteMe,
   getMe,
+  patchMe,
   postLogin,
   postSignup,
   type LoginRequest,
   type SignupRequest,
+  type UpdateBirthRequest,
   type User,
 } from "@/lib/api";
 import { clearToken, loadToken, saveToken } from "./storage";
@@ -42,6 +46,10 @@ interface AuthContextValue {
   login: (body: LoginRequest) => Promise<void>;
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
+  /** Replace the birth details; the server recomputes the chart. */
+  updateBirth: (body: UpdateBirthRequest) => Promise<void>;
+  /** Permanently delete the account, then sign out. */
+  deleteAccount: (password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -120,9 +128,26 @@ export function AuthProvider({ children }: ProviderProps) {
     }
   }, [token]);
 
+  const updateBirth = useCallback(
+    async (body: UpdateBirthRequest) => {
+      if (!token) return;
+      setUser(await patchMe(body, token));
+    },
+    [token],
+  );
+
+  const deleteAccount = useCallback(
+    async (password: string) => {
+      if (!token) return;
+      await deleteMe({ password }, token);
+      await logout();
+    },
+    [token, logout],
+  );
+
   const value = useMemo<AuthContextValue>(
-    () => ({ status, user, token, signup, login, logout, refresh }),
-    [status, user, token, signup, login, logout, refresh],
+    () => ({ status, user, token, signup, login, logout, refresh, updateBirth, deleteAccount }),
+    [status, user, token, signup, login, logout, refresh, updateBirth, deleteAccount],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

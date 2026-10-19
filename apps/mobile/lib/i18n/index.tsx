@@ -1,10 +1,10 @@
 /**
  * Project Synastry i18n.
  *
- * Default language is Turkish, with English as the only alternative. The
- * choice lives in React state (not AsyncStorage yet — persistence is a
- * follow-up). All user-facing strings live in `tr.ts` / `en.ts`, both
- * conforming to the `Translations` interface in `strings.ts`.
+ * Turkish and English. The first launch follows the device language (Turkish
+ * unless the device is set to something else); after that the user's choice
+ * from the About tab is remembered. All user-facing strings live in `tr.ts` /
+ * `en.ts`, both conforming to the `Translations` interface in `strings.ts`.
  *
  * Usage:
  *
@@ -16,9 +16,10 @@
  *   t.results.places.title(3);
  */
 
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 
+import { loadJSON, saveJSON } from "@/lib/persist";
 import { tr } from "./tr";
 import { en } from "./en";
 import type { Translations } from "./strings";
@@ -26,6 +27,19 @@ import type { Translations } from "./strings";
 export type Locale = "tr" | "en";
 
 const TABLES: Record<Locale, Translations> = { tr, en };
+const STORAGE_KEY = "synastry.locale";
+
+const isLocale = (value: unknown): value is Locale => value === "tr" || value === "en";
+
+/** Turkish unless the device language is clearly something else. */
+function deviceLocale(): Locale {
+  try {
+    const tag = Intl.DateTimeFormat().resolvedOptions().locale.toLowerCase();
+    return tag.startsWith("tr") ? "tr" : "en";
+  } catch {
+    return "tr";
+  }
+}
 
 interface I18nContextValue {
   locale: Locale;
@@ -37,15 +51,27 @@ const I18nContext = createContext<I18nContextValue | null>(null);
 
 interface ProviderProps {
   children: ReactNode;
-  /** Override the initial locale. Defaults to Turkish. */
+  /** Override the initial locale (tests, previews). Defaults to the device language. */
   initialLocale?: Locale;
 }
 
-export function I18nProvider({ children, initialLocale = "tr" }: ProviderProps) {
-  const [locale, setLocaleState] = useState<Locale>(initialLocale);
+export function I18nProvider({ children, initialLocale }: ProviderProps) {
+  const [locale, setLocaleState] = useState<Locale>(initialLocale ?? deviceLocale);
+
+  useEffect(() => {
+    if (initialLocale) return;
+    let cancelled = false;
+    loadJSON(STORAGE_KEY, isLocale).then((saved) => {
+      if (saved && !cancelled) setLocaleState(saved);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [initialLocale]);
 
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next);
+    void saveJSON(STORAGE_KEY, next);
   }, []);
 
   const value = useMemo<I18nContextValue>(

@@ -9,9 +9,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-import DateTimePicker, {
-  type DateTimePickerEvent,
-} from "@react-native-community/datetimepicker";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
@@ -20,13 +17,14 @@ import { Fonts, type Theme } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { useT } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
-import { ApiError, type District } from "@/lib/api";
+import { ApiError } from "@/lib/api";
 import { describeError } from "@/lib/errors";
-import { DistrictPicker } from "@/features/match/district-picker";
-
-const IS_WEB = Platform.OS === "web";
-const DEFAULT_BIRTH_DATE = "1994-10-12";
-const DEFAULT_BIRTH_TIME = "17:15";
+import {
+  BirthFields,
+  EMPTY_BIRTH,
+  isCompleteBirth,
+  type BirthValues,
+} from "@/features/account/birth-fields";
 
 export default function SignupScreen() {
   const theme = useTheme();
@@ -37,29 +35,9 @@ export default function SignupScreen() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [birthDate, setBirthDate] = useState(DEFAULT_BIRTH_DATE);
-  const [birthTime, setBirthTime] = useState(DEFAULT_BIRTH_TIME);
-  const [district, setDistrict] = useState<District | null>(null);
-  const [pickerMode, setPickerMode] = useState<"date" | "time" | null>(null);
+  const [birth, setBirth] = useState<BirthValues>(EMPTY_BIRTH);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const pickerValue = useMemo(
-    () => stringsToLocalDate(birthDate, birthTime),
-    [birthDate, birthTime],
-  );
-
-  const onPickerChange = (event: DateTimePickerEvent, selected?: Date) => {
-    if (Platform.OS === "android") setPickerMode(null);
-    if (event.type === "dismissed" || !selected) return;
-    if (pickerMode === "date") {
-      setBirthDate(
-        `${selected.getFullYear()}-${pad(selected.getMonth() + 1)}-${pad(selected.getDate())}`,
-      );
-    } else if (pickerMode === "time") {
-      setBirthTime(`${pad(selected.getHours())}:${pad(selected.getMinutes())}`);
-    }
-  };
 
   const handleSubmit = async () => {
     if (!email.trim() || !password) {
@@ -70,8 +48,12 @@ export default function SignupScreen() {
       setError(t.auth.signup.errorPasswordTooShort);
       return;
     }
-    if (!district) {
+    if (!birth.district) {
       setError(t.auth.signup.errorPickDistrict);
+      return;
+    }
+    if (!isCompleteBirth(birth)) {
+      setError(t.auth.signup.errorPickBirth);
       return;
     }
     setLoading(true);
@@ -80,11 +62,11 @@ export default function SignupScreen() {
       await signup({
         email: email.trim(),
         password,
-        birthLocalDate: birthDate,
-        birthLocalTime: birthTime,
-        latitude: district.latitude,
-        longitude: district.longitude,
-        districtId: district.id,
+        birthLocalDate: birth.date,
+        birthLocalTime: birth.time,
+        latitude: birth.district.latitude,
+        longitude: birth.district.longitude,
+        districtId: birth.district.id,
       });
     } catch (err) {
       if (err instanceof ApiError && err.status === 409) {
@@ -100,9 +82,7 @@ export default function SignupScreen() {
   };
 
   return (
-    <SafeAreaView
-      style={[styles.safe, { backgroundColor: theme.background }]}
-      edges={["top"]}>
+    <SafeAreaView style={[styles.safe, { backgroundColor: theme.background }]} edges={["top"]}>
       <KeyboardAvoidingView
         style={styles.flex}
         behavior={Platform.OS === "ios" ? "padding" : undefined}>
@@ -117,14 +97,10 @@ export default function SignupScreen() {
           </View>
 
           <View style={styles.card}>
-            <ThemedText style={styles.sectionTitle}>
-              {t.auth.signup.sectionAccount}
-            </ThemedText>
+            <ThemedText style={styles.sectionTitle}>{t.auth.signup.sectionAccount}</ThemedText>
 
             <View style={styles.field}>
-              <ThemedText style={styles.label}>
-                {t.auth.login.emailLabel}
-              </ThemedText>
+              <ThemedText style={styles.label}>{t.auth.login.emailLabel}</ThemedText>
               <TextInput
                 value={email}
                 onChangeText={setEmail}
@@ -132,15 +108,14 @@ export default function SignupScreen() {
                 placeholderTextColor={theme.placeholder}
                 autoCapitalize="none"
                 autoCorrect={false}
+                autoComplete="email"
                 keyboardType="email-address"
                 style={styles.input}
               />
             </View>
 
             <View style={styles.field}>
-              <ThemedText style={styles.label}>
-                {t.auth.login.passwordLabel}
-              </ThemedText>
+              <ThemedText style={styles.label}>{t.auth.login.passwordLabel}</ThemedText>
               <TextInput
                 value={password}
                 onChangeText={setPassword}
@@ -149,110 +124,17 @@ export default function SignupScreen() {
                 secureTextEntry
                 autoCapitalize="none"
                 autoCorrect={false}
+                autoComplete="new-password"
                 style={styles.input}
               />
             </View>
 
             <View style={styles.divider} />
 
-            <ThemedText style={styles.sectionTitle}>
-              {t.auth.signup.sectionBirth}
-            </ThemedText>
-            <ThemedText style={styles.hint}>
-              {t.auth.signup.birthHint}
-            </ThemedText>
+            <ThemedText style={styles.sectionTitle}>{t.auth.signup.sectionBirth}</ThemedText>
+            <ThemedText style={styles.hint}>{t.auth.signup.birthHint}</ThemedText>
 
-            {IS_WEB ? (
-              <>
-                <View style={styles.field}>
-                  <ThemedText style={styles.label}>
-                    {t.form.fields.birthDateWeb}
-                  </ThemedText>
-                  <TextInput
-                    value={birthDate}
-                    onChangeText={setBirthDate}
-                    placeholder={t.form.placeholders.birthDate}
-                    placeholderTextColor={theme.placeholder}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.input}
-                  />
-                </View>
-                <View style={styles.field}>
-                  <ThemedText style={styles.label}>
-                    {t.form.fields.birthTimeWeb}
-                  </ThemedText>
-                  <TextInput
-                    value={birthTime}
-                    onChangeText={setBirthTime}
-                    placeholder={t.form.placeholders.birthTime}
-                    placeholderTextColor={theme.placeholder}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.input}
-                  />
-                </View>
-              </>
-            ) : (
-              <>
-                <View style={styles.field}>
-                  <ThemedText style={styles.label}>
-                    {t.form.fields.birthDateNative}
-                  </ThemedText>
-                  <Pressable
-                    onPress={() => setPickerMode("date")}
-                    style={({ pressed }) => [
-                      styles.input,
-                      styles.inputPressable,
-                      pressed && styles.inputPressed,
-                    ]}>
-                    <ThemedText style={styles.inputText}>
-                      {formatHumanDate(birthDate, t.localeTag)}
-                    </ThemedText>
-                  </Pressable>
-                </View>
-                <View style={styles.field}>
-                  <ThemedText style={styles.label}>
-                    {t.form.fields.birthTimeNative}
-                  </ThemedText>
-                  <Pressable
-                    onPress={() => setPickerMode("time")}
-                    style={({ pressed }) => [
-                      styles.input,
-                      styles.inputPressable,
-                      pressed && styles.inputPressed,
-                    ]}>
-                    <ThemedText style={styles.inputText}>{birthTime}</ThemedText>
-                  </Pressable>
-                </View>
-
-                {pickerMode ? (
-                  <View style={styles.pickerWrap}>
-                    <DateTimePicker
-                      value={pickerValue}
-                      mode={pickerMode}
-                      is24Hour
-                      display={Platform.OS === "ios" ? "spinner" : "default"}
-                      onChange={onPickerChange}
-                    />
-                    {Platform.OS === "ios" ? (
-                      <Pressable
-                        onPress={() => setPickerMode(null)}
-                        style={styles.pickerDone}>
-                        <ThemedText style={styles.pickerDoneText}>
-                          {t.common.done}
-                        </ThemedText>
-                      </Pressable>
-                    ) : null}
-                  </View>
-                ) : null}
-              </>
-            )}
-
-            <View style={styles.field}>
-              <ThemedText style={styles.label}>{t.form.fields.district}</ThemedText>
-              <DistrictPicker value={district} onChange={setDistrict} />
-            </View>
+            <BirthFields value={birth} onChange={setBirth} />
 
             {error ? (
               <View style={styles.errorBanner}>
@@ -263,6 +145,7 @@ export default function SignupScreen() {
             <Pressable
               onPress={handleSubmit}
               disabled={loading}
+              accessibilityRole="button"
               style={({ pressed }) => [
                 styles.button,
                 pressed && styles.buttonPressed,
@@ -271,56 +154,19 @@ export default function SignupScreen() {
               {loading ? (
                 <ActivityIndicator color={theme.accentText} />
               ) : (
-                <ThemedText style={styles.buttonText}>
-                  {t.auth.signup.submit}
-                </ThemedText>
+                <ThemedText style={styles.buttonText}>{t.auth.signup.submit}</ThemedText>
               )}
             </Pressable>
 
             <Pressable
               onPress={() => router.replace("/(auth)/login" as never)}
               style={styles.switch}>
-              <ThemedText style={styles.switchText}>
-                {t.auth.signup.switchToLogin}
-              </ThemedText>
+              <ThemedText style={styles.switchText}>{t.auth.signup.switchToLogin}</ThemedText>
             </Pressable>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
-  );
-}
-
-// ---------- helpers ----------
-
-function pad(n: number): string {
-  return n.toString().padStart(2, "0");
-}
-
-function formatHumanDate(ymd: string, localeTag: string): string {
-  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd);
-  if (!m) return ymd;
-  const d = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])));
-  return d.toLocaleDateString(localeTag, {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    timeZone: "UTC",
-  });
-}
-
-function stringsToLocalDate(ymd: string, hm: string): Date {
-  const dm = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd);
-  const tm = /^(\d{2}):(\d{2})$/.exec(hm);
-  if (!dm || !tm) return new Date();
-  return new Date(
-    Number(dm[1]),
-    Number(dm[2]) - 1,
-    Number(dm[3]),
-    Number(tm[1]),
-    Number(tm[2]),
-    0,
-    0,
   );
 }
 
@@ -392,26 +238,6 @@ function createStyles(theme: Theme) {
       backgroundColor: theme.inputBackground,
       color: theme.text,
       fontSize: 15,
-    },
-    inputPressable: { justifyContent: "center" },
-    inputPressed: {
-      backgroundColor: theme.surfaceMuted,
-      borderColor: theme.accentBorder,
-    },
-    inputText: { fontSize: 15, color: theme.text },
-    pickerWrap: {
-      alignItems: "center",
-      backgroundColor: theme.surfaceMuted,
-      borderRadius: 16,
-      paddingVertical: 8,
-      borderWidth: 1,
-      borderColor: theme.border,
-    },
-    pickerDone: { paddingVertical: 8, paddingHorizontal: 24, marginTop: 4 },
-    pickerDoneText: {
-      color: theme.accent,
-      fontWeight: "700",
-      fontSize: 16,
     },
     errorBanner: {
       backgroundColor: theme.danger + "22",

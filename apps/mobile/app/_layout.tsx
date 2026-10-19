@@ -21,7 +21,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <I18nProvider initialLocale="en">
+    <I18nProvider>
       <AuthProvider>
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
@@ -73,10 +73,7 @@ function RootGate() {
         name="result-detail"
         options={{ headerShown: false, presentation: "card" }}
       />
-      <Stack.Screen
-        name="modal"
-        options={{ presentation: "modal", title: "Modal" }}
-      />
+      <Stack.Screen name="profile" options={{ headerShown: false }} />
     </Stack>
   );
 }

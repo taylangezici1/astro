@@ -12,13 +12,12 @@ import { ThemedText } from "@/components/themed-text";
 import { Fonts, type Theme } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { useLocale, useT } from "@/lib/i18n";
-import { useAuth } from "@/lib/auth";
+import { AccountSection } from "@/features/account/account-section";
 
 export default function AboutScreen() {
   const theme = useTheme();
   const t = useT();
   const { locale, setLocale } = useLocale();
-  const { user, logout } = useAuth();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
@@ -52,23 +51,7 @@ export default function AboutScreen() {
           </View>
         </Section>
 
-        {user ? (
-          <Section title={t.about.eyebrow} theme={theme}>
-            <ThemedText style={styles.subtitle}>
-              {t.auth.loggedInAs} {user.email}
-            </ThemedText>
-            <Pressable
-              onPress={() => {
-                void logout();
-              }}
-              style={({ pressed }) => [
-                styles.logoutButton,
-                pressed && { opacity: 0.85 },
-              ]}>
-              <ThemedText style={styles.logoutText}>{t.auth.logout}</ThemedText>
-            </Pressable>
-          </Section>
-        ) : null}
+        <AccountSection />
 
         <Section title={t.about.pipeline.title} theme={theme}>
           <Step
@@ -344,20 +327,6 @@ function createStyles(theme: Theme) {
     langRow: {
       flexDirection: "row",
       gap: 12,
-    },
-    logoutButton: {
-      marginTop: 8,
-      paddingVertical: 14,
-      borderRadius: 12,
-      borderWidth: 1,
-      borderColor: theme.danger,
-      backgroundColor: theme.danger + "11",
-      alignItems: "center",
-    },
-    logoutText: {
-      color: theme.danger,
-      fontWeight: "700",
-      fontSize: 15,
     },
   });
 }
