@@ -1,0 +1,32 @@
+# Build context for apps/api/Dockerfile is the repo root. Keep it small and
+# free of secrets. Patterns are relative to the repo root; `**/` matches at any
+# depth, including the root itself.
+
+# VCS, editors, agent tooling
+.git
+.github
+.vscode
+.idea
+.claude
+.remember
+
+# Dependencies and build output. Installed/generated inside the image, and
+# host binaries (Windows/macOS sweph, Prisma engines) would be wrong anyway.
+**/node_modules
+**/.turbo
+**/dist
+**/coverage
+**/*.tsbuildinfo
+**/*.log
+
+# The Expo app is not part of the API image (and is huge)
+apps/mobile
+
+# Secrets: never send env files to the builder (examples are fine)
+**/.env
+**/.env.*
+!**/.env.example
+
+# OS cruft
+**/.DS_Store
+**/Thumbs.db

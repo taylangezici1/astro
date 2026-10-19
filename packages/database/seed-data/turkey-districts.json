@@ -1,0 +1,6806 @@
+[
+  {
+    "id": "adana-aladag",
+    "province": "Adana",
+    "name": "Aladağ",
+    "latitude": 37.5485,
+    "longitude": 35.396
+  },
+  {
+    "id": "adana-ceyhan",
+    "province": "Adana",
+    "name": "Ceyhan",
+    "latitude": 37.0247,
+    "longitude": 35.8175
+  },
+  {
+    "id": "adana-cukurova",
+    "province": "Adana",
+    "name": "Çukurova",
+    "latitude": 37.10066,
+    "longitude": 35.153312
+  },
+  {
+    "id": "adana-feke",
+    "province": "Adana",
+    "name": "Feke",
+    "latitude": 37.8145,
+    "longitude": 35.9123
+  },
+  {
+    "id": "adana-imamoglu",
+    "province": "Adana",
+    "name": "İmamoğlu",
+    "latitude": 37.2651,
+    "longitude": 35.6572
+  },
+  {
+    "id": "adana-karaisali",
+    "province": "Adana",
+    "name": "Karaisalı",
+    "latitude": 37.2567,
+    "longitude": 35.0589
+  },
+  {
+    "id": "adana-karatas",
+    "province": "Adana",
+    "name": "Karataş",
+    "latitude": 36.5624,
+    "longitude": 35.3811
+  },
+  {
+    "id": "adana-kozan",
+    "province": "Adana",
+    "name": "Kozan",
+    "latitude": 37.4507,
+    "longitude": 35.8123
+  },
+  {
+    "id": "adana-pozanti",
+    "province": "Adana",
+    "name": "Pozantı",
+    "latitude": 37.4278,
+    "longitude": 34.8717
+  },
+  {
+    "id": "adana-saimbeyli",
+    "province": "Adana",
+    "name": "Saimbeyli",
+    "latitude": 37.9863,
+    "longitude": 36.0906
+  },
+  {
+    "id": "adana-saricam",
+    "province": "Adana",
+    "name": "Sarıçam",
+    "latitude": 37.1517,
+    "longitude": 35.5077
+  },
+  {
+    "id": "adana-seyhan",
+    "province": "Adana",
+    "name": "Seyhan",
+    "latitude": 36.9875,
+    "longitude": 35.3059
+  },
+  {
+    "id": "adana-tufanbeyli",
+    "province": "Adana",
+    "name": "Tufanbeyli",
+    "latitude": 38.2633,
+    "longitude": 36.2206
+  },
+  {
+    "id": "adana-yumurtalik",
+    "province": "Adana",
+    "name": "Yumurtalık",
+    "latitude": 36.7667,
+    "longitude": 35.7833
+  },
+  {
+    "id": "adana-yuregir",
+    "province": "Adana",
+    "name": "Yüreğir",
+    "latitude": 36.9744,
+    "longitude": 35.3592
+  },
+  {
+    "id": "adiyaman-besni",
+    "province": "Adıyaman",
+    "name": "Besni",
+    "latitude": 37.6928,
+    "longitude": 37.8611
+  },
+  {
+    "id": "adiyaman-celikhan",
+    "province": "Adıyaman",
+    "name": "Çelikhan",
+    "latitude": 38.0256,
+    "longitude": 38.2367
+  },
+  {
+    "id": "adiyaman-gerger",
+    "province": "Adıyaman",
+    "name": "Gerger",
+    "latitude": 38.0281,
+    "longitude": 39.0342
+  },
+  {
+    "id": "adiyaman-golbasi",
+    "province": "Adıyaman",
+    "name": "Gölbaşı",
+    "latitude": 37.7836,
+    "longitude": 37.6367
+  },
+  {
+    "id": "adiyaman-kahta",
+    "province": "Adıyaman",
+    "name": "Kahta",
+    "latitude": 37.800034,
+    "longitude": 38.705791
+  },
+  {
+    "id": "adiyaman-merkez",
+    "province": "Adıyaman",
+    "name": "Merkez",
+    "latitude": 37.764001,
+    "longitude": 38.276435
+  },
+  {
+    "id": "adiyaman-samsat",
+    "province": "Adıyaman",
+    "name": "Samsat",
+    "latitude": 37.5795,
+    "longitude": 38.4813
+  },
+  {
+    "id": "adiyaman-sincik",
+    "province": "Adıyaman",
+    "name": "Sincik",
+    "latitude": 38.0365,
+    "longitude": 38.6126
+  },
+  {
+    "id": "adiyaman-tut",
+    "province": "Adıyaman",
+    "name": "Tut",
+    "latitude": 37.7953,
+    "longitude": 37.9161
+  },
+  {
+    "id": "afyonkarahisar-basmakci",
+    "province": "Afyonkarahisar",
+    "name": "Başmakçı",
+    "latitude": 37.8972,
+    "longitude": 30.0117
+  },
+  {
+    "id": "afyonkarahisar-bayat",
+    "province": "Afyonkarahisar",
+    "name": "Bayat",
+    "latitude": 38.9831,
+    "longitude": 30.9247
+  },
+  {
+    "id": "afyonkarahisar-bolvadin",
+    "province": "Afyonkarahisar",
+    "name": "Bolvadin",
+    "latitude": 38.7111,
+    "longitude": 31.0486
+  },
+  {
+    "id": "afyonkarahisar-cay",
+    "province": "Afyonkarahisar",
+    "name": "Çay",
+    "latitude": 38.5917,
+    "longitude": 31.0286
+  },
+  {
+    "id": "afyonkarahisar-cobanlar",
+    "province": "Afyonkarahisar",
+    "name": "Çobanlar",
+    "latitude": 38.7014,
+    "longitude": 30.7828
+  },
+  {
+    "id": "afyonkarahisar-dazkiri",
+    "province": "Afyonkarahisar",
+    "name": "Dazkırı",
+    "latitude": 37.9186,
+    "longitude": 29.8606
+  },
+  {
+    "id": "afyonkarahisar-dinar",
+    "province": "Afyonkarahisar",
+    "name": "Dinar",
+    "latitude": 38.0717,
+    "longitude": 30.1656
+  },
+  {
+    "id": "afyonkarahisar-emirdag",
+    "province": "Afyonkarahisar",
+    "name": "Emirdağ",
+    "latitude": 39.0197,
+    "longitude": 31.15
+  },
+  {
+    "id": "afyonkarahisar-evciler",
+    "province": "Afyonkarahisar",
+    "name": "Evciler",
+    "latitude": 38.0414,
+    "longitude": 29.8867
+  },
+  {
+    "id": "afyonkarahisar-hocalar",
+    "province": "Afyonkarahisar",
+    "name": "Hocalar",
+    "latitude": 38.5782,
+    "longitude": 29.9677
+  },
+  {
+    "id": "afyonkarahisar-ihsaniye",
+    "province": "Afyonkarahisar",
+    "name": "İhsaniye",
+    "latitude": 39.0292,
+    "longitude": 30.4164
+  },
+  {
+    "id": "afyonkarahisar-iscehisar",
+    "province": "Afyonkarahisar",
+    "name": "İscehisar",
+    "latitude": 38.8619,
+    "longitude": 30.7503
+  },
+  {
+    "id": "afyonkarahisar-kiziloren",
+    "province": "Afyonkarahisar",
+    "name": "Kızılören",
+    "latitude": 38.2581,
+    "longitude": 30.1517
+  },
+  {
+    "id": "afyonkarahisar-merkez",
+    "province": "Afyonkarahisar",
+    "name": "Merkez",
+    "latitude": 38.756851,
+    "longitude": 30.538694
+  },
+  {
+    "id": "afyonkarahisar-sandikli",
+    "province": "Afyonkarahisar",
+    "name": "Sandıklı",
+    "latitude": 38.4647,
+    "longitude": 30.2695
+  },
+  {
+    "id": "afyonkarahisar-sinanpasa",
+    "province": "Afyonkarahisar",
+    "name": "Sinanpaşa",
+    "latitude": 38.7444,
+    "longitude": 30.2428
+  },
+  {
+    "id": "afyonkarahisar-suhut",
+    "province": "Afyonkarahisar",
+    "name": "Şuhut",
+    "latitude": 38.5311,
+    "longitude": 30.5458
+  },
+  {
+    "id": "afyonkarahisar-sultandagi",
+    "province": "Afyonkarahisar",
+    "name": "Sultandağı",
+    "latitude": 38.5333,
+    "longitude": 31.2333
+  },
+  {
+    "id": "agri-diyadin",
+    "province": "Ağrı",
+    "name": "Diyadin",
+    "latitude": 39.5406,
+    "longitude": 43.6713
+  },
+  {
+    "id": "agri-dogubayazit",
+    "province": "Ağrı",
+    "name": "Doğubayazıt",
+    "latitude": 39.55,
+    "longitude": 44.0833
+  },
+  {
+    "id": "agri-eleskirt",
+    "province": "Ağrı",
+    "name": "Eleşkirt",
+    "latitude": 39.798,
+    "longitude": 42.6757
+  },
+  {
+    "id": "agri-hamur",
+    "province": "Ağrı",
+    "name": "Hamur",
+    "latitude": 39.6056,
+    "longitude": 42.985
+  },
+  {
+    "id": "agri-merkez",
+    "province": "Ağrı",
+    "name": "Merkez",
+    "latitude": 39.720132,
+    "longitude": 43.050039
+  },
+  {
+    "id": "agri-patnos",
+    "province": "Ağrı",
+    "name": "Patnos",
+    "latitude": 39.2358,
+    "longitude": 42.8686
+  },
+  {
+    "id": "agri-taslicay",
+    "province": "Ağrı",
+    "name": "Taşlıçay",
+    "latitude": 39.6297,
+    "longitude": 43.3688
+  },
+  {
+    "id": "agri-tutak",
+    "province": "Ağrı",
+    "name": "Tutak",
+    "latitude": 39.5385,
+    "longitude": 42.7659
+  },
+  {
+    "id": "aksaray-agacoren",
+    "province": "Aksaray",
+    "name": "Ağaçören",
+    "latitude": 38.8748,
+    "longitude": 33.9167
+  },
+  {
+    "id": "aksaray-eskil",
+    "province": "Aksaray",
+    "name": "Eskil",
+    "latitude": 38.4017,
+    "longitude": 33.4131
+  },
+  {
+    "id": "aksaray-gulagac",
+    "province": "Aksaray",
+    "name": "Gülağaç",
+    "latitude": 38.3958,
+    "longitude": 34.3458
+  },
+  {
+    "id": "aksaray-guzelyurt",
+    "province": "Aksaray",
+    "name": "Güzelyurt",
+    "latitude": 38.2772,
+    "longitude": 34.3719
+  },
+  {
+    "id": "aksaray-merkez",
+    "province": "Aksaray",
+    "name": "Merkez",
+    "latitude": 38.370542,
+    "longitude": 34.026907
+  },
+  {
+    "id": "aksaray-ortakoy",
+    "province": "Aksaray",
+    "name": "Ortaköy",
+    "latitude": 38.7373,
+    "longitude": 34.0387
+  },
+  {
+    "id": "aksaray-sariyahsi",
+    "province": "Aksaray",
+    "name": "Sarıyahşi",
+    "latitude": 38.9835,
+    "longitude": 33.8414
+  },
+  {
+    "id": "aksaray-sultanhani",
+    "province": "Aksaray",
+    "name": "Sultanhanı",
+    "latitude": 38.2481,
+    "longitude": 33.5465
+  },
+  {
+    "id": "amasya-goynucek",
+    "province": "Amasya",
+    "name": "Göynücek",
+    "latitude": 40.3992,
+    "longitude": 35.525
+  },
+  {
+    "id": "amasya-gumushacikoy",
+    "province": "Amasya",
+    "name": "Gümüşhacıköy",
+    "latitude": 40.9253,
+    "longitude": 35.2347
+  },
+  {
+    "id": "amasya-hamamozu",
+    "province": "Amasya",
+    "name": "Hamamözü",
+    "latitude": 40.7848,
+    "longitude": 35.0258
+  },
+  {
+    "id": "amasya-merkez",
+    "province": "Amasya",
+    "name": "Merkez",
+    "latitude": 40.650325,
+    "longitude": 35.832915
+  },
+  {
+    "id": "amasya-merzifon",
+    "province": "Amasya",
+    "name": "Merzifon",
+    "latitude": 40.8733,
+    "longitude": 35.4631
+  },
+  {
+    "id": "amasya-suluova",
+    "province": "Amasya",
+    "name": "Suluova",
+    "latitude": 40.8313,
+    "longitude": 35.6479
+  },
+  {
+    "id": "amasya-tasova",
+    "province": "Amasya",
+    "name": "Taşova",
+    "latitude": 40.7597,
+    "longitude": 36.3225
+  },
+  {
+    "id": "ankara-akyurt",
+    "province": "Ankara",
+    "name": "Akyurt",
+    "latitude": 40.1313,
+    "longitude": 33.0907
+  },
+  {
+    "id": "ankara-altindag",
+    "province": "Ankara",
+    "name": "Altındağ",
+    "latitude": 39.9477,
+    "longitude": 32.8639
+  },
+  {
+    "id": "ankara-ayas",
+    "province": "Ankara",
+    "name": "Ayaş",
+    "latitude": 40.0154,
+    "longitude": 32.3325
+  },
+  {
+    "id": "ankara-bala",
+    "province": "Ankara",
+    "name": "Bala",
+    "latitude": 39.5542,
+    "longitude": 33.1234
+  },
+  {
+    "id": "ankara-beypazari",
+    "province": "Ankara",
+    "name": "Beypazarı",
+    "latitude": 40.1703,
+    "longitude": 31.9211
+  },
+  {
+    "id": "ankara-camlidere",
+    "province": "Ankara",
+    "name": "Çamlıdere",
+    "latitude": 40.4896,
+    "longitude": 32.475
+  },
+  {
+    "id": "ankara-cankaya",
+    "province": "Ankara",
+    "name": "Çankaya",
+    "latitude": 39.8875,
+    "longitude": 32.8567
+  },
+  {
+    "id": "ankara-cubuk",
+    "province": "Ankara",
+    "name": "Çubuk",
+    "latitude": 40.2386,
+    "longitude": 33.0322
+  },
+  {
+    "id": "ankara-elmadag",
+    "province": "Ankara",
+    "name": "Elmadağ",
+    "latitude": 39.9208,
+    "longitude": 33.2308
+  },
+  {
+    "id": "ankara-etimesgut",
+    "province": "Ankara",
+    "name": "Etimesgut",
+    "latitude": 39.9533,
+    "longitude": 32.6328
+  },
+  {
+    "id": "ankara-evren",
+    "province": "Ankara",
+    "name": "Evren",
+    "latitude": 39.024,
+    "longitude": 33.8063
+  },
+  {
+    "id": "ankara-golbasi",
+    "province": "Ankara",
+    "name": "Gölbaşı",
+    "latitude": 39.7904,
+    "longitude": 32.809
+  },
+  {
+    "id": "ankara-gudul",
+    "province": "Ankara",
+    "name": "Güdül",
+    "latitude": 40.21,
+    "longitude": 32.2432
+  },
+  {
+    "id": "ankara-haymana",
+    "province": "Ankara",
+    "name": "Haymana",
+    "latitude": 39.4311,
+    "longitude": 32.4956
+  },
+  {
+    "id": "ankara-kahramankazan",
+    "province": "Ankara",
+    "name": "Kahramankazan",
+    "latitude": 40.186363,
+    "longitude": 32.662733
+  },
+  {
+    "id": "ankara-kalecik",
+    "province": "Ankara",
+    "name": "Kalecik",
+    "latitude": 40.0972,
+    "longitude": 33.4083
+  },
+  {
+    "id": "ankara-kecioren",
+    "province": "Ankara",
+    "name": "Keçiören",
+    "latitude": 40.0067,
+    "longitude": 32.8562
+  },
+  {
+    "id": "ankara-kizilcahamam",
+    "province": "Ankara",
+    "name": "Kızılcahamam",
+    "latitude": 40.4697,
+    "longitude": 32.6506
+  },
+  {
+    "id": "ankara-mamak",
+    "province": "Ankara",
+    "name": "Mamak",
+    "latitude": 39.9404,
+    "longitude": 32.9101
+  },
+  {
+    "id": "ankara-nallihan",
+    "province": "Ankara",
+    "name": "Nallıhan",
+    "latitude": 40.1859,
+    "longitude": 31.3508
+  },
+  {
+    "id": "ankara-polatli",
+    "province": "Ankara",
+    "name": "Polatlı",
+    "latitude": 39.5842,
+    "longitude": 32.1472
+  },
+  {
+    "id": "ankara-pursaklar",
+    "province": "Ankara",
+    "name": "Pursaklar",
+    "latitude": 40.032,
+    "longitude": 32.8953
+  },
+  {
+    "id": "ankara-sereflikochisar",
+    "province": "Ankara",
+    "name": "Şereflikoçhisar",
+    "latitude": 38.9451,
+    "longitude": 33.543
+  },
+  {
+    "id": "ankara-sincan",
+    "province": "Ankara",
+    "name": "Sincan",
+    "latitude": 39.9723,
+    "longitude": 32.5841
+  },
+  {
+    "id": "ankara-yenimahalle",
+    "province": "Ankara",
+    "name": "Yenimahalle",
+    "latitude": 39.9583,
+    "longitude": 32.7552
+  },
+  {
+    "id": "antalya-akseki",
+    "province": "Antalya",
+    "name": "Akseki",
+    "latitude": 37.0486,
+    "longitude": 31.79
+  },
+  {
+    "id": "antalya-aksu",
+    "province": "Antalya",
+    "name": "Aksu",
+    "latitude": 36.9539,
+    "longitude": 30.8478
+  },
+  {
+    "id": "antalya-alanya",
+    "province": "Antalya",
+    "name": "Alanya",
+    "latitude": 36.5436,
+    "longitude": 31.9997
+  },
+  {
+    "id": "antalya-demre",
+    "province": "Antalya",
+    "name": "Demre",
+    "latitude": 36.2444,
+    "longitude": 29.985
+  },
+  {
+    "id": "antalya-dosemealti",
+    "province": "Antalya",
+    "name": "Döşemealtı",
+    "latitude": 37.0233,
+    "longitude": 30.6025
+  },
+  {
+    "id": "antalya-elmali",
+    "province": "Antalya",
+    "name": "Elmalı",
+    "latitude": 36.7358,
+    "longitude": 29.9178
+  },
+  {
+    "id": "antalya-finike",
+    "province": "Antalya",
+    "name": "Finike",
+    "latitude": 36.3,
+    "longitude": 30.15
+  },
+  {
+    "id": "antalya-gazipasa",
+    "province": "Antalya",
+    "name": "Gazipaşa",
+    "latitude": 36.2694,
+    "longitude": 32.3179
+  },
+  {
+    "id": "antalya-gundogmus",
+    "province": "Antalya",
+    "name": "Gündoğmuş",
+    "latitude": 36.8134,
+    "longitude": 31.9997
+  },
+  {
+    "id": "antalya-ibradi",
+    "province": "Antalya",
+    "name": "İbradı",
+    "latitude": 37.0969,
+    "longitude": 31.5992
+  },
+  {
+    "id": "antalya-kas",
+    "province": "Antalya",
+    "name": "Kaş",
+    "latitude": 36.2018,
+    "longitude": 29.6377
+  },
+  {
+    "id": "antalya-kemer",
+    "province": "Antalya",
+    "name": "Kemer",
+    "latitude": 36.6,
+    "longitude": 30.55
+  },
+  {
+    "id": "antalya-kepez",
+    "province": "Antalya",
+    "name": "Kepez",
+    "latitude": 37.024727,
+    "longitude": 30.713339
+  },
+  {
+    "id": "antalya-konyaalti",
+    "province": "Antalya",
+    "name": "Konyaaltı",
+    "latitude": 36.813686,
+    "longitude": 30.464554
+  },
+  {
+    "id": "antalya-korkuteli",
+    "province": "Antalya",
+    "name": "Korkuteli",
+    "latitude": 37.065,
+    "longitude": 30.1956
+  },
+  {
+    "id": "antalya-kumluca",
+    "province": "Antalya",
+    "name": "Kumluca",
+    "latitude": 36.3703,
+    "longitude": 30.2869
+  },
+  {
+    "id": "antalya-manavgat",
+    "province": "Antalya",
+    "name": "Manavgat",
+    "latitude": 36.7867,
+    "longitude": 31.4431
+  },
+  {
+    "id": "antalya-muratpasa",
+    "province": "Antalya",
+    "name": "Muratpaşa",
+    "latitude": 36.887431,
+    "longitude": 30.745587
+  },
+  {
+    "id": "antalya-serik",
+    "province": "Antalya",
+    "name": "Serik",
+    "latitude": 36.9169,
+    "longitude": 31.0989
+  },
+  {
+    "id": "ardahan-cildir",
+    "province": "Ardahan",
+    "name": "Çıldır",
+    "latitude": 41.1214,
+    "longitude": 43.1299
+  },
+  {
+    "id": "ardahan-damal",
+    "province": "Ardahan",
+    "name": "Damal",
+    "latitude": 41.3414,
+    "longitude": 42.8368
+  },
+  {
+    "id": "ardahan-gole",
+    "province": "Ardahan",
+    "name": "Göle",
+    "latitude": 40.7875,
+    "longitude": 42.606
+  },
+  {
+    "id": "ardahan-hanak",
+    "province": "Ardahan",
+    "name": "Hanak",
+    "latitude": 41.2334,
+    "longitude": 42.8404
+  },
+  {
+    "id": "ardahan-merkez",
+    "province": "Ardahan",
+    "name": "Merkez",
+    "latitude": 41.110297,
+    "longitude": 42.703558
+  },
+  {
+    "id": "ardahan-posof",
+    "province": "Ardahan",
+    "name": "Posof",
+    "latitude": 41.5106,
+    "longitude": 42.7292
+  },
+  {
+    "id": "artvin-ardanuc",
+    "province": "Artvin",
+    "name": "Ardanuç",
+    "latitude": 41.1233,
+    "longitude": 42.0647
+  },
+  {
+    "id": "artvin-arhavi",
+    "province": "Artvin",
+    "name": "Arhavi",
+    "latitude": 41.3531,
+    "longitude": 41.31
+  },
+  {
+    "id": "artvin-borcka",
+    "province": "Artvin",
+    "name": "Borçka",
+    "latitude": 41.3579,
+    "longitude": 41.6658
+  },
+  {
+    "id": "artvin-hopa",
+    "province": "Artvin",
+    "name": "Hopa",
+    "latitude": 41.396,
+    "longitude": 41.422
+  },
+  {
+    "id": "artvin-kemalpasa",
+    "province": "Artvin",
+    "name": "Kemalpaşa",
+    "latitude": 41.4784,
+    "longitude": 41.515
+  },
+  {
+    "id": "artvin-merkez",
+    "province": "Artvin",
+    "name": "Merkez",
+    "latitude": 41.183081,
+    "longitude": 41.828745
+  },
+  {
+    "id": "artvin-murgul",
+    "province": "Artvin",
+    "name": "Murgul",
+    "latitude": 41.2794,
+    "longitude": 41.5551
+  },
+  {
+    "id": "artvin-savsat",
+    "province": "Artvin",
+    "name": "Şavşat",
+    "latitude": 41.2534,
+    "longitude": 42.3553
+  },
+  {
+    "id": "artvin-yusufeli",
+    "province": "Artvin",
+    "name": "Yusufeli",
+    "latitude": 40.8204,
+    "longitude": 41.5374
+  },
+  {
+    "id": "aydin-bozdogan",
+    "province": "Aydın",
+    "name": "Bozdoğan",
+    "latitude": 37.6713,
+    "longitude": 28.314
+  },
+  {
+    "id": "aydin-buharkent",
+    "province": "Aydın",
+    "name": "Buharkent",
+    "latitude": 37.964,
+    "longitude": 28.7427
+  },
+  {
+    "id": "aydin-cine",
+    "province": "Aydın",
+    "name": "Çine",
+    "latitude": 37.6117,
+    "longitude": 28.0614
+  },
+  {
+    "id": "aydin-didim",
+    "province": "Aydın",
+    "name": "Didim",
+    "latitude": 37.3756,
+    "longitude": 27.2678
+  },
+  {
+    "id": "aydin-efeler",
+    "province": "Aydın",
+    "name": "Efeler",
+    "latitude": 37.852351,
+    "longitude": 27.877702
+  },
+  {
+    "id": "aydin-germencik",
+    "province": "Aydın",
+    "name": "Germencik",
+    "latitude": 37.8706,
+    "longitude": 27.6028
+  },
+  {
+    "id": "aydin-incirliova",
+    "province": "Aydın",
+    "name": "İncirliova",
+    "latitude": 37.8522,
+    "longitude": 27.7236
+  },
+  {
+    "id": "aydin-karacasu",
+    "province": "Aydın",
+    "name": "Karacasu",
+    "latitude": 37.7282,
+    "longitude": 28.6057
+  },
+  {
+    "id": "aydin-karpuzlu",
+    "province": "Aydın",
+    "name": "Karpuzlu",
+    "latitude": 37.5586,
+    "longitude": 27.8353
+  },
+  {
+    "id": "aydin-kocarli",
+    "province": "Aydın",
+    "name": "Koçarlı",
+    "latitude": 37.7611,
+    "longitude": 27.7058
+  },
+  {
+    "id": "aydin-kosk",
+    "province": "Aydın",
+    "name": "Köşk",
+    "latitude": 37.8533,
+    "longitude": 28.0517
+  },
+  {
+    "id": "aydin-kusadasi",
+    "province": "Aydın",
+    "name": "Kuşadası",
+    "latitude": 37.780867,
+    "longitude": 27.312866
+  },
+  {
+    "id": "aydin-kuyucak",
+    "province": "Aydın",
+    "name": "Kuyucak",
+    "latitude": 37.9133,
+    "longitude": 28.4592
+  },
+  {
+    "id": "aydin-nazilli",
+    "province": "Aydın",
+    "name": "Nazilli",
+    "latitude": 37.9125,
+    "longitude": 28.3206
+  },
+  {
+    "id": "aydin-soke",
+    "province": "Aydın",
+    "name": "Söke",
+    "latitude": 37.7512,
+    "longitude": 27.4103
+  },
+  {
+    "id": "aydin-sultanhisar",
+    "province": "Aydın",
+    "name": "Sultanhisar",
+    "latitude": 37.8897,
+    "longitude": 28.1575
+  },
+  {
+    "id": "aydin-yenipazar",
+    "province": "Aydın",
+    "name": "Yenipazar",
+    "latitude": 37.8242,
+    "longitude": 28.1972
+  },
+  {
+    "id": "balikesir-altieylul",
+    "province": "Balıkesir",
+    "name": "Altıeylül",
+    "latitude": 39.560111,
+    "longitude": 27.830748
+  },
+  {
+    "id": "balikesir-ayvalik",
+    "province": "Balıkesir",
+    "name": "Ayvalık",
+    "latitude": 39.319,
+    "longitude": 26.6954
+  },
+  {
+    "id": "balikesir-balya",
+    "province": "Balıkesir",
+    "name": "Balya",
+    "latitude": 39.7486,
+    "longitude": 27.5789
+  },
+  {
+    "id": "balikesir-bandirma",
+    "province": "Balıkesir",
+    "name": "Bandırma",
+    "latitude": 40.3542,
+    "longitude": 27.9725
+  },
+  {
+    "id": "balikesir-bigadic",
+    "province": "Balıkesir",
+    "name": "Bigadiç",
+    "latitude": 39.3925,
+    "longitude": 28.1311
+  },
+  {
+    "id": "balikesir-burhaniye",
+    "province": "Balıkesir",
+    "name": "Burhaniye",
+    "latitude": 39.5004,
+    "longitude": 26.9727
+  },
+  {
+    "id": "balikesir-dursunbey",
+    "province": "Balıkesir",
+    "name": "Dursunbey",
+    "latitude": 39.586,
+    "longitude": 28.6257
+  },
+  {
+    "id": "balikesir-edremit",
+    "province": "Balıkesir",
+    "name": "Edremit",
+    "latitude": 39.5961,
+    "longitude": 27.0244
+  },
+  {
+    "id": "balikesir-erdek",
+    "province": "Balıkesir",
+    "name": "Erdek",
+    "latitude": 40.3996,
+    "longitude": 27.7935
+  },
+  {
+    "id": "balikesir-gomec",
+    "province": "Balıkesir",
+    "name": "Gömeç",
+    "latitude": 39.3902,
+    "longitude": 26.8413
+  },
+  {
+    "id": "balikesir-gonen",
+    "province": "Balıkesir",
+    "name": "Gönen",
+    "latitude": 40.1049,
+    "longitude": 27.654
+  },
+  {
+    "id": "balikesir-havran",
+    "province": "Balıkesir",
+    "name": "Havran",
+    "latitude": 39.5583,
+    "longitude": 27.0983
+  },
+  {
+    "id": "balikesir-ivrindi",
+    "province": "Balıkesir",
+    "name": "İvrindi",
+    "latitude": 39.5839,
+    "longitude": 27.4864
+  },
+  {
+    "id": "balikesir-karesi",
+    "province": "Balıkesir",
+    "name": "Karesi",
+    "latitude": 39.794038,
+    "longitude": 27.890043
+  },
+  {
+    "id": "balikesir-kepsut",
+    "province": "Balıkesir",
+    "name": "Kepsut",
+    "latitude": 39.6889,
+    "longitude": 28.1522
+  },
+  {
+    "id": "balikesir-manyas",
+    "province": "Balıkesir",
+    "name": "Manyas",
+    "latitude": 40.0464,
+    "longitude": 27.97
+  },
+  {
+    "id": "balikesir-marmara",
+    "province": "Balıkesir",
+    "name": "Marmara",
+    "latitude": 40.5863,
+    "longitude": 27.5554
+  },
+  {
+    "id": "balikesir-savastepe",
+    "province": "Balıkesir",
+    "name": "Savaştepe",
+    "latitude": 39.3832,
+    "longitude": 27.6561
+  },
+  {
+    "id": "balikesir-sindirgi",
+    "province": "Balıkesir",
+    "name": "Sındırgı",
+    "latitude": 39.2413,
+    "longitude": 28.1784
+  },
+  {
+    "id": "balikesir-susurluk",
+    "province": "Balıkesir",
+    "name": "Susurluk",
+    "latitude": 39.9136,
+    "longitude": 28.1578
+  },
+  {
+    "id": "bartin-amasra",
+    "province": "Bartın",
+    "name": "Amasra",
+    "latitude": 41.7463,
+    "longitude": 32.3863
+  },
+  {
+    "id": "bartin-kurucasile",
+    "province": "Bartın",
+    "name": "Kurucaşile",
+    "latitude": 41.8378,
+    "longitude": 32.7162
+  },
+  {
+    "id": "bartin-merkez",
+    "province": "Bartın",
+    "name": "Merkez",
+    "latitude": 41.633839,
+    "longitude": 32.338435
+  },
+  {
+    "id": "bartin-ulus",
+    "province": "Bartın",
+    "name": "Ulus",
+    "latitude": 41.5842,
+    "longitude": 32.6414
+  },
+  {
+    "id": "batman-besiri",
+    "province": "Batman",
+    "name": "Beşiri",
+    "latitude": 37.9157,
+    "longitude": 41.2865
+  },
+  {
+    "id": "batman-gercus",
+    "province": "Batman",
+    "name": "Gercüş",
+    "latitude": 37.5625,
+    "longitude": 41.3775
+  },
+  {
+    "id": "batman-hasankeyf",
+    "province": "Batman",
+    "name": "Hasankeyf",
+    "latitude": 37.7061,
+    "longitude": 41.4048
+  },
+  {
+    "id": "batman-kozluk",
+    "province": "Batman",
+    "name": "Kozluk",
+    "latitude": 38.1912,
+    "longitude": 41.4778
+  },
+  {
+    "id": "batman-merkez",
+    "province": "Batman",
+    "name": "Merkez",
+    "latitude": 37.890723,
+    "longitude": 41.137421
+  },
+  {
+    "id": "batman-sason",
+    "province": "Batman",
+    "name": "Sason",
+    "latitude": 38.3277,
+    "longitude": 41.4138
+  },
+  {
+    "id": "bayburt-aydintepe",
+    "province": "Bayburt",
+    "name": "Aydıntepe",
+    "latitude": 40.3833,
+    "longitude": 40.1427
+  },
+  {
+    "id": "bayburt-demirozu",
+    "province": "Bayburt",
+    "name": "Demirözü",
+    "latitude": 40.1602,
+    "longitude": 39.8924
+  },
+  {
+    "id": "bayburt-merkez",
+    "province": "Bayburt",
+    "name": "Merkez",
+    "latitude": 40.25569,
+    "longitude": 40.224099
+  },
+  {
+    "id": "bilecik-bozuyuk",
+    "province": "Bilecik",
+    "name": "Bozüyük",
+    "latitude": 39.9078,
+    "longitude": 30.0367
+  },
+  {
+    "id": "bilecik-golpazari",
+    "province": "Bilecik",
+    "name": "Gölpazarı",
+    "latitude": 40.2847,
+    "longitude": 30.3172
+  },
+  {
+    "id": "bilecik-inhisar",
+    "province": "Bilecik",
+    "name": "İnhisar",
+    "latitude": 40.0493,
+    "longitude": 30.3852
+  },
+  {
+    "id": "bilecik-merkez",
+    "province": "Bilecik",
+    "name": "Merkez",
+    "latitude": 40.14351,
+    "longitude": 29.975291
+  },
+  {
+    "id": "bilecik-osmaneli",
+    "province": "Bilecik",
+    "name": "Osmaneli",
+    "latitude": 40.3572,
+    "longitude": 30.0142
+  },
+  {
+    "id": "bilecik-pazaryeri",
+    "province": "Bilecik",
+    "name": "Pazaryeri",
+    "latitude": 39.9939,
+    "longitude": 29.9042
+  },
+  {
+    "id": "bilecik-sogut",
+    "province": "Bilecik",
+    "name": "Söğüt",
+    "latitude": 40.0143,
+    "longitude": 30.1849
+  },
+  {
+    "id": "bilecik-yenipazar",
+    "province": "Bilecik",
+    "name": "Yenipazar",
+    "latitude": 40.1783,
+    "longitude": 30.52
+  },
+  {
+    "id": "bingol-adakli",
+    "province": "Bingöl",
+    "name": "Adaklı",
+    "latitude": 39.2262,
+    "longitude": 40.4828
+  },
+  {
+    "id": "bingol-genc",
+    "province": "Bingöl",
+    "name": "Genç",
+    "latitude": 38.7477,
+    "longitude": 40.5534
+  },
+  {
+    "id": "bingol-karliova",
+    "province": "Bingöl",
+    "name": "Karlıova",
+    "latitude": 39.2904,
+    "longitude": 41.0059
+  },
+  {
+    "id": "bingol-kigi",
+    "province": "Bingöl",
+    "name": "Kiğı",
+    "latitude": 39.3136,
+    "longitude": 40.3503
+  },
+  {
+    "id": "bingol-merkez",
+    "province": "Bingöl",
+    "name": "Merkez",
+    "latitude": 38.885183,
+    "longitude": 40.4966
+  },
+  {
+    "id": "bingol-solhan",
+    "province": "Bingöl",
+    "name": "Solhan",
+    "latitude": 38.9652,
+    "longitude": 41.0544
+  },
+  {
+    "id": "bingol-yayladere",
+    "province": "Bingöl",
+    "name": "Yayladere",
+    "latitude": 39.204307,
+    "longitude": 40.100835
+  },
+  {
+    "id": "bingol-yedisu",
+    "province": "Bingöl",
+    "name": "Yedisu",
+    "latitude": 39.4328,
+    "longitude": 40.5337
+  },
+  {
+    "id": "bitlis-adilcevaz",
+    "province": "Bitlis",
+    "name": "Adilcevaz",
+    "latitude": 38.7991,
+    "longitude": 42.7316
+  },
+  {
+    "id": "bitlis-ahlat",
+    "province": "Bitlis",
+    "name": "Ahlat",
+    "latitude": 38.7489,
+    "longitude": 42.4801
+  },
+  {
+    "id": "bitlis-guroymak",
+    "province": "Bitlis",
+    "name": "Güroymak",
+    "latitude": 38.5758,
+    "longitude": 42.0156
+  },
+  {
+    "id": "bitlis-hizan",
+    "province": "Bitlis",
+    "name": "Hizan",
+    "latitude": 38.225,
+    "longitude": 42.4183
+  },
+  {
+    "id": "bitlis-merkez",
+    "province": "Bitlis",
+    "name": "Merkez",
+    "latitude": 38.400219,
+    "longitude": 42.108132
+  },
+  {
+    "id": "bitlis-mutki",
+    "province": "Bitlis",
+    "name": "Mutki",
+    "latitude": 38.4062,
+    "longitude": 41.9202
+  },
+  {
+    "id": "bitlis-tatvan",
+    "province": "Bitlis",
+    "name": "Tatvan",
+    "latitude": 38.5066,
+    "longitude": 42.2816
+  },
+  {
+    "id": "bolu-dortdivan",
+    "province": "Bolu",
+    "name": "Dörtdivan",
+    "latitude": 40.7205,
+    "longitude": 32.0631
+  },
+  {
+    "id": "bolu-gerede",
+    "province": "Bolu",
+    "name": "Gerede",
+    "latitude": 40.8008,
+    "longitude": 32.1969
+  },
+  {
+    "id": "bolu-goynuk",
+    "province": "Bolu",
+    "name": "Göynük",
+    "latitude": 40.4003,
+    "longitude": 30.7883
+  },
+  {
+    "id": "bolu-kibriscik",
+    "province": "Bolu",
+    "name": "Kıbrıscık",
+    "latitude": 40.4078,
+    "longitude": 31.8519
+  },
+  {
+    "id": "bolu-mengen",
+    "province": "Bolu",
+    "name": "Mengen",
+    "latitude": 40.9388,
+    "longitude": 32.0764
+  },
+  {
+    "id": "bolu-merkez",
+    "province": "Bolu",
+    "name": "Merkez",
+    "latitude": 40.734528,
+    "longitude": 31.615666
+  },
+  {
+    "id": "bolu-mudurnu",
+    "province": "Bolu",
+    "name": "Mudurnu",
+    "latitude": 40.473,
+    "longitude": 31.2076
+  },
+  {
+    "id": "bolu-seben",
+    "province": "Bolu",
+    "name": "Seben",
+    "latitude": 40.4113,
+    "longitude": 31.5736
+  },
+  {
+    "id": "bolu-yenicaga",
+    "province": "Bolu",
+    "name": "Yeniçağa",
+    "latitude": 40.7711,
+    "longitude": 32.0337
+  },
+  {
+    "id": "burdur-aglasun",
+    "province": "Burdur",
+    "name": "Ağlasun",
+    "latitude": 37.6494,
+    "longitude": 30.5342
+  },
+  {
+    "id": "burdur-altinyayla",
+    "province": "Burdur",
+    "name": "Altınyayla",
+    "latitude": 36.9972,
+    "longitude": 29.5458
+  },
+  {
+    "id": "burdur-bucak",
+    "province": "Burdur",
+    "name": "Bucak",
+    "latitude": 37.4592,
+    "longitude": 30.595
+  },
+  {
+    "id": "burdur-cavdir",
+    "province": "Burdur",
+    "name": "Çavdır",
+    "latitude": 37.155,
+    "longitude": 29.6939
+  },
+  {
+    "id": "burdur-celtikci",
+    "province": "Burdur",
+    "name": "Çeltikçi",
+    "latitude": 37.5295,
+    "longitude": 30.4803
+  },
+  {
+    "id": "burdur-golhisar",
+    "province": "Burdur",
+    "name": "Gölhisar",
+    "latitude": 37.1459,
+    "longitude": 29.5088
+  },
+  {
+    "id": "burdur-karamanli",
+    "province": "Burdur",
+    "name": "Karamanlı",
+    "latitude": 37.373,
+    "longitude": 29.8231
+  },
+  {
+    "id": "burdur-kemer",
+    "province": "Burdur",
+    "name": "Kemer",
+    "latitude": 37.3522,
+    "longitude": 30.0631
+  },
+  {
+    "id": "burdur-merkez",
+    "province": "Burdur",
+    "name": "Merkez",
+    "latitude": 37.724839,
+    "longitude": 30.288729
+  },
+  {
+    "id": "burdur-tefenni",
+    "province": "Burdur",
+    "name": "Tefenni",
+    "latitude": 37.3097,
+    "longitude": 29.7754
+  },
+  {
+    "id": "burdur-yesilova",
+    "province": "Burdur",
+    "name": "Yeşilova",
+    "latitude": 37.5081,
+    "longitude": 29.7547
+  },
+  {
+    "id": "bursa-buyukorhan",
+    "province": "Bursa",
+    "name": "Büyükorhan",
+    "latitude": 39.771,
+    "longitude": 28.8861
+  },
+  {
+    "id": "bursa-gemlik",
+    "province": "Bursa",
+    "name": "Gemlik",
+    "latitude": 40.4309,
+    "longitude": 29.1597
+  },
+  {
+    "id": "bursa-gursu",
+    "province": "Bursa",
+    "name": "Gürsu",
+    "latitude": 40.2188,
+    "longitude": 29.1949
+  },
+  {
+    "id": "bursa-harmancik",
+    "province": "Bursa",
+    "name": "Harmancık",
+    "latitude": 39.6761,
+    "longitude": 29.1553
+  },
+  {
+    "id": "bursa-inegol",
+    "province": "Bursa",
+    "name": "İnegöl",
+    "latitude": 40.0806,
+    "longitude": 29.5097
+  },
+  {
+    "id": "bursa-iznik",
+    "province": "Bursa",
+    "name": "İznik",
+    "latitude": 40.4286,
+    "longitude": 29.7211
+  },
+  {
+    "id": "bursa-karacabey",
+    "province": "Bursa",
+    "name": "Karacabey",
+    "latitude": 40.2132,
+    "longitude": 28.3612
+  },
+  {
+    "id": "bursa-keles",
+    "province": "Bursa",
+    "name": "Keles",
+    "latitude": 39.9136,
+    "longitude": 29.2294
+  },
+  {
+    "id": "bursa-kestel",
+    "province": "Bursa",
+    "name": "Kestel",
+    "latitude": 40.1983,
+    "longitude": 29.2124
+  },
+  {
+    "id": "bursa-mudanya",
+    "province": "Bursa",
+    "name": "Mudanya",
+    "latitude": 40.3753,
+    "longitude": 28.8822
+  },
+  {
+    "id": "bursa-mustafakemalpasa",
+    "province": "Bursa",
+    "name": "Mustafakemalpaşa",
+    "latitude": 40.0382,
+    "longitude": 28.4087
+  },
+  {
+    "id": "bursa-nilufer",
+    "province": "Bursa",
+    "name": "Nilüfer",
+    "latitude": 40.2843,
+    "longitude": 28.9504
+  },
+  {
+    "id": "bursa-orhaneli",
+    "province": "Bursa",
+    "name": "Orhaneli",
+    "latitude": 39.9033,
+    "longitude": 28.9906
+  },
+  {
+    "id": "bursa-orhangazi",
+    "province": "Bursa",
+    "name": "Orhangazi",
+    "latitude": 40.4892,
+    "longitude": 29.3089
+  },
+  {
+    "id": "bursa-osmangazi",
+    "province": "Bursa",
+    "name": "Osmangazi",
+    "latitude": 40.2259,
+    "longitude": 29.0439
+  },
+  {
+    "id": "bursa-yenisehir",
+    "province": "Bursa",
+    "name": "Yenişehir",
+    "latitude": 40.2644,
+    "longitude": 29.6531
+  },
+  {
+    "id": "bursa-yildirim",
+    "province": "Bursa",
+    "name": "Yıldırım",
+    "latitude": 40.2112,
+    "longitude": 29.1391
+  },
+  {
+    "id": "canakkale-ayvacik",
+    "province": "Çanakkale",
+    "name": "Ayvacık",
+    "latitude": 39.6011,
+    "longitude": 26.4047
+  },
+  {
+    "id": "canakkale-bayramic",
+    "province": "Çanakkale",
+    "name": "Bayramiç",
+    "latitude": 39.8086,
+    "longitude": 26.6098
+  },
+  {
+    "id": "canakkale-biga",
+    "province": "Çanakkale",
+    "name": "Biga",
+    "latitude": 40.2281,
+    "longitude": 27.2422
+  },
+  {
+    "id": "canakkale-bozcaada",
+    "province": "Çanakkale",
+    "name": "Bozcaada",
+    "latitude": 39.835,
+    "longitude": 26.0697
+  },
+  {
+    "id": "canakkale-can",
+    "province": "Çanakkale",
+    "name": "Çan",
+    "latitude": 40.0333,
+    "longitude": 27.05
+  },
+  {
+    "id": "canakkale-eceabat",
+    "province": "Çanakkale",
+    "name": "Eceabat",
+    "latitude": 40.1842,
+    "longitude": 26.3575
+  },
+  {
+    "id": "canakkale-ezine",
+    "province": "Çanakkale",
+    "name": "Ezine",
+    "latitude": 39.7856,
+    "longitude": 26.3408
+  },
+  {
+    "id": "canakkale-gelibolu",
+    "province": "Çanakkale",
+    "name": "Gelibolu",
+    "latitude": 40.517749,
+    "longitude": 26.788745
+  },
+  {
+    "id": "canakkale-gokceada",
+    "province": "Çanakkale",
+    "name": "Gökçeada",
+    "latitude": 40.2011,
+    "longitude": 25.909
+  },
+  {
+    "id": "canakkale-lapseki",
+    "province": "Çanakkale",
+    "name": "Lapseki",
+    "latitude": 40.3442,
+    "longitude": 26.6856
+  },
+  {
+    "id": "canakkale-merkez",
+    "province": "Çanakkale",
+    "name": "Merkez",
+    "latitude": 40.153495,
+    "longitude": 26.414093
+  },
+  {
+    "id": "canakkale-yenice",
+    "province": "Çanakkale",
+    "name": "Yenice",
+    "latitude": 39.9308,
+    "longitude": 27.2581
+  },
+  {
+    "id": "cankiri-atkaracalar",
+    "province": "Çankırı",
+    "name": "Atkaracalar",
+    "latitude": 40.8159,
+    "longitude": 33.0756
+  },
+  {
+    "id": "cankiri-bayramoren",
+    "province": "Çankırı",
+    "name": "Bayramören",
+    "latitude": 40.9433,
+    "longitude": 33.203
+  },
+  {
+    "id": "cankiri-cerkes",
+    "province": "Çankırı",
+    "name": "Çerkeş",
+    "latitude": 40.8116,
+    "longitude": 32.8936
+  },
+  {
+    "id": "cankiri-eldivan",
+    "province": "Çankırı",
+    "name": "Eldivan",
+    "latitude": 40.5297,
+    "longitude": 33.499
+  },
+  {
+    "id": "cankiri-ilgaz",
+    "province": "Çankırı",
+    "name": "Ilgaz",
+    "latitude": 40.9251,
+    "longitude": 33.6259
+  },
+  {
+    "id": "cankiri-kizilirmak",
+    "province": "Çankırı",
+    "name": "Kızılırmak",
+    "latitude": 40.3456,
+    "longitude": 33.9864
+  },
+  {
+    "id": "cankiri-korgun",
+    "province": "Çankırı",
+    "name": "Korgun",
+    "latitude": 40.7348,
+    "longitude": 33.5184
+  },
+  {
+    "id": "cankiri-kursunlu",
+    "province": "Çankırı",
+    "name": "Kurşunlu",
+    "latitude": 40.841,
+    "longitude": 33.2603
+  },
+  {
+    "id": "cankiri-merkez",
+    "province": "Çankırı",
+    "name": "Merkez",
+    "latitude": 40.595969,
+    "longitude": 33.614843
+  },
+  {
+    "id": "cankiri-orta",
+    "province": "Çankırı",
+    "name": "Orta",
+    "latitude": 40.6242,
+    "longitude": 33.1093
+  },
+  {
+    "id": "cankiri-sabanozu",
+    "province": "Çankırı",
+    "name": "Şabanözü",
+    "latitude": 40.4825,
+    "longitude": 33.2835
+  },
+  {
+    "id": "cankiri-yaprakli",
+    "province": "Çankırı",
+    "name": "Yapraklı",
+    "latitude": 40.7579,
+    "longitude": 33.7782
+  },
+  {
+    "id": "corum-alaca",
+    "province": "Çorum",
+    "name": "Alaca",
+    "latitude": 40.1683,
+    "longitude": 34.8425
+  },
+  {
+    "id": "corum-bayat",
+    "province": "Çorum",
+    "name": "Bayat",
+    "latitude": 40.646,
+    "longitude": 34.261
+  },
+  {
+    "id": "corum-bogazkale",
+    "province": "Çorum",
+    "name": "Boğazkale",
+    "latitude": 40.0219,
+    "longitude": 34.6095
+  },
+  {
+    "id": "corum-dodurga",
+    "province": "Çorum",
+    "name": "Dodurga",
+    "latitude": 40.8549,
+    "longitude": 34.807
+  },
+  {
+    "id": "corum-iskilip",
+    "province": "Çorum",
+    "name": "İskilip",
+    "latitude": 40.7353,
+    "longitude": 34.4739
+  },
+  {
+    "id": "corum-kargi",
+    "province": "Çorum",
+    "name": "Kargı",
+    "latitude": 41.1337,
+    "longitude": 34.4874
+  },
+  {
+    "id": "corum-lacin",
+    "province": "Çorum",
+    "name": "Laçin",
+    "latitude": 40.7749,
+    "longitude": 34.8807
+  },
+  {
+    "id": "corum-mecitozu",
+    "province": "Çorum",
+    "name": "Mecitözü",
+    "latitude": 40.52,
+    "longitude": 35.2953
+  },
+  {
+    "id": "corum-merkez",
+    "province": "Çorum",
+    "name": "Merkez",
+    "latitude": 40.54915,
+    "longitude": 34.960245
+  },
+  {
+    "id": "corum-oguzlar",
+    "province": "Çorum",
+    "name": "Oğuzlar",
+    "latitude": 40.7535,
+    "longitude": 34.7027
+  },
+  {
+    "id": "corum-ortakoy",
+    "province": "Çorum",
+    "name": "Ortaköy",
+    "latitude": 40.2735,
+    "longitude": 35.2517
+  },
+  {
+    "id": "corum-osmancik",
+    "province": "Çorum",
+    "name": "Osmancık",
+    "latitude": 40.9782,
+    "longitude": 34.8047
+  },
+  {
+    "id": "corum-sungurlu",
+    "province": "Çorum",
+    "name": "Sungurlu",
+    "latitude": 40.1675,
+    "longitude": 34.3739
+  },
+  {
+    "id": "corum-ugurludag",
+    "province": "Çorum",
+    "name": "Uğurludağ",
+    "latitude": 40.4463,
+    "longitude": 34.4526
+  },
+  {
+    "id": "denizli-acipayam",
+    "province": "Denizli",
+    "name": "Acıpayam",
+    "latitude": 37.4239,
+    "longitude": 29.3494
+  },
+  {
+    "id": "denizli-babadag",
+    "province": "Denizli",
+    "name": "Babadağ",
+    "latitude": 37.8076,
+    "longitude": 28.8567
+  },
+  {
+    "id": "denizli-baklan",
+    "province": "Denizli",
+    "name": "Baklan",
+    "latitude": 37.9769,
+    "longitude": 29.6086
+  },
+  {
+    "id": "denizli-bekilli",
+    "province": "Denizli",
+    "name": "Bekilli",
+    "latitude": 38.2311,
+    "longitude": 29.4197
+  },
+  {
+    "id": "denizli-beyagac",
+    "province": "Denizli",
+    "name": "Beyağaç",
+    "latitude": 37.2353,
+    "longitude": 28.8961
+  },
+  {
+    "id": "denizli-bozkurt",
+    "province": "Denizli",
+    "name": "Bozkurt",
+    "latitude": 37.8242,
+    "longitude": 29.6097
+  },
+  {
+    "id": "denizli-buldan",
+    "province": "Denizli",
+    "name": "Buldan",
+    "latitude": 38.045,
+    "longitude": 28.8306
+  },
+  {
+    "id": "denizli-cal",
+    "province": "Denizli",
+    "name": "Çal",
+    "latitude": 38.0836,
+    "longitude": 29.3989
+  },
+  {
+    "id": "denizli-cameli",
+    "province": "Denizli",
+    "name": "Çameli",
+    "latitude": 37.0761,
+    "longitude": 29.3447
+  },
+  {
+    "id": "denizli-cardak",
+    "province": "Denizli",
+    "name": "Çardak",
+    "latitude": 37.8269,
+    "longitude": 29.6683
+  },
+  {
+    "id": "denizli-civril",
+    "province": "Denizli",
+    "name": "Çivril",
+    "latitude": 38.3014,
+    "longitude": 29.7386
+  },
+  {
+    "id": "denizli-guney",
+    "province": "Denizli",
+    "name": "Güney",
+    "latitude": 38.1544,
+    "longitude": 29.0678
+  },
+  {
+    "id": "denizli-honaz",
+    "province": "Denizli",
+    "name": "Honaz",
+    "latitude": 37.7573,
+    "longitude": 29.27
+  },
+  {
+    "id": "denizli-kale",
+    "province": "Denizli",
+    "name": "Kale",
+    "latitude": 37.4392,
+    "longitude": 28.8453
+  },
+  {
+    "id": "denizli-merkezefendi",
+    "province": "Denizli",
+    "name": "Merkezefendi",
+    "latitude": 37.791821,
+    "longitude": 29.066654
+  },
+  {
+    "id": "denizli-pamukkale",
+    "province": "Denizli",
+    "name": "Pamukkale",
+    "latitude": 37.916491,
+    "longitude": 29.119308
+  },
+  {
+    "id": "denizli-saraykoy",
+    "province": "Denizli",
+    "name": "Sarayköy",
+    "latitude": 37.9245,
+    "longitude": 28.9252
+  },
+  {
+    "id": "denizli-serinhisar",
+    "province": "Denizli",
+    "name": "Serinhisar",
+    "latitude": 37.581,
+    "longitude": 29.2664
+  },
+  {
+    "id": "denizli-tavas",
+    "province": "Denizli",
+    "name": "Tavas",
+    "latitude": 37.5735,
+    "longitude": 29.0706
+  },
+  {
+    "id": "diyarbakir-baglar",
+    "province": "Diyarbakır",
+    "name": "Bağlar",
+    "latitude": 37.9137,
+    "longitude": 40.2058
+  },
+  {
+    "id": "diyarbakir-bismil",
+    "province": "Diyarbakır",
+    "name": "Bismil",
+    "latitude": 37.8451,
+    "longitude": 40.6593
+  },
+  {
+    "id": "diyarbakir-cermik",
+    "province": "Diyarbakır",
+    "name": "Çermik",
+    "latitude": 38.1354,
+    "longitude": 39.445
+  },
+  {
+    "id": "diyarbakir-cinar",
+    "province": "Diyarbakır",
+    "name": "Çınar",
+    "latitude": 37.7256,
+    "longitude": 40.4147
+  },
+  {
+    "id": "diyarbakir-cungus",
+    "province": "Diyarbakır",
+    "name": "Çüngüş",
+    "latitude": 38.2122,
+    "longitude": 39.2884
+  },
+  {
+    "id": "diyarbakir-dicle",
+    "province": "Diyarbakır",
+    "name": "Dicle",
+    "latitude": 38.3657,
+    "longitude": 40.0645
+  },
+  {
+    "id": "diyarbakir-egil",
+    "province": "Diyarbakır",
+    "name": "Eğil",
+    "latitude": 38.2575,
+    "longitude": 40.0744
+  },
+  {
+    "id": "diyarbakir-ergani",
+    "province": "Diyarbakır",
+    "name": "Ergani",
+    "latitude": 38.269,
+    "longitude": 39.7545
+  },
+  {
+    "id": "diyarbakir-hani",
+    "province": "Diyarbakır",
+    "name": "Hani",
+    "latitude": 38.4074,
+    "longitude": 40.3858
+  },
+  {
+    "id": "diyarbakir-hazro",
+    "province": "Diyarbakır",
+    "name": "Hazro",
+    "latitude": 38.249,
+    "longitude": 40.7713
+  },
+  {
+    "id": "diyarbakir-kayapinar",
+    "province": "Diyarbakır",
+    "name": "Kayapınar",
+    "latitude": 37.9373,
+    "longitude": 40.1776
+  },
+  {
+    "id": "diyarbakir-kocakoy",
+    "province": "Diyarbakır",
+    "name": "Kocaköy",
+    "latitude": 38.2889,
+    "longitude": 40.4979
+  },
+  {
+    "id": "diyarbakir-kulp",
+    "province": "Diyarbakır",
+    "name": "Kulp",
+    "latitude": 38.4975,
+    "longitude": 41.0067
+  },
+  {
+    "id": "diyarbakir-lice",
+    "province": "Diyarbakır",
+    "name": "Lice",
+    "latitude": 38.4549,
+    "longitude": 40.6519
+  },
+  {
+    "id": "diyarbakir-silvan",
+    "province": "Diyarbakır",
+    "name": "Silvan",
+    "latitude": 38.1371,
+    "longitude": 41.0082
+  },
+  {
+    "id": "diyarbakir-sur",
+    "province": "Diyarbakır",
+    "name": "Sur",
+    "latitude": 37.9135,
+    "longitude": 40.2286
+  },
+  {
+    "id": "diyarbakir-yenisehir",
+    "province": "Diyarbakır",
+    "name": "Yenişehir",
+    "latitude": 37.9415,
+    "longitude": 40.138
+  },
+  {
+    "id": "duzce-akcakoca",
+    "province": "Düzce",
+    "name": "Akçakoca",
+    "latitude": 41.0866,
+    "longitude": 31.1162
+  },
+  {
+    "id": "duzce-cilimli",
+    "province": "Düzce",
+    "name": "Çilimli",
+    "latitude": 40.8936,
+    "longitude": 31.0492
+  },
+  {
+    "id": "duzce-cumayeri",
+    "province": "Düzce",
+    "name": "Cumayeri",
+    "latitude": 40.8739,
+    "longitude": 30.9509
+  },
+  {
+    "id": "duzce-golyaka",
+    "province": "Düzce",
+    "name": "Gölyaka",
+    "latitude": 40.7769,
+    "longitude": 30.9959
+  },
+  {
+    "id": "duzce-gumusova",
+    "province": "Düzce",
+    "name": "Gümüşova",
+    "latitude": 40.8469,
+    "longitude": 30.9411
+  },
+  {
+    "id": "duzce-kaynasli",
+    "province": "Düzce",
+    "name": "Kaynaşlı",
+    "latitude": 40.7692,
+    "longitude": 31.3221
+  },
+  {
+    "id": "duzce-merkez",
+    "province": "Düzce",
+    "name": "Merkez",
+    "latitude": 40.845861,
+    "longitude": 31.164851
+  },
+  {
+    "id": "duzce-yigilca",
+    "province": "Düzce",
+    "name": "Yığılca",
+    "latitude": 40.9598,
+    "longitude": 31.4436
+  },
+  {
+    "id": "edirne-enez",
+    "province": "Edirne",
+    "name": "Enez",
+    "latitude": 40.7247,
+    "longitude": 26.0825
+  },
+  {
+    "id": "edirne-havsa",
+    "province": "Edirne",
+    "name": "Havsa",
+    "latitude": 41.549,
+    "longitude": 26.8221
+  },
+  {
+    "id": "edirne-ipsala",
+    "province": "Edirne",
+    "name": "İpsala",
+    "latitude": 40.9181,
+    "longitude": 26.3831
+  },
+  {
+    "id": "edirne-kesan",
+    "province": "Edirne",
+    "name": "Keşan",
+    "latitude": 40.8558,
+    "longitude": 26.6303
+  },
+  {
+    "id": "edirne-lalapasa",
+    "province": "Edirne",
+    "name": "Lalapaşa",
+    "latitude": 41.879736,
+    "longitude": 26.769045
+  },
+  {
+    "id": "edirne-meric",
+    "province": "Edirne",
+    "name": "Meriç",
+    "latitude": 41.1918,
+    "longitude": 26.421
+  },
+  {
+    "id": "edirne-merkez",
+    "province": "Edirne",
+    "name": "Merkez",
+    "latitude": 41.675933,
+    "longitude": 26.558722
+  },
+  {
+    "id": "edirne-suloglu",
+    "province": "Edirne",
+    "name": "Süloğlu",
+    "latitude": 41.769,
+    "longitude": 26.91
+  },
+  {
+    "id": "edirne-uzunkopru",
+    "province": "Edirne",
+    "name": "Uzunköprü",
+    "latitude": 41.2669,
+    "longitude": 26.6875
+  },
+  {
+    "id": "elazig-agin",
+    "province": "Elazığ",
+    "name": "Ağın",
+    "latitude": 38.9379,
+    "longitude": 38.7116
+  },
+  {
+    "id": "elazig-alacakaya",
+    "province": "Elazığ",
+    "name": "Alacakaya",
+    "latitude": 38.474604,
+    "longitude": 39.834308
+  },
+  {
+    "id": "elazig-aricak",
+    "province": "Elazığ",
+    "name": "Arıcak",
+    "latitude": 38.5634,
+    "longitude": 40.1248
+  },
+  {
+    "id": "elazig-baskil",
+    "province": "Elazığ",
+    "name": "Baskil",
+    "latitude": 38.5687,
+    "longitude": 38.8163
+  },
+  {
+    "id": "elazig-karakocan",
+    "province": "Elazığ",
+    "name": "Karakoçan",
+    "latitude": 38.95,
+    "longitude": 40.0333
+  },
+  {
+    "id": "elazig-keban",
+    "province": "Elazığ",
+    "name": "Keban",
+    "latitude": 38.7938,
+    "longitude": 38.7352
+  },
+  {
+    "id": "elazig-kovancilar",
+    "province": "Elazığ",
+    "name": "Kovancılar",
+    "latitude": 38.7188,
+    "longitude": 39.8627
+  },
+  {
+    "id": "elazig-maden",
+    "province": "Elazığ",
+    "name": "Maden",
+    "latitude": 38.3867,
+    "longitude": 39.6641
+  },
+  {
+    "id": "elazig-merkez",
+    "province": "Elazığ",
+    "name": "Merkez",
+    "latitude": 38.676303,
+    "longitude": 39.221849
+  },
+  {
+    "id": "elazig-palu",
+    "province": "Elazığ",
+    "name": "Palu",
+    "latitude": 38.6914,
+    "longitude": 39.9198
+  },
+  {
+    "id": "elazig-sivrice",
+    "province": "Elazığ",
+    "name": "Sivrice",
+    "latitude": 38.4422,
+    "longitude": 39.3094
+  },
+  {
+    "id": "erzincan-cayirli",
+    "province": "Erzincan",
+    "name": "Çayırlı",
+    "latitude": 39.8077,
+    "longitude": 40.028
+  },
+  {
+    "id": "erzincan-ilic",
+    "province": "Erzincan",
+    "name": "İliç",
+    "latitude": 39.4511,
+    "longitude": 38.5584
+  },
+  {
+    "id": "erzincan-kemah",
+    "province": "Erzincan",
+    "name": "Kemah",
+    "latitude": 39.5961,
+    "longitude": 39.0233
+  },
+  {
+    "id": "erzincan-kemaliye",
+    "province": "Erzincan",
+    "name": "Kemaliye",
+    "latitude": 39.2629,
+    "longitude": 38.4967
+  },
+  {
+    "id": "erzincan-merkez",
+    "province": "Erzincan",
+    "name": "Merkez",
+    "latitude": 39.749605,
+    "longitude": 39.494102
+  },
+  {
+    "id": "erzincan-otlukbeli",
+    "province": "Erzincan",
+    "name": "Otlukbeli",
+    "latitude": 39.97,
+    "longitude": 40.0187
+  },
+  {
+    "id": "erzincan-refahiye",
+    "province": "Erzincan",
+    "name": "Refahiye",
+    "latitude": 39.8932,
+    "longitude": 38.7661
+  },
+  {
+    "id": "erzincan-tercan",
+    "province": "Erzincan",
+    "name": "Tercan",
+    "latitude": 39.7771,
+    "longitude": 40.3778
+  },
+  {
+    "id": "erzincan-uzumlu",
+    "province": "Erzincan",
+    "name": "Üzümlü",
+    "latitude": 39.7095,
+    "longitude": 39.7002
+  },
+  {
+    "id": "erzurum-askale",
+    "province": "Erzurum",
+    "name": "Aşkale",
+    "latitude": 39.9172,
+    "longitude": 40.6848
+  },
+  {
+    "id": "erzurum-aziziye",
+    "province": "Erzurum",
+    "name": "Aziziye",
+    "latitude": 40.077241,
+    "longitude": 40.984546
+  },
+  {
+    "id": "erzurum-cat",
+    "province": "Erzurum",
+    "name": "Çat",
+    "latitude": 39.6064,
+    "longitude": 40.9684
+  },
+  {
+    "id": "erzurum-hinis",
+    "province": "Erzurum",
+    "name": "Hınıs",
+    "latitude": 39.3577,
+    "longitude": 41.6925
+  },
+  {
+    "id": "erzurum-horasan",
+    "province": "Erzurum",
+    "name": "Horasan",
+    "latitude": 40.0388,
+    "longitude": 42.1637
+  },
+  {
+    "id": "erzurum-ispir",
+    "province": "Erzurum",
+    "name": "İspir",
+    "latitude": 40.4798,
+    "longitude": 40.9937
+  },
+  {
+    "id": "erzurum-karacoban",
+    "province": "Erzurum",
+    "name": "Karaçoban",
+    "latitude": 39.3436,
+    "longitude": 42.0992
+  },
+  {
+    "id": "erzurum-karayazi",
+    "province": "Erzurum",
+    "name": "Karayazı",
+    "latitude": 39.696,
+    "longitude": 42.1428
+  },
+  {
+    "id": "erzurum-koprukoy",
+    "province": "Erzurum",
+    "name": "Köprüköy",
+    "latitude": 39.966,
+    "longitude": 41.8684
+  },
+  {
+    "id": "erzurum-narman",
+    "province": "Erzurum",
+    "name": "Narman",
+    "latitude": 40.3445,
+    "longitude": 41.8609
+  },
+  {
+    "id": "erzurum-oltu",
+    "province": "Erzurum",
+    "name": "Oltu",
+    "latitude": 40.5394,
+    "longitude": 41.9872
+  },
+  {
+    "id": "erzurum-olur",
+    "province": "Erzurum",
+    "name": "Olur",
+    "latitude": 40.8216,
+    "longitude": 42.1306
+  },
+  {
+    "id": "erzurum-palandoken",
+    "province": "Erzurum",
+    "name": "Palandöken",
+    "latitude": 39.889,
+    "longitude": 41.2805
+  },
+  {
+    "id": "erzurum-pasinler",
+    "province": "Erzurum",
+    "name": "Pasinler",
+    "latitude": 39.9797,
+    "longitude": 41.67
+  },
+  {
+    "id": "erzurum-pazaryolu",
+    "province": "Erzurum",
+    "name": "Pazaryolu",
+    "latitude": 40.4114,
+    "longitude": 40.7678
+  },
+  {
+    "id": "erzurum-senkaya",
+    "province": "Erzurum",
+    "name": "Şenkaya",
+    "latitude": 40.5565,
+    "longitude": 42.3427
+  },
+  {
+    "id": "erzurum-tekman",
+    "province": "Erzurum",
+    "name": "Tekman",
+    "latitude": 39.6411,
+    "longitude": 41.5054
+  },
+  {
+    "id": "erzurum-tortum",
+    "province": "Erzurum",
+    "name": "Tortum",
+    "latitude": 40.2889,
+    "longitude": 41.541
+  },
+  {
+    "id": "erzurum-uzundere",
+    "province": "Erzurum",
+    "name": "Uzundere",
+    "latitude": 40.5322,
+    "longitude": 41.5383
+  },
+  {
+    "id": "erzurum-yakutiye",
+    "province": "Erzurum",
+    "name": "Yakutiye",
+    "latitude": 39.8982,
+    "longitude": 41.2692
+  },
+  {
+    "id": "eskisehir-alpu",
+    "province": "Eskişehir",
+    "name": "Alpu",
+    "latitude": 39.769,
+    "longitude": 30.9606
+  },
+  {
+    "id": "eskisehir-beylikova",
+    "province": "Eskişehir",
+    "name": "Beylikova",
+    "latitude": 39.6869,
+    "longitude": 31.2056
+  },
+  {
+    "id": "eskisehir-cifteler",
+    "province": "Eskişehir",
+    "name": "Çifteler",
+    "latitude": 39.3831,
+    "longitude": 31.0392
+  },
+  {
+    "id": "eskisehir-gunyuzu",
+    "province": "Eskişehir",
+    "name": "Günyüzü",
+    "latitude": 39.3834,
+    "longitude": 31.8099
+  },
+  {
+    "id": "eskisehir-han",
+    "province": "Eskişehir",
+    "name": "Han",
+    "latitude": 39.1592,
+    "longitude": 30.8614
+  },
+  {
+    "id": "eskisehir-inonu",
+    "province": "Eskişehir",
+    "name": "İnönü",
+    "latitude": 39.8153,
+    "longitude": 30.1455
+  },
+  {
+    "id": "eskisehir-mahmudiye",
+    "province": "Eskişehir",
+    "name": "Mahmudiye",
+    "latitude": 39.4978,
+    "longitude": 30.9872
+  },
+  {
+    "id": "eskisehir-mihalgazi",
+    "province": "Eskişehir",
+    "name": "Mihalgazi",
+    "latitude": 40.0262,
+    "longitude": 30.5771
+  },
+  {
+    "id": "eskisehir-mihaliccik",
+    "province": "Eskişehir",
+    "name": "Mihalıççık",
+    "latitude": 39.845897,
+    "longitude": 31.581392
+  },
+  {
+    "id": "eskisehir-odunpazari",
+    "province": "Eskişehir",
+    "name": "Odunpazarı",
+    "latitude": 39.632865,
+    "longitude": 30.547401
+  },
+  {
+    "id": "eskisehir-saricakaya",
+    "province": "Eskişehir",
+    "name": "Sarıcakaya",
+    "latitude": 40.0369,
+    "longitude": 30.6267
+  },
+  {
+    "id": "eskisehir-seyitgazi",
+    "province": "Eskişehir",
+    "name": "Seyitgazi",
+    "latitude": 39.4447,
+    "longitude": 30.6947
+  },
+  {
+    "id": "eskisehir-sivrihisar",
+    "province": "Eskişehir",
+    "name": "Sivrihisar",
+    "latitude": 39.4504,
+    "longitude": 31.5341
+  },
+  {
+    "id": "eskisehir-tepebasi",
+    "province": "Eskişehir",
+    "name": "Tepebaşı",
+    "latitude": 39.834315,
+    "longitude": 30.565365
+  },
+  {
+    "id": "gaziantep-araban",
+    "province": "Gaziantep",
+    "name": "Araban",
+    "latitude": 37.4267,
+    "longitude": 37.689
+  },
+  {
+    "id": "gaziantep-islahiye",
+    "province": "Gaziantep",
+    "name": "İslahiye",
+    "latitude": 37.0264,
+    "longitude": 36.6322
+  },
+  {
+    "id": "gaziantep-karkamis",
+    "province": "Gaziantep",
+    "name": "Karkamış",
+    "latitude": 36.8345,
+    "longitude": 37.9983
+  },
+  {
+    "id": "gaziantep-nizip",
+    "province": "Gaziantep",
+    "name": "Nizip",
+    "latitude": 37.0104,
+    "longitude": 37.7985
+  },
+  {
+    "id": "gaziantep-nurdagi",
+    "province": "Gaziantep",
+    "name": "Nurdağı",
+    "latitude": 37.1682,
+    "longitude": 36.7362
+  },
+  {
+    "id": "gaziantep-oguzeli",
+    "province": "Gaziantep",
+    "name": "Oğuzeli",
+    "latitude": 36.9657,
+    "longitude": 37.5134
+  },
+  {
+    "id": "gaziantep-sahinbey",
+    "province": "Gaziantep",
+    "name": "Şahinbey",
+    "latitude": 37.0484,
+    "longitude": 37.3437
+  },
+  {
+    "id": "gaziantep-sehitkamil",
+    "province": "Gaziantep",
+    "name": "Şehitkamil",
+    "latitude": 37.0796,
+    "longitude": 37.38
+  },
+  {
+    "id": "gaziantep-yavuzeli",
+    "province": "Gaziantep",
+    "name": "Yavuzeli",
+    "latitude": 37.3177,
+    "longitude": 37.5682
+  },
+  {
+    "id": "giresun-alucra",
+    "province": "Giresun",
+    "name": "Alucra",
+    "latitude": 40.3166,
+    "longitude": 38.7528
+  },
+  {
+    "id": "giresun-bulancak",
+    "province": "Giresun",
+    "name": "Bulancak",
+    "latitude": 40.938,
+    "longitude": 38.2315
+  },
+  {
+    "id": "giresun-camoluk",
+    "province": "Giresun",
+    "name": "Çamoluk",
+    "latitude": 40.1273,
+    "longitude": 38.7301
+  },
+  {
+    "id": "giresun-canakci",
+    "province": "Giresun",
+    "name": "Çanakçı",
+    "latitude": 40.9114,
+    "longitude": 38.9881
+  },
+  {
+    "id": "giresun-dereli",
+    "province": "Giresun",
+    "name": "Dereli",
+    "latitude": 40.7389,
+    "longitude": 38.4434
+  },
+  {
+    "id": "giresun-dogankent",
+    "province": "Giresun",
+    "name": "Doğankent",
+    "latitude": 40.8075,
+    "longitude": 38.9172
+  },
+  {
+    "id": "giresun-espiye",
+    "province": "Giresun",
+    "name": "Espiye",
+    "latitude": 40.947,
+    "longitude": 38.703
+  },
+  {
+    "id": "giresun-eynesil",
+    "province": "Giresun",
+    "name": "Eynesil",
+    "latitude": 41.05,
+    "longitude": 39.1333
+  },
+  {
+    "id": "giresun-gorele",
+    "province": "Giresun",
+    "name": "Görele",
+    "latitude": 41.0308,
+    "longitude": 39.0031
+  },
+  {
+    "id": "giresun-guce",
+    "province": "Giresun",
+    "name": "Güce",
+    "latitude": 40.8932,
+    "longitude": 38.7982
+  },
+  {
+    "id": "giresun-kesap",
+    "province": "Giresun",
+    "name": "Keşap",
+    "latitude": 40.9103,
+    "longitude": 38.5013
+  },
+  {
+    "id": "giresun-merkez",
+    "province": "Giresun",
+    "name": "Merkez",
+    "latitude": 40.91487,
+    "longitude": 38.387929
+  },
+  {
+    "id": "giresun-piraziz",
+    "province": "Giresun",
+    "name": "Piraziz",
+    "latitude": 40.872337,
+    "longitude": 38.081499
+  },
+  {
+    "id": "giresun-sebinkarahisar",
+    "province": "Giresun",
+    "name": "Şebinkarahisar",
+    "latitude": 40.31093,
+    "longitude": 38.410883
+  },
+  {
+    "id": "giresun-tirebolu",
+    "province": "Giresun",
+    "name": "Tirebolu",
+    "latitude": 41.0069,
+    "longitude": 38.8139
+  },
+  {
+    "id": "giresun-yaglidere",
+    "province": "Giresun",
+    "name": "Yağlıdere",
+    "latitude": 40.8567,
+    "longitude": 38.6203
+  },
+  {
+    "id": "gumushane-kelkit",
+    "province": "Gümüşhane",
+    "name": "Kelkit",
+    "latitude": 40.1268,
+    "longitude": 39.4342
+  },
+  {
+    "id": "gumushane-kose",
+    "province": "Gümüşhane",
+    "name": "Köse",
+    "latitude": 40.2069,
+    "longitude": 39.6463
+  },
+  {
+    "id": "gumushane-kurtun",
+    "province": "Gümüşhane",
+    "name": "Kürtün",
+    "latitude": 40.6952,
+    "longitude": 39.0947
+  },
+  {
+    "id": "gumushane-merkez",
+    "province": "Gümüşhane",
+    "name": "Merkez",
+    "latitude": 40.461784,
+    "longitude": 39.475734
+  },
+  {
+    "id": "gumushane-siran",
+    "province": "Gümüşhane",
+    "name": "Şiran",
+    "latitude": 40.1906,
+    "longitude": 39.1175
+  },
+  {
+    "id": "gumushane-torul",
+    "province": "Gümüşhane",
+    "name": "Torul",
+    "latitude": 40.5507,
+    "longitude": 39.2834
+  },
+  {
+    "id": "hakkari-cukurca",
+    "province": "Hakkari",
+    "name": "Çukurca",
+    "latitude": 37.351851,
+    "longitude": 43.720433
+  },
+  {
+    "id": "hakkari-merkez",
+    "province": "Hakkari",
+    "name": "Merkez",
+    "latitude": 37.574898,
+    "longitude": 43.73766
+  },
+  {
+    "id": "hakkari-semdinli",
+    "province": "Hakkari",
+    "name": "Şemdinli",
+    "latitude": 37.216435,
+    "longitude": 44.514932
+  },
+  {
+    "id": "hakkari-yuksekova",
+    "province": "Hakkari",
+    "name": "Yüksekova",
+    "latitude": 37.514921,
+    "longitude": 44.291214
+  },
+  {
+    "id": "hatay-altinozu",
+    "province": "Hatay",
+    "name": "Altınözü",
+    "latitude": 36.1155,
+    "longitude": 36.2483
+  },
+  {
+    "id": "hatay-antakya",
+    "province": "Hatay",
+    "name": "Antakya",
+    "latitude": 36.217687,
+    "longitude": 36.165362
+  },
+  {
+    "id": "hatay-arsuz",
+    "province": "Hatay",
+    "name": "Arsuz",
+    "latitude": 36.4131,
+    "longitude": 35.8903
+  },
+  {
+    "id": "hatay-belen",
+    "province": "Hatay",
+    "name": "Belen",
+    "latitude": 36.4917,
+    "longitude": 36.1917
+  },
+  {
+    "id": "hatay-defne",
+    "province": "Hatay",
+    "name": "Defne",
+    "latitude": 36.148875,
+    "longitude": 36.123635
+  },
+  {
+    "id": "hatay-dortyol",
+    "province": "Hatay",
+    "name": "Dörtyol",
+    "latitude": 36.8392,
+    "longitude": 36.2303
+  },
+  {
+    "id": "hatay-erzin",
+    "province": "Hatay",
+    "name": "Erzin",
+    "latitude": 36.9539,
+    "longitude": 36.2022
+  },
+  {
+    "id": "hatay-hassa",
+    "province": "Hatay",
+    "name": "Hassa",
+    "latitude": 36.8,
+    "longitude": 36.53
+  },
+  {
+    "id": "hatay-iskenderun",
+    "province": "Hatay",
+    "name": "İskenderun",
+    "latitude": 36.5804,
+    "longitude": 36.17
+  },
+  {
+    "id": "hatay-kirikhan",
+    "province": "Hatay",
+    "name": "Kırıkhan",
+    "latitude": 36.4994,
+    "longitude": 36.3576
+  },
+  {
+    "id": "hatay-kumlu",
+    "province": "Hatay",
+    "name": "Kumlu",
+    "latitude": 36.3635,
+    "longitude": 36.455
+  },
+  {
+    "id": "hatay-payas",
+    "province": "Hatay",
+    "name": "Payas",
+    "latitude": 36.72222,
+    "longitude": 36.297518
+  },
+  {
+    "id": "hatay-reyhanli",
+    "province": "Hatay",
+    "name": "Reyhanlı",
+    "latitude": 36.2692,
+    "longitude": 36.5672
+  },
+  {
+    "id": "hatay-samandag",
+    "province": "Hatay",
+    "name": "Samandağ",
+    "latitude": 36.085,
+    "longitude": 35.9806
+  },
+  {
+    "id": "hatay-yayladagi",
+    "province": "Hatay",
+    "name": "Yayladağı",
+    "latitude": 35.9025,
+    "longitude": 36.0603
+  },
+  {
+    "id": "igdir-aralik",
+    "province": "Iğdır",
+    "name": "Aralık",
+    "latitude": 39.816689,
+    "longitude": 44.4612
+  },
+  {
+    "id": "igdir-karakoyunlu",
+    "province": "Iğdır",
+    "name": "Karakoyunlu",
+    "latitude": 39.8703,
+    "longitude": 43.63
+  },
+  {
+    "id": "igdir-merkez",
+    "province": "Iğdır",
+    "name": "Merkez",
+    "latitude": 39.921567,
+    "longitude": 44.046772
+  },
+  {
+    "id": "igdir-tuzluca",
+    "province": "Iğdır",
+    "name": "Tuzluca",
+    "latitude": 40.0387,
+    "longitude": 43.6521
+  },
+  {
+    "id": "isparta-aksu",
+    "province": "Isparta",
+    "name": "Aksu",
+    "latitude": 37.7989,
+    "longitude": 31.0711
+  },
+  {
+    "id": "isparta-atabey",
+    "province": "Isparta",
+    "name": "Atabey",
+    "latitude": 37.9508,
+    "longitude": 30.6386
+  },
+  {
+    "id": "isparta-egirdir",
+    "province": "Isparta",
+    "name": "Eğirdir",
+    "latitude": 37.8743,
+    "longitude": 30.8327
+  },
+  {
+    "id": "isparta-gelendost",
+    "province": "Isparta",
+    "name": "Gelendost",
+    "latitude": 38.1208,
+    "longitude": 31.0153
+  },
+  {
+    "id": "isparta-gonen",
+    "province": "Isparta",
+    "name": "Gönen",
+    "latitude": 37.9564,
+    "longitude": 30.5114
+  },
+  {
+    "id": "isparta-keciborlu",
+    "province": "Isparta",
+    "name": "Keçiborlu",
+    "latitude": 37.9425,
+    "longitude": 30.3022
+  },
+  {
+    "id": "isparta-merkez",
+    "province": "Isparta",
+    "name": "Merkez",
+    "latitude": 37.77035,
+    "longitude": 30.555693
+  },
+  {
+    "id": "isparta-sarkikaraagac",
+    "province": "Isparta",
+    "name": "Şarkikaraağaç",
+    "latitude": 37.923145,
+    "longitude": 31.310794
+  },
+  {
+    "id": "isparta-senirkent",
+    "province": "Isparta",
+    "name": "Senirkent",
+    "latitude": 38.1044,
+    "longitude": 30.5486
+  },
+  {
+    "id": "isparta-sutculer",
+    "province": "Isparta",
+    "name": "Sütçüler",
+    "latitude": 37.4974,
+    "longitude": 30.9773
+  },
+  {
+    "id": "isparta-uluborlu",
+    "province": "Isparta",
+    "name": "Uluborlu",
+    "latitude": 38.0783,
+    "longitude": 30.4502
+  },
+  {
+    "id": "isparta-yalvac",
+    "province": "Isparta",
+    "name": "Yalvaç",
+    "latitude": 38.2956,
+    "longitude": 31.1778
+  },
+  {
+    "id": "isparta-yenisarbademli",
+    "province": "Isparta",
+    "name": "Yenişarbademli",
+    "latitude": 37.7078,
+    "longitude": 31.3864
+  },
+  {
+    "id": "istanbul-adalar",
+    "province": "İstanbul",
+    "name": "Adalar",
+    "latitude": 40.8678,
+    "longitude": 29.1331
+  },
+  {
+    "id": "istanbul-arnavutkoy",
+    "province": "İstanbul",
+    "name": "Arnavutköy",
+    "latitude": 41.248259,
+    "longitude": 28.68145
+  },
+  {
+    "id": "istanbul-atasehir",
+    "province": "İstanbul",
+    "name": "Ataşehir",
+    "latitude": 40.984749,
+    "longitude": 29.10672
+  },
+  {
+    "id": "istanbul-avcilar",
+    "province": "İstanbul",
+    "name": "Avcılar",
+    "latitude": 40.980135,
+    "longitude": 28.717547
+  },
+  {
+    "id": "istanbul-bagcilar",
+    "province": "İstanbul",
+    "name": "Bağcılar",
+    "latitude": 41.044729,
+    "longitude": 28.833714
+  },
+  {
+    "id": "istanbul-bahcelievler",
+    "province": "İstanbul",
+    "name": "Bahçelievler",
+    "latitude": 41.00029,
+    "longitude": 28.863745
+  },
+  {
+    "id": "istanbul-bakirkoy",
+    "province": "İstanbul",
+    "name": "Bakırköy",
+    "latitude": 40.980636,
+    "longitude": 28.862875
+  },
+  {
+    "id": "istanbul-basaksehir",
+    "province": "İstanbul",
+    "name": "Başakşehir",
+    "latitude": 41.102728,
+    "longitude": 28.77246
+  },
+  {
+    "id": "istanbul-bayrampasa",
+    "province": "İstanbul",
+    "name": "Bayrampaşa",
+    "latitude": 41.051248,
+    "longitude": 28.898469
+  },
+  {
+    "id": "istanbul-besiktas",
+    "province": "İstanbul",
+    "name": "Beşiktaş",
+    "latitude": 41.071618,
+    "longitude": 29.030538
+  },
+  {
+    "id": "istanbul-beykoz",
+    "province": "İstanbul",
+    "name": "Beykoz",
+    "latitude": 41.1439,
+    "longitude": 29.0906
+  },
+  {
+    "id": "istanbul-beylikduzu",
+    "province": "İstanbul",
+    "name": "Beylikdüzü",
+    "latitude": 41.001079,
+    "longitude": 28.642054
+  },
+  {
+    "id": "istanbul-beyoglu",
+    "province": "İstanbul",
+    "name": "Beyoğlu",
+    "latitude": 41.043461,
+    "longitude": 28.962458
+  },
+  {
+    "id": "istanbul-buyukcekmece",
+    "province": "İstanbul",
+    "name": "Büyükçekmece",
+    "latitude": 41.0128,
+    "longitude": 28.5382
+  },
+  {
+    "id": "istanbul-catalca",
+    "province": "İstanbul",
+    "name": "Çatalca",
+    "latitude": 41.142,
+    "longitude": 28.4638
+  },
+  {
+    "id": "istanbul-cekmekoy",
+    "province": "İstanbul",
+    "name": "Çekmeköy",
+    "latitude": 41.054321,
+    "longitude": 29.244539
+  },
+  {
+    "id": "istanbul-esenler",
+    "province": "İstanbul",
+    "name": "Esenler",
+    "latitude": 41.062002,
+    "longitude": 28.869538
+  },
+  {
+    "id": "istanbul-esenyurt",
+    "province": "İstanbul",
+    "name": "Esenyurt",
+    "latitude": 41.04892,
+    "longitude": 28.658117
+  },
+  {
+    "id": "istanbul-eyupsultan",
+    "province": "İstanbul",
+    "name": "Eyüpsultan",
+    "latitude": 41.046044,
+    "longitude": 28.925324
+  },
+  {
+    "id": "istanbul-fatih",
+    "province": "İstanbul",
+    "name": "Fatih",
+    "latitude": 41.014462,
+    "longitude": 28.954551
+  },
+  {
+    "id": "istanbul-gaziosmanpasa",
+    "province": "İstanbul",
+    "name": "Gaziosmanpaşa",
+    "latitude": 41.073421,
+    "longitude": 28.901556
+  },
+  {
+    "id": "istanbul-gungoren",
+    "province": "İstanbul",
+    "name": "Güngören",
+    "latitude": 41.01981,
+    "longitude": 28.874838
+  },
+  {
+    "id": "istanbul-kadikoy",
+    "province": "İstanbul",
+    "name": "Kadıköy",
+    "latitude": 40.981134,
+    "longitude": 29.065076
+  },
+  {
+    "id": "istanbul-kagithane",
+    "province": "İstanbul",
+    "name": "Kağıthane",
+    "latitude": 41.083032,
+    "longitude": 28.983851
+  },
+  {
+    "id": "istanbul-kartal",
+    "province": "İstanbul",
+    "name": "Kartal",
+    "latitude": 40.9019,
+    "longitude": 29.1737
+  },
+  {
+    "id": "istanbul-kucukcekmece",
+    "province": "İstanbul",
+    "name": "Küçükçekmece",
+    "latitude": 40.996,
+    "longitude": 28.7748
+  },
+  {
+    "id": "istanbul-maltepe",
+    "province": "İstanbul",
+    "name": "Maltepe",
+    "latitude": 40.943396,
+    "longitude": 29.159672
+  },
+  {
+    "id": "istanbul-pendik",
+    "province": "İstanbul",
+    "name": "Pendik",
+    "latitude": 40.8775,
+    "longitude": 29.2725
+  },
+  {
+    "id": "istanbul-sancaktepe",
+    "province": "İstanbul",
+    "name": "Sancaktepe",
+    "latitude": 40.999438,
+    "longitude": 29.22525
+  },
+  {
+    "id": "istanbul-sariyer",
+    "province": "İstanbul",
+    "name": "Sarıyer",
+    "latitude": 41.1667,
+    "longitude": 29.05
+  },
+  {
+    "id": "istanbul-sile",
+    "province": "İstanbul",
+    "name": "Şile",
+    "latitude": 41.1754,
+    "longitude": 29.6133
+  },
+  {
+    "id": "istanbul-silivri",
+    "province": "İstanbul",
+    "name": "Silivri",
+    "latitude": 41.0739,
+    "longitude": 28.2464
+  },
+  {
+    "id": "istanbul-sisli",
+    "province": "İstanbul",
+    "name": "Şişli",
+    "latitude": 41.061672,
+    "longitude": 28.984261
+  },
+  {
+    "id": "istanbul-sultanbeyli",
+    "province": "İstanbul",
+    "name": "Sultanbeyli",
+    "latitude": 40.965883,
+    "longitude": 29.272366
+  },
+  {
+    "id": "istanbul-sultangazi",
+    "province": "İstanbul",
+    "name": "Sultangazi",
+    "latitude": 41.10817,
+    "longitude": 28.861314
+  },
+  {
+    "id": "istanbul-tuzla",
+    "province": "İstanbul",
+    "name": "Tuzla",
+    "latitude": 40.892652,
+    "longitude": 29.372173
+  },
+  {
+    "id": "istanbul-umraniye",
+    "province": "İstanbul",
+    "name": "Ümraniye",
+    "latitude": 41.027219,
+    "longitude": 29.127459
+  },
+  {
+    "id": "istanbul-uskudar",
+    "province": "İstanbul",
+    "name": "Üsküdar",
+    "latitude": 41.035221,
+    "longitude": 29.057334
+  },
+  {
+    "id": "istanbul-zeytinburnu",
+    "province": "İstanbul",
+    "name": "Zeytinburnu",
+    "latitude": 41.005615,
+    "longitude": 28.908198
+  },
+  {
+    "id": "izmir-aliaga",
+    "province": "İzmir",
+    "name": "Aliağa",
+    "latitude": 38.7998,
+    "longitude": 26.972
+  },
+  {
+    "id": "izmir-balcova",
+    "province": "İzmir",
+    "name": "Balçova",
+    "latitude": 38.380547,
+    "longitude": 27.064759
+  },
+  {
+    "id": "izmir-bayindir",
+    "province": "İzmir",
+    "name": "Bayındır",
+    "latitude": 38.2192,
+    "longitude": 27.6481
+  },
+  {
+    "id": "izmir-bayrakli",
+    "province": "İzmir",
+    "name": "Bayraklı",
+    "latitude": 38.477696,
+    "longitude": 27.152368
+  },
+  {
+    "id": "izmir-bergama",
+    "province": "İzmir",
+    "name": "Bergama",
+    "latitude": 39.1228,
+    "longitude": 27.1783
+  },
+  {
+    "id": "izmir-beydag",
+    "province": "İzmir",
+    "name": "Beydağ",
+    "latitude": 38.087039,
+    "longitude": 28.227139
+  },
+  {
+    "id": "izmir-bornova",
+    "province": "İzmir",
+    "name": "Bornova",
+    "latitude": 38.4792,
+    "longitude": 27.2399
+  },
+  {
+    "id": "izmir-buca",
+    "province": "İzmir",
+    "name": "Buca",
+    "latitude": 38.3983,
+    "longitude": 27.1666
+  },
+  {
+    "id": "izmir-cesme",
+    "province": "İzmir",
+    "name": "Çeşme",
+    "latitude": 38.32,
+    "longitude": 26.3053
+  },
+  {
+    "id": "izmir-cigli",
+    "province": "İzmir",
+    "name": "Çiğli",
+    "latitude": 38.485523,
+    "longitude": 26.996189
+  },
+  {
+    "id": "izmir-dikili",
+    "province": "İzmir",
+    "name": "Dikili",
+    "latitude": 39.071,
+    "longitude": 26.8902
+  },
+  {
+    "id": "izmir-foca",
+    "province": "İzmir",
+    "name": "Foça",
+    "latitude": 38.6675,
+    "longitude": 26.7581
+  },
+  {
+    "id": "izmir-gaziemir",
+    "province": "İzmir",
+    "name": "Gaziemir",
+    "latitude": 38.3239,
+    "longitude": 27.1292
+  },
+  {
+    "id": "izmir-guzelbahce",
+    "province": "İzmir",
+    "name": "Güzelbahçe",
+    "latitude": 38.339932,
+    "longitude": 26.889294
+  },
+  {
+    "id": "izmir-karabaglar",
+    "province": "İzmir",
+    "name": "Karabağlar",
+    "latitude": 38.346183,
+    "longitude": 27.038631
+  },
+  {
+    "id": "izmir-karaburun",
+    "province": "İzmir",
+    "name": "Karaburun",
+    "latitude": 38.6364,
+    "longitude": 26.5109
+  },
+  {
+    "id": "izmir-karsiyaka",
+    "province": "İzmir",
+    "name": "Karşıyaka",
+    "latitude": 38.4573,
+    "longitude": 27.1106
+  },
+  {
+    "id": "izmir-kemalpasa",
+    "province": "İzmir",
+    "name": "Kemalpaşa",
+    "latitude": 38.4261,
+    "longitude": 27.4172
+  },
+  {
+    "id": "izmir-kinik",
+    "province": "İzmir",
+    "name": "Kınık",
+    "latitude": 39.0872,
+    "longitude": 27.3833
+  },
+  {
+    "id": "izmir-kiraz",
+    "province": "İzmir",
+    "name": "Kiraz",
+    "latitude": 38.2306,
+    "longitude": 28.2044
+  },
+  {
+    "id": "izmir-konak",
+    "province": "İzmir",
+    "name": "Konak",
+    "latitude": 38.4173,
+    "longitude": 27.1302
+  },
+  {
+    "id": "izmir-menderes",
+    "province": "İzmir",
+    "name": "Menderes",
+    "latitude": 38.254,
+    "longitude": 27.134
+  },
+  {
+    "id": "izmir-menemen",
+    "province": "İzmir",
+    "name": "Menemen",
+    "latitude": 38.6,
+    "longitude": 27.0667
+  },
+  {
+    "id": "izmir-narlidere",
+    "province": "İzmir",
+    "name": "Narlıdere",
+    "latitude": 38.373789,
+    "longitude": 26.982252
+  },
+  {
+    "id": "izmir-odemis",
+    "province": "İzmir",
+    "name": "Ödemiş",
+    "latitude": 38.2311,
+    "longitude": 27.9719
+  },
+  {
+    "id": "izmir-seferihisar",
+    "province": "İzmir",
+    "name": "Seferihisar",
+    "latitude": 38.168958,
+    "longitude": 26.894454
+  },
+  {
+    "id": "izmir-selcuk",
+    "province": "İzmir",
+    "name": "Selçuk",
+    "latitude": 37.95,
+    "longitude": 27.3667
+  },
+  {
+    "id": "izmir-tire",
+    "province": "İzmir",
+    "name": "Tire",
+    "latitude": 38.0833,
+    "longitude": 27.7333
+  },
+  {
+    "id": "izmir-torbali",
+    "province": "İzmir",
+    "name": "Torbalı",
+    "latitude": 38.1619,
+    "longitude": 27.3583
+  },
+  {
+    "id": "izmir-urla",
+    "province": "İzmir",
+    "name": "Urla",
+    "latitude": 38.3222,
+    "longitude": 26.7647
+  },
+  {
+    "id": "kahramanmaras-afsin",
+    "province": "Kahramanmaraş",
+    "name": "Afşin",
+    "latitude": 38.2477,
+    "longitude": 36.914
+  },
+  {
+    "id": "kahramanmaras-andirin",
+    "province": "Kahramanmaraş",
+    "name": "Andırın",
+    "latitude": 37.5776,
+    "longitude": 36.3549
+  },
+  {
+    "id": "kahramanmaras-caglayancerit",
+    "province": "Kahramanmaraş",
+    "name": "Çağlayancerit",
+    "latitude": 37.7452,
+    "longitude": 37.2862
+  },
+  {
+    "id": "kahramanmaras-dulkadiroglu",
+    "province": "Kahramanmaraş",
+    "name": "Dulkadiroğlu",
+    "latitude": 37.695574,
+    "longitude": 37.071647
+  },
+  {
+    "id": "kahramanmaras-ekinozu",
+    "province": "Kahramanmaraş",
+    "name": "Ekinözü",
+    "latitude": 38.0597,
+    "longitude": 37.1879
+  },
+  {
+    "id": "kahramanmaras-elbistan",
+    "province": "Kahramanmaraş",
+    "name": "Elbistan",
+    "latitude": 38.2059,
+    "longitude": 37.1983
+  },
+  {
+    "id": "kahramanmaras-goksun",
+    "province": "Kahramanmaraş",
+    "name": "Göksun",
+    "latitude": 38.021,
+    "longitude": 36.4973
+  },
+  {
+    "id": "kahramanmaras-nurhak",
+    "province": "Kahramanmaraş",
+    "name": "Nurhak",
+    "latitude": 37.9637,
+    "longitude": 37.4405
+  },
+  {
+    "id": "kahramanmaras-onikisubat",
+    "province": "Kahramanmaraş",
+    "name": "Onikişubat",
+    "latitude": 37.669898,
+    "longitude": 36.728016
+  },
+  {
+    "id": "kahramanmaras-pazarcik",
+    "province": "Kahramanmaraş",
+    "name": "Pazarcık",
+    "latitude": 37.484,
+    "longitude": 37.2922
+  },
+  {
+    "id": "kahramanmaras-turkoglu",
+    "province": "Kahramanmaraş",
+    "name": "Türkoğlu",
+    "latitude": 37.3865,
+    "longitude": 36.8426
+  },
+  {
+    "id": "karabuk-eflani",
+    "province": "Karabük",
+    "name": "Eflani",
+    "latitude": 41.4229,
+    "longitude": 32.9576
+  },
+  {
+    "id": "karabuk-eskipazar",
+    "province": "Karabük",
+    "name": "Eskipazar",
+    "latitude": 40.943,
+    "longitude": 32.5309
+  },
+  {
+    "id": "karabuk-merkez",
+    "province": "Karabük",
+    "name": "Merkez",
+    "latitude": 41.19554,
+    "longitude": 32.623115
+  },
+  {
+    "id": "karabuk-ovacik",
+    "province": "Karabük",
+    "name": "Ovacık",
+    "latitude": 41.0766,
+    "longitude": 32.9199
+  },
+  {
+    "id": "karabuk-safranbolu",
+    "province": "Karabük",
+    "name": "Safranbolu",
+    "latitude": 41.2508,
+    "longitude": 32.6942
+  },
+  {
+    "id": "karabuk-yenice",
+    "province": "Karabük",
+    "name": "Yenice",
+    "latitude": 41.2,
+    "longitude": 32.3333
+  },
+  {
+    "id": "karaman-ayranci",
+    "province": "Karaman",
+    "name": "Ayrancı",
+    "latitude": 37.3613,
+    "longitude": 33.6883
+  },
+  {
+    "id": "karaman-basyayla",
+    "province": "Karaman",
+    "name": "Başyayla",
+    "latitude": 36.7534,
+    "longitude": 32.6802
+  },
+  {
+    "id": "karaman-ermenek",
+    "province": "Karaman",
+    "name": "Ermenek",
+    "latitude": 36.6404,
+    "longitude": 32.8918
+  },
+  {
+    "id": "karaman-kazimkarabekir",
+    "province": "Karaman",
+    "name": "Kazımkarabekir",
+    "latitude": 37.2303,
+    "longitude": 32.9589
+  },
+  {
+    "id": "karaman-merkez",
+    "province": "Karaman",
+    "name": "Merkez",
+    "latitude": 37.179245,
+    "longitude": 33.222478
+  },
+  {
+    "id": "karaman-sariveliler",
+    "province": "Karaman",
+    "name": "Sarıveliler",
+    "latitude": 36.6971,
+    "longitude": 32.612
+  },
+  {
+    "id": "kars-akyaka",
+    "province": "Kars",
+    "name": "Akyaka",
+    "latitude": 40.7397,
+    "longitude": 43.6253
+  },
+  {
+    "id": "kars-arpacay",
+    "province": "Kars",
+    "name": "Arpaçay",
+    "latitude": 40.8452,
+    "longitude": 43.3275
+  },
+  {
+    "id": "kars-digor",
+    "province": "Kars",
+    "name": "Digor",
+    "latitude": 40.369,
+    "longitude": 43.41
+  },
+  {
+    "id": "kars-kagizman",
+    "province": "Kars",
+    "name": "Kağızman",
+    "latitude": 40.1567,
+    "longitude": 43.1342
+  },
+  {
+    "id": "kars-merkez",
+    "province": "Kars",
+    "name": "Merkez",
+    "latitude": 40.605158,
+    "longitude": 43.096173
+  },
+  {
+    "id": "kars-sarikamis",
+    "province": "Kars",
+    "name": "Sarıkamış",
+    "latitude": 40.3277,
+    "longitude": 42.587
+  },
+  {
+    "id": "kars-selim",
+    "province": "Kars",
+    "name": "Selim",
+    "latitude": 40.4577,
+    "longitude": 42.7829
+  },
+  {
+    "id": "kars-susuz",
+    "province": "Kars",
+    "name": "Susuz",
+    "latitude": 40.7791,
+    "longitude": 43.1277
+  },
+  {
+    "id": "kastamonu-abana",
+    "province": "Kastamonu",
+    "name": "Abana",
+    "latitude": 41.9786,
+    "longitude": 34.011
+  },
+  {
+    "id": "kastamonu-agli",
+    "province": "Kastamonu",
+    "name": "Ağlı",
+    "latitude": 41.686,
+    "longitude": 33.5538
+  },
+  {
+    "id": "kastamonu-arac",
+    "province": "Kastamonu",
+    "name": "Araç",
+    "latitude": 41.2422,
+    "longitude": 33.3277
+  },
+  {
+    "id": "kastamonu-azdavay",
+    "province": "Kastamonu",
+    "name": "Azdavay",
+    "latitude": 41.6427,
+    "longitude": 33.3
+  },
+  {
+    "id": "kastamonu-bozkurt",
+    "province": "Kastamonu",
+    "name": "Bozkurt",
+    "latitude": 41.9577,
+    "longitude": 34.0109
+  },
+  {
+    "id": "kastamonu-catalzeytin",
+    "province": "Kastamonu",
+    "name": "Çatalzeytin",
+    "latitude": 41.9531,
+    "longitude": 34.2163
+  },
+  {
+    "id": "kastamonu-cide",
+    "province": "Kastamonu",
+    "name": "Cide",
+    "latitude": 41.8921,
+    "longitude": 33.0044
+  },
+  {
+    "id": "kastamonu-daday",
+    "province": "Kastamonu",
+    "name": "Daday",
+    "latitude": 41.4787,
+    "longitude": 33.4667
+  },
+  {
+    "id": "kastamonu-devrekani",
+    "province": "Kastamonu",
+    "name": "Devrekani",
+    "latitude": 41.603,
+    "longitude": 33.8392
+  },
+  {
+    "id": "kastamonu-doganyurt",
+    "province": "Kastamonu",
+    "name": "Doğanyurt",
+    "latitude": 42.0046,
+    "longitude": 33.4603
+  },
+  {
+    "id": "kastamonu-hanonu",
+    "province": "Kastamonu",
+    "name": "Hanönü",
+    "latitude": 41.6271,
+    "longitude": 34.4667
+  },
+  {
+    "id": "kastamonu-ihsangazi",
+    "province": "Kastamonu",
+    "name": "İhsangazi",
+    "latitude": 41.2043,
+    "longitude": 33.5545
+  },
+  {
+    "id": "kastamonu-inebolu",
+    "province": "Kastamonu",
+    "name": "İnebolu",
+    "latitude": 41.9747,
+    "longitude": 33.7608
+  },
+  {
+    "id": "kastamonu-kure",
+    "province": "Kastamonu",
+    "name": "Küre",
+    "latitude": 41.8058,
+    "longitude": 33.7116
+  },
+  {
+    "id": "kastamonu-merkez",
+    "province": "Kastamonu",
+    "name": "Merkez",
+    "latitude": 41.376536,
+    "longitude": 33.777009
+  },
+  {
+    "id": "kastamonu-pinarbasi",
+    "province": "Kastamonu",
+    "name": "Pınarbaşı",
+    "latitude": 41.6039,
+    "longitude": 33.111
+  },
+  {
+    "id": "kastamonu-senpazar",
+    "province": "Kastamonu",
+    "name": "Şenpazar",
+    "latitude": 41.8089,
+    "longitude": 33.2314
+  },
+  {
+    "id": "kastamonu-seydiler",
+    "province": "Kastamonu",
+    "name": "Seydiler",
+    "latitude": 41.6201,
+    "longitude": 33.7182
+  },
+  {
+    "id": "kastamonu-taskopru",
+    "province": "Kastamonu",
+    "name": "Taşköprü",
+    "latitude": 41.5098,
+    "longitude": 34.2141
+  },
+  {
+    "id": "kastamonu-tosya",
+    "province": "Kastamonu",
+    "name": "Tosya",
+    "latitude": 41.0154,
+    "longitude": 34.0401
+  },
+  {
+    "id": "kayseri-akkisla",
+    "province": "Kayseri",
+    "name": "Akkışla",
+    "latitude": 39.0022,
+    "longitude": 36.1738
+  },
+  {
+    "id": "kayseri-bunyan",
+    "province": "Kayseri",
+    "name": "Bünyan",
+    "latitude": 38.8463,
+    "longitude": 35.8603
+  },
+  {
+    "id": "kayseri-develi",
+    "province": "Kayseri",
+    "name": "Develi",
+    "latitude": 38.3906,
+    "longitude": 35.4922
+  },
+  {
+    "id": "kayseri-felahiye",
+    "province": "Kayseri",
+    "name": "Felahiye",
+    "latitude": 39.0906,
+    "longitude": 35.5672
+  },
+  {
+    "id": "kayseri-hacilar",
+    "province": "Kayseri",
+    "name": "Hacılar",
+    "latitude": 38.6463,
+    "longitude": 35.4494
+  },
+  {
+    "id": "kayseri-incesu",
+    "province": "Kayseri",
+    "name": "İncesu",
+    "latitude": 38.6224,
+    "longitude": 35.1826
+  },
+  {
+    "id": "kayseri-kocasinan",
+    "province": "Kayseri",
+    "name": "Kocasinan",
+    "latitude": 38.7715,
+    "longitude": 35.5725
+  },
+  {
+    "id": "kayseri-melikgazi",
+    "province": "Kayseri",
+    "name": "Melikgazi",
+    "latitude": 38.75,
+    "longitude": 35.45
+  },
+  {
+    "id": "kayseri-ozvatan",
+    "province": "Kayseri",
+    "name": "Özvatan",
+    "latitude": 39.1069,
+    "longitude": 35.6999
+  },
+  {
+    "id": "kayseri-pinarbasi",
+    "province": "Kayseri",
+    "name": "Pınarbaşı",
+    "latitude": 38.722,
+    "longitude": 36.391
+  },
+  {
+    "id": "kayseri-sarioglan",
+    "province": "Kayseri",
+    "name": "Sarıoğlan",
+    "latitude": 39.0769,
+    "longitude": 35.9667
+  },
+  {
+    "id": "kayseri-sariz",
+    "province": "Kayseri",
+    "name": "Sarız",
+    "latitude": 38.4792,
+    "longitude": 36.499
+  },
+  {
+    "id": "kayseri-talas",
+    "province": "Kayseri",
+    "name": "Talas",
+    "latitude": 38.6833,
+    "longitude": 35.5667
+  },
+  {
+    "id": "kayseri-tomarza",
+    "province": "Kayseri",
+    "name": "Tomarza",
+    "latitude": 38.4472,
+    "longitude": 35.7992
+  },
+  {
+    "id": "kayseri-yahyali",
+    "province": "Kayseri",
+    "name": "Yahyalı",
+    "latitude": 38.1023,
+    "longitude": 35.357
+  },
+  {
+    "id": "kayseri-yesilhisar",
+    "province": "Kayseri",
+    "name": "Yeşilhisar",
+    "latitude": 38.3497,
+    "longitude": 35.0867
+  },
+  {
+    "id": "kilis-elbeyli",
+    "province": "Kilis",
+    "name": "Elbeyli",
+    "latitude": 36.6742,
+    "longitude": 37.4667
+  },
+  {
+    "id": "kilis-merkez",
+    "province": "Kilis",
+    "name": "Merkez",
+    "latitude": 36.718045,
+    "longitude": 37.11688
+  },
+  {
+    "id": "kilis-musabeyli",
+    "province": "Kilis",
+    "name": "Musabeyli",
+    "latitude": 36.8864,
+    "longitude": 36.9186
+  },
+  {
+    "id": "kilis-polateli",
+    "province": "Kilis",
+    "name": "Polateli",
+    "latitude": 36.8414,
+    "longitude": 37.1441
+  },
+  {
+    "id": "kirikkale-bahsili",
+    "province": "Kırıkkale",
+    "name": "Bahşili",
+    "latitude": 39.722643,
+    "longitude": 33.330735
+  },
+  {
+    "id": "kirikkale-baliseyh",
+    "province": "Kırıkkale",
+    "name": "Balışeyh",
+    "latitude": 39.9141,
+    "longitude": 33.7233
+  },
+  {
+    "id": "kirikkale-celebi",
+    "province": "Kırıkkale",
+    "name": "Çelebi",
+    "latitude": 39.4642,
+    "longitude": 33.5241
+  },
+  {
+    "id": "kirikkale-delice",
+    "province": "Kırıkkale",
+    "name": "Delice",
+    "latitude": 39.9537,
+    "longitude": 34.0259
+  },
+  {
+    "id": "kirikkale-karakecili",
+    "province": "Kırıkkale",
+    "name": "Karakeçili",
+    "latitude": 39.5942,
+    "longitude": 33.3778
+  },
+  {
+    "id": "kirikkale-keskin",
+    "province": "Kırıkkale",
+    "name": "Keskin",
+    "latitude": 39.6731,
+    "longitude": 33.6136
+  },
+  {
+    "id": "kirikkale-merkez",
+    "province": "Kırıkkale",
+    "name": "Merkez",
+    "latitude": 39.848571,
+    "longitude": 33.527622
+  },
+  {
+    "id": "kirikkale-sulakyurt",
+    "province": "Kırıkkale",
+    "name": "Sulakyurt",
+    "latitude": 40.1573,
+    "longitude": 33.716
+  },
+  {
+    "id": "kirikkale-yahsihan",
+    "province": "Kırıkkale",
+    "name": "Yahşihan",
+    "latitude": 39.8503,
+    "longitude": 33.4529
+  },
+  {
+    "id": "kirklareli-babaeski",
+    "province": "Kırklareli",
+    "name": "Babaeski",
+    "latitude": 41.4325,
+    "longitude": 27.0931
+  },
+  {
+    "id": "kirklareli-demirkoy",
+    "province": "Kırklareli",
+    "name": "Demirköy",
+    "latitude": 41.8251,
+    "longitude": 27.7597
+  },
+  {
+    "id": "kirklareli-kofcaz",
+    "province": "Kırklareli",
+    "name": "Kofçaz",
+    "latitude": 41.9448,
+    "longitude": 27.1583
+  },
+  {
+    "id": "kirklareli-luleburgaz",
+    "province": "Kırklareli",
+    "name": "Lüleburgaz",
+    "latitude": 41.4056,
+    "longitude": 27.3569
+  },
+  {
+    "id": "kirklareli-merkez",
+    "province": "Kırklareli",
+    "name": "Merkez",
+    "latitude": 41.737022,
+    "longitude": 27.223552
+  },
+  {
+    "id": "kirklareli-pehlivankoy",
+    "province": "Kırklareli",
+    "name": "Pehlivanköy",
+    "latitude": 41.3481,
+    "longitude": 26.9252
+  },
+  {
+    "id": "kirklareli-pinarhisar",
+    "province": "Kırklareli",
+    "name": "Pınarhisar",
+    "latitude": 41.6242,
+    "longitude": 27.52
+  },
+  {
+    "id": "kirklareli-vize",
+    "province": "Kırklareli",
+    "name": "Vize",
+    "latitude": 41.5725,
+    "longitude": 27.7658
+  },
+  {
+    "id": "kirsehir-akcakent",
+    "province": "Kırşehir",
+    "name": "Akçakent",
+    "latitude": 39.6228,
+    "longitude": 34.0958
+  },
+  {
+    "id": "kirsehir-akpinar",
+    "province": "Kırşehir",
+    "name": "Akpınar",
+    "latitude": 39.45,
+    "longitude": 33.9648
+  },
+  {
+    "id": "kirsehir-boztepe",
+    "province": "Kırşehir",
+    "name": "Boztepe",
+    "latitude": 39.2697,
+    "longitude": 34.2611
+  },
+  {
+    "id": "kirsehir-cicekdagi",
+    "province": "Kırşehir",
+    "name": "Çiçekdağı",
+    "latitude": 39.6036,
+    "longitude": 34.4158
+  },
+  {
+    "id": "kirsehir-kaman",
+    "province": "Kırşehir",
+    "name": "Kaman",
+    "latitude": 39.3575,
+    "longitude": 33.7239
+  },
+  {
+    "id": "kirsehir-merkez",
+    "province": "Kırşehir",
+    "name": "Merkez",
+    "latitude": 39.146114,
+    "longitude": 34.160559
+  },
+  {
+    "id": "kirsehir-mucur",
+    "province": "Kırşehir",
+    "name": "Mucur",
+    "latitude": 39.0615,
+    "longitude": 34.3829
+  },
+  {
+    "id": "kocaeli-basiskele",
+    "province": "Kocaeli",
+    "name": "Başiskele",
+    "latitude": 40.645922,
+    "longitude": 29.951741
+  },
+  {
+    "id": "kocaeli-cayirova",
+    "province": "Kocaeli",
+    "name": "Çayırova",
+    "latitude": 40.8265,
+    "longitude": 29.3745
+  },
+  {
+    "id": "kocaeli-darica",
+    "province": "Kocaeli",
+    "name": "Darıca",
+    "latitude": 40.7797,
+    "longitude": 29.3945
+  },
+  {
+    "id": "kocaeli-derince",
+    "province": "Kocaeli",
+    "name": "Derince",
+    "latitude": 40.7569,
+    "longitude": 29.8147
+  },
+  {
+    "id": "kocaeli-dilovasi",
+    "province": "Kocaeli",
+    "name": "Dilovası",
+    "latitude": 40.834554,
+    "longitude": 29.586276
+  },
+  {
+    "id": "kocaeli-gebze",
+    "province": "Kocaeli",
+    "name": "Gebze",
+    "latitude": 40.8028,
+    "longitude": 29.4307
+  },
+  {
+    "id": "kocaeli-golcuk",
+    "province": "Kocaeli",
+    "name": "Gölcük",
+    "latitude": 40.6667,
+    "longitude": 29.8333
+  },
+  {
+    "id": "kocaeli-izmit",
+    "province": "Kocaeli",
+    "name": "İzmit",
+    "latitude": 40.764348,
+    "longitude": 29.927931
+  },
+  {
+    "id": "kocaeli-kandira",
+    "province": "Kocaeli",
+    "name": "Kandıra",
+    "latitude": 41.07,
+    "longitude": 30.1526
+  },
+  {
+    "id": "kocaeli-karamursel",
+    "province": "Kocaeli",
+    "name": "Karamürsel",
+    "latitude": 40.6914,
+    "longitude": 29.6157
+  },
+  {
+    "id": "kocaeli-kartepe",
+    "province": "Kocaeli",
+    "name": "Kartepe",
+    "latitude": 40.688206,
+    "longitude": 30.084537
+  },
+  {
+    "id": "kocaeli-korfez",
+    "province": "Kocaeli",
+    "name": "Körfez",
+    "latitude": 40.7706,
+    "longitude": 29.7661
+  },
+  {
+    "id": "konya-ahirli",
+    "province": "Konya",
+    "name": "Ahırlı",
+    "latitude": 37.2387,
+    "longitude": 32.1188
+  },
+  {
+    "id": "konya-akoren",
+    "province": "Konya",
+    "name": "Akören",
+    "latitude": 37.4535,
+    "longitude": 32.3707
+  },
+  {
+    "id": "konya-aksehir",
+    "province": "Konya",
+    "name": "Akşehir",
+    "latitude": 38.3575,
+    "longitude": 31.4164
+  },
+  {
+    "id": "konya-altinekin",
+    "province": "Konya",
+    "name": "Altınekin",
+    "latitude": 38.2408,
+    "longitude": 32.8153
+  },
+  {
+    "id": "konya-beysehir",
+    "province": "Konya",
+    "name": "Beyşehir",
+    "latitude": 37.6773,
+    "longitude": 31.7246
+  },
+  {
+    "id": "konya-bozkir",
+    "province": "Konya",
+    "name": "Bozkır",
+    "latitude": 37.1896,
+    "longitude": 32.2474
+  },
+  {
+    "id": "konya-celtik",
+    "province": "Konya",
+    "name": "Çeltik",
+    "latitude": 39.0244,
+    "longitude": 31.7906
+  },
+  {
+    "id": "konya-cihanbeyli",
+    "province": "Konya",
+    "name": "Cihanbeyli",
+    "latitude": 38.6607,
+    "longitude": 32.9244
+  },
+  {
+    "id": "konya-cumra",
+    "province": "Konya",
+    "name": "Çumra",
+    "latitude": 37.5732,
+    "longitude": 32.7745
+  },
+  {
+    "id": "konya-derbent",
+    "province": "Konya",
+    "name": "Derbent",
+    "latitude": 38.0142,
+    "longitude": 32.0164
+  },
+  {
+    "id": "konya-derebucak",
+    "province": "Konya",
+    "name": "Derebucak",
+    "latitude": 37.3918,
+    "longitude": 31.5092
+  },
+  {
+    "id": "konya-doganhisar",
+    "province": "Konya",
+    "name": "Doğanhisar",
+    "latitude": 38.1463,
+    "longitude": 31.6765
+  },
+  {
+    "id": "konya-emirgazi",
+    "province": "Konya",
+    "name": "Emirgazi",
+    "latitude": 37.9022,
+    "longitude": 33.8372
+  },
+  {
+    "id": "konya-eregli",
+    "province": "Konya",
+    "name": "Ereğli",
+    "latitude": 37.5058,
+    "longitude": 34.0517
+  },
+  {
+    "id": "konya-guneysinir",
+    "province": "Konya",
+    "name": "Güneysınır",
+    "latitude": 37.2694,
+    "longitude": 32.729
+  },
+  {
+    "id": "konya-hadim",
+    "province": "Konya",
+    "name": "Hadim",
+    "latitude": 36.9878,
+    "longitude": 32.4567
+  },
+  {
+    "id": "konya-halkapinar",
+    "province": "Konya",
+    "name": "Halkapınar",
+    "latitude": 37.4339,
+    "longitude": 34.1874
+  },
+  {
+    "id": "konya-huyuk",
+    "province": "Konya",
+    "name": "Hüyük",
+    "latitude": 37.9539,
+    "longitude": 31.5964
+  },
+  {
+    "id": "konya-ilgin",
+    "province": "Konya",
+    "name": "Ilgın",
+    "latitude": 38.2792,
+    "longitude": 31.9139
+  },
+  {
+    "id": "konya-kadinhani",
+    "province": "Konya",
+    "name": "Kadınhanı",
+    "latitude": 38.2397,
+    "longitude": 32.2114
+  },
+  {
+    "id": "konya-karapinar",
+    "province": "Konya",
+    "name": "Karapınar",
+    "latitude": 37.716,
+    "longitude": 33.5506
+  },
+  {
+    "id": "konya-karatay",
+    "province": "Konya",
+    "name": "Karatay",
+    "latitude": 37.887365,
+    "longitude": 32.533449
+  },
+  {
+    "id": "konya-kulu",
+    "province": "Konya",
+    "name": "Kulu",
+    "latitude": 39.0901,
+    "longitude": 33.0807
+  },
+  {
+    "id": "konya-meram",
+    "province": "Konya",
+    "name": "Meram",
+    "latitude": 37.8299,
+    "longitude": 32.4678
+  },
+  {
+    "id": "konya-sarayonu",
+    "province": "Konya",
+    "name": "Sarayönü",
+    "latitude": 38.262,
+    "longitude": 32.4046
+  },
+  {
+    "id": "konya-selcuklu",
+    "province": "Konya",
+    "name": "Selçuklu",
+    "latitude": 37.8842,
+    "longitude": 32.4922
+  },
+  {
+    "id": "konya-seydisehir",
+    "province": "Konya",
+    "name": "Seydişehir",
+    "latitude": 37.4193,
+    "longitude": 31.8453
+  },
+  {
+    "id": "konya-taskent",
+    "province": "Konya",
+    "name": "Taşkent",
+    "latitude": 36.9243,
+    "longitude": 32.4913
+  },
+  {
+    "id": "konya-tuzlukcu",
+    "province": "Konya",
+    "name": "Tuzlukçu",
+    "latitude": 38.4778,
+    "longitude": 31.6264
+  },
+  {
+    "id": "konya-yalihuyuk",
+    "province": "Konya",
+    "name": "Yalıhüyük",
+    "latitude": 37.3008,
+    "longitude": 32.0855
+  },
+  {
+    "id": "konya-yunak",
+    "province": "Konya",
+    "name": "Yunak",
+    "latitude": 38.8142,
+    "longitude": 31.7322
+  },
+  {
+    "id": "kutahya-altintas",
+    "province": "Kütahya",
+    "name": "Altıntaş",
+    "latitude": 39.0597,
+    "longitude": 30.1092
+  },
+  {
+    "id": "kutahya-aslanapa",
+    "province": "Kütahya",
+    "name": "Aslanapa",
+    "latitude": 39.2158,
+    "longitude": 29.8699
+  },
+  {
+    "id": "kutahya-cavdarhisar",
+    "province": "Kütahya",
+    "name": "Çavdarhisar",
+    "latitude": 39.1934,
+    "longitude": 29.6191
+  },
+  {
+    "id": "kutahya-domanic",
+    "province": "Kütahya",
+    "name": "Domaniç",
+    "latitude": 39.8019,
+    "longitude": 29.6092
+  },
+  {
+    "id": "kutahya-dumlupinar",
+    "province": "Kütahya",
+    "name": "Dumlupınar",
+    "latitude": 38.8541,
+    "longitude": 29.9772
+  },
+  {
+    "id": "kutahya-emet",
+    "province": "Kütahya",
+    "name": "Emet",
+    "latitude": 39.343,
+    "longitude": 29.2585
+  },
+  {
+    "id": "kutahya-gediz",
+    "province": "Kütahya",
+    "name": "Gediz",
+    "latitude": 38.9939,
+    "longitude": 29.3913
+  },
+  {
+    "id": "kutahya-hisarcik",
+    "province": "Kütahya",
+    "name": "Hisarcık",
+    "latitude": 39.2506,
+    "longitude": 29.2312
+  },
+  {
+    "id": "kutahya-merkez",
+    "province": "Kütahya",
+    "name": "Merkez",
+    "latitude": 39.419151,
+    "longitude": 29.987293
+  },
+  {
+    "id": "kutahya-pazarlar",
+    "province": "Kütahya",
+    "name": "Pazarlar",
+    "latitude": 38.995,
+    "longitude": 29.1258
+  },
+  {
+    "id": "kutahya-saphane",
+    "province": "Kütahya",
+    "name": "Şaphane",
+    "latitude": 39.0273,
+    "longitude": 29.2222
+  },
+  {
+    "id": "kutahya-simav",
+    "province": "Kütahya",
+    "name": "Simav",
+    "latitude": 39.0882,
+    "longitude": 28.9777
+  },
+  {
+    "id": "kutahya-tavsanli",
+    "province": "Kütahya",
+    "name": "Tavşanlı",
+    "latitude": 39.5424,
+    "longitude": 29.4987
+  },
+  {
+    "id": "malatya-akcadag",
+    "province": "Malatya",
+    "name": "Akçadağ",
+    "latitude": 38.339,
+    "longitude": 37.9702
+  },
+  {
+    "id": "malatya-arapgir",
+    "province": "Malatya",
+    "name": "Arapgir",
+    "latitude": 39.0412,
+    "longitude": 38.4952
+  },
+  {
+    "id": "malatya-arguvan",
+    "province": "Malatya",
+    "name": "Arguvan",
+    "latitude": 38.7738,
+    "longitude": 38.2633
+  },
+  {
+    "id": "malatya-battalgazi",
+    "province": "Malatya",
+    "name": "Battalgazi",
+    "latitude": 38.4229,
+    "longitude": 38.3585
+  },
+  {
+    "id": "malatya-darende",
+    "province": "Malatya",
+    "name": "Darende",
+    "latitude": 38.5458,
+    "longitude": 37.5058
+  },
+  {
+    "id": "malatya-dogansehir",
+    "province": "Malatya",
+    "name": "Doğanşehir",
+    "latitude": 38.0857,
+    "longitude": 37.8712
+  },
+  {
+    "id": "malatya-doganyol",
+    "province": "Malatya",
+    "name": "Doğanyol",
+    "latitude": 38.3075,
+    "longitude": 39.0343
+  },
+  {
+    "id": "malatya-hekimhan",
+    "province": "Malatya",
+    "name": "Hekimhan",
+    "latitude": 38.8162,
+    "longitude": 37.9288
+  },
+  {
+    "id": "malatya-kale",
+    "province": "Malatya",
+    "name": "Kale",
+    "latitude": 38.4154,
+    "longitude": 38.7709
+  },
+  {
+    "id": "malatya-kuluncak",
+    "province": "Malatya",
+    "name": "Kuluncak",
+    "latitude": 38.8766,
+    "longitude": 37.6628
+  },
+  {
+    "id": "malatya-puturge",
+    "province": "Malatya",
+    "name": "Pütürge",
+    "latitude": 38.1992,
+    "longitude": 38.863
+  },
+  {
+    "id": "malatya-yazihan",
+    "province": "Malatya",
+    "name": "Yazıhan",
+    "latitude": 38.5929,
+    "longitude": 38.1733
+  },
+  {
+    "id": "malatya-yesilyurt",
+    "province": "Malatya",
+    "name": "Yeşilyurt",
+    "latitude": 38.296,
+    "longitude": 38.2453
+  },
+  {
+    "id": "manisa-ahmetli",
+    "province": "Manisa",
+    "name": "Ahmetli",
+    "latitude": 38.5196,
+    "longitude": 27.9387
+  },
+  {
+    "id": "manisa-akhisar",
+    "province": "Manisa",
+    "name": "Akhisar",
+    "latitude": 38.9185,
+    "longitude": 27.8401
+  },
+  {
+    "id": "manisa-alasehir",
+    "province": "Manisa",
+    "name": "Alaşehir",
+    "latitude": 38.3508,
+    "longitude": 28.5172
+  },
+  {
+    "id": "manisa-demirci",
+    "province": "Manisa",
+    "name": "Demirci",
+    "latitude": 39.0461,
+    "longitude": 28.6589
+  },
+  {
+    "id": "manisa-golmarmara",
+    "province": "Manisa",
+    "name": "Gölmarmara",
+    "latitude": 38.7139,
+    "longitude": 27.9142
+  },
+  {
+    "id": "manisa-gordes",
+    "province": "Manisa",
+    "name": "Gördes",
+    "latitude": 38.9328,
+    "longitude": 28.2894
+  },
+  {
+    "id": "manisa-kirkagac",
+    "province": "Manisa",
+    "name": "Kırkağaç",
+    "latitude": 39.1064,
+    "longitude": 27.6693
+  },
+  {
+    "id": "manisa-koprubasi",
+    "province": "Manisa",
+    "name": "Köprübaşı",
+    "latitude": 38.7497,
+    "longitude": 28.4047
+  },
+  {
+    "id": "manisa-kula",
+    "province": "Manisa",
+    "name": "Kula",
+    "latitude": 38.5473,
+    "longitude": 28.6498
+  },
+  {
+    "id": "manisa-salihli",
+    "province": "Manisa",
+    "name": "Salihli",
+    "latitude": 38.4811,
+    "longitude": 28.1392
+  },
+  {
+    "id": "manisa-sarigol",
+    "province": "Manisa",
+    "name": "Sarıgöl",
+    "latitude": 38.2395,
+    "longitude": 28.6966
+  },
+  {
+    "id": "manisa-saruhanli",
+    "province": "Manisa",
+    "name": "Saruhanlı",
+    "latitude": 38.7345,
+    "longitude": 27.5681
+  },
+  {
+    "id": "manisa-sehzadeler",
+    "province": "Manisa",
+    "name": "Şehzadeler",
+    "latitude": 38.645859,
+    "longitude": 27.502838
+  },
+  {
+    "id": "manisa-selendi",
+    "province": "Manisa",
+    "name": "Selendi",
+    "latitude": 38.7444,
+    "longitude": 28.8678
+  },
+  {
+    "id": "manisa-soma",
+    "province": "Manisa",
+    "name": "Soma",
+    "latitude": 39.1833,
+    "longitude": 27.6056
+  },
+  {
+    "id": "manisa-turgutlu",
+    "province": "Manisa",
+    "name": "Turgutlu",
+    "latitude": 38.5,
+    "longitude": 27.7
+  },
+  {
+    "id": "manisa-yunusemre",
+    "province": "Manisa",
+    "name": "Yunusemre",
+    "latitude": 38.744886,
+    "longitude": 27.268833
+  },
+  {
+    "id": "mardin-artuklu",
+    "province": "Mardin",
+    "name": "Artuklu",
+    "latitude": 37.31977,
+    "longitude": 40.732048
+  },
+  {
+    "id": "mardin-dargecit",
+    "province": "Mardin",
+    "name": "Dargeçit",
+    "latitude": 37.5462,
+    "longitude": 41.7165
+  },
+  {
+    "id": "mardin-derik",
+    "province": "Mardin",
+    "name": "Derik",
+    "latitude": 37.3644,
+    "longitude": 40.2689
+  },
+  {
+    "id": "mardin-kiziltepe",
+    "province": "Mardin",
+    "name": "Kızıltepe",
+    "latitude": 37.1939,
+    "longitude": 40.5861
+  },
+  {
+    "id": "mardin-mazidagi",
+    "province": "Mardin",
+    "name": "Mazıdağı",
+    "latitude": 37.478,
+    "longitude": 40.4815
+  },
+  {
+    "id": "mardin-midyat",
+    "province": "Mardin",
+    "name": "Midyat",
+    "latitude": 37.4191,
+    "longitude": 41.3391
+  },
+  {
+    "id": "mardin-nusaybin",
+    "province": "Mardin",
+    "name": "Nusaybin",
+    "latitude": 37.0833,
+    "longitude": 41.2167
+  },
+  {
+    "id": "mardin-omerli",
+    "province": "Mardin",
+    "name": "Ömerli",
+    "latitude": 37.399,
+    "longitude": 40.9544
+  },
+  {
+    "id": "mardin-savur",
+    "province": "Mardin",
+    "name": "Savur",
+    "latitude": 37.5354,
+    "longitude": 40.8788
+  },
+  {
+    "id": "mardin-yesilli",
+    "province": "Mardin",
+    "name": "Yeşilli",
+    "latitude": 37.3381,
+    "longitude": 40.8174
+  },
+  {
+    "id": "mersin-akdeniz",
+    "province": "Mersin",
+    "name": "Akdeniz",
+    "latitude": 36.832828,
+    "longitude": 33.96859
+  },
+  {
+    "id": "mersin-anamur",
+    "province": "Mersin",
+    "name": "Anamur",
+    "latitude": 36.0751,
+    "longitude": 32.8369
+  },
+  {
+    "id": "mersin-aydincik",
+    "province": "Mersin",
+    "name": "Aydıncık",
+    "latitude": 36.1667,
+    "longitude": 33.35
+  },
+  {
+    "id": "mersin-bozyazi",
+    "province": "Mersin",
+    "name": "Bozyazı",
+    "latitude": 36.1049,
+    "longitude": 32.9723
+  },
+  {
+    "id": "mersin-camliyayla",
+    "province": "Mersin",
+    "name": "Çamlıyayla",
+    "latitude": 37.1665,
+    "longitude": 34.593
+  },
+  {
+    "id": "mersin-erdemli",
+    "province": "Mersin",
+    "name": "Erdemli",
+    "latitude": 36.605,
+    "longitude": 34.3084
+  },
+  {
+    "id": "mersin-gulnar",
+    "province": "Mersin",
+    "name": "Gülnar",
+    "latitude": 36.3415,
+    "longitude": 33.3992
+  },
+  {
+    "id": "mersin-mezitli",
+    "province": "Mersin",
+    "name": "Mezitli",
+    "latitude": 36.7454,
+    "longitude": 34.5226
+  },
+  {
+    "id": "mersin-mut",
+    "province": "Mersin",
+    "name": "Mut",
+    "latitude": 36.6458,
+    "longitude": 33.4375
+  },
+  {
+    "id": "mersin-silifke",
+    "province": "Mersin",
+    "name": "Silifke",
+    "latitude": 36.3778,
+    "longitude": 33.9344
+  },
+  {
+    "id": "mersin-tarsus",
+    "province": "Mersin",
+    "name": "Tarsus",
+    "latitude": 36.9167,
+    "longitude": 34.9
+  },
+  {
+    "id": "mersin-toroslar",
+    "province": "Mersin",
+    "name": "Toroslar",
+    "latitude": 36.839326,
+    "longitude": 34.613632
+  },
+  {
+    "id": "mersin-yenisehir",
+    "province": "Mersin",
+    "name": "Yenişehir",
+    "latitude": 36.789782,
+    "longitude": 34.56343
+  },
+  {
+    "id": "mugla-bodrum",
+    "province": "Muğla",
+    "name": "Bodrum",
+    "latitude": 37.0383,
+    "longitude": 27.4292
+  },
+  {
+    "id": "mugla-dalaman",
+    "province": "Muğla",
+    "name": "Dalaman",
+    "latitude": 36.7659,
+    "longitude": 28.8028
+  },
+  {
+    "id": "mugla-datca",
+    "province": "Muğla",
+    "name": "Datça",
+    "latitude": 36.7274,
+    "longitude": 27.6848
+  },
+  {
+    "id": "mugla-fethiye",
+    "province": "Muğla",
+    "name": "Fethiye",
+    "latitude": 36.6206,
+    "longitude": 29.1142
+  },
+  {
+    "id": "mugla-kavaklidere",
+    "province": "Muğla",
+    "name": "Kavaklıdere",
+    "latitude": 37.4446,
+    "longitude": 28.3628
+  },
+  {
+    "id": "mugla-koycegiz",
+    "province": "Muğla",
+    "name": "Köyceğiz",
+    "latitude": 36.9625,
+    "longitude": 28.6909
+  },
+  {
+    "id": "mugla-marmaris",
+    "province": "Muğla",
+    "name": "Marmaris",
+    "latitude": 36.8564,
+    "longitude": 28.2711
+  },
+  {
+    "id": "mugla-mentese",
+    "province": "Muğla",
+    "name": "Menteşe",
+    "latitude": 37.1167,
+    "longitude": 28.2667
+  },
+  {
+    "id": "mugla-milas",
+    "province": "Muğla",
+    "name": "Milas",
+    "latitude": 37.3164,
+    "longitude": 27.7839
+  },
+  {
+    "id": "mugla-ortaca",
+    "province": "Muğla",
+    "name": "Ortaca",
+    "latitude": 36.8391,
+    "longitude": 28.7646
+  },
+  {
+    "id": "mugla-seydikemer",
+    "province": "Muğla",
+    "name": "Seydikemer",
+    "latitude": 36.635948,
+    "longitude": 29.489049
+  },
+  {
+    "id": "mugla-ula",
+    "province": "Muğla",
+    "name": "Ula",
+    "latitude": 37.1049,
+    "longitude": 28.4167
+  },
+  {
+    "id": "mugla-yatagan",
+    "province": "Muğla",
+    "name": "Yatağan",
+    "latitude": 37.3425,
+    "longitude": 28.1393
+  },
+  {
+    "id": "mus-bulanik",
+    "province": "Muş",
+    "name": "Bulanık",
+    "latitude": 39.0866,
+    "longitude": 42.2716
+  },
+  {
+    "id": "mus-haskoy",
+    "province": "Muş",
+    "name": "Hasköy",
+    "latitude": 38.6864,
+    "longitude": 41.6936
+  },
+  {
+    "id": "mus-korkut",
+    "province": "Muş",
+    "name": "Korkut",
+    "latitude": 38.7339,
+    "longitude": 41.784
+  },
+  {
+    "id": "mus-malazgirt",
+    "province": "Muş",
+    "name": "Malazgirt",
+    "latitude": 39.1465,
+    "longitude": 42.5354
+  },
+  {
+    "id": "mus-merkez",
+    "province": "Muş",
+    "name": "Merkez",
+    "latitude": 38.74037,
+    "longitude": 41.496745
+  },
+  {
+    "id": "mus-varto",
+    "province": "Muş",
+    "name": "Varto",
+    "latitude": 39.1737,
+    "longitude": 41.454
+  },
+  {
+    "id": "nevsehir-acigol",
+    "province": "Nevşehir",
+    "name": "Acıgöl",
+    "latitude": 38.5503,
+    "longitude": 34.5092
+  },
+  {
+    "id": "nevsehir-avanos",
+    "province": "Nevşehir",
+    "name": "Avanos",
+    "latitude": 38.715,
+    "longitude": 34.8467
+  },
+  {
+    "id": "nevsehir-derinkuyu",
+    "province": "Nevşehir",
+    "name": "Derinkuyu",
+    "latitude": 38.3751,
+    "longitude": 34.7342
+  },
+  {
+    "id": "nevsehir-gulsehir",
+    "province": "Nevşehir",
+    "name": "Gülşehir",
+    "latitude": 38.7459,
+    "longitude": 34.6252
+  },
+  {
+    "id": "nevsehir-hacibektas",
+    "province": "Nevşehir",
+    "name": "Hacıbektaş",
+    "latitude": 38.9408,
+    "longitude": 34.5577
+  },
+  {
+    "id": "nevsehir-kozakli",
+    "province": "Nevşehir",
+    "name": "Kozaklı",
+    "latitude": 39.2214,
+    "longitude": 34.8506
+  },
+  {
+    "id": "nevsehir-merkez",
+    "province": "Nevşehir",
+    "name": "Merkez",
+    "latitude": 38.620532,
+    "longitude": 34.705443
+  },
+  {
+    "id": "nevsehir-urgup",
+    "province": "Nevşehir",
+    "name": "Ürgüp",
+    "latitude": 38.6296,
+    "longitude": 34.912
+  },
+  {
+    "id": "nigde-altunhisar",
+    "province": "Niğde",
+    "name": "Altunhisar",
+    "latitude": 37.9916,
+    "longitude": 34.3733
+  },
+  {
+    "id": "nigde-bor",
+    "province": "Niğde",
+    "name": "Bor",
+    "latitude": 37.8833,
+    "longitude": 34.5667
+  },
+  {
+    "id": "nigde-camardi",
+    "province": "Niğde",
+    "name": "Çamardı",
+    "latitude": 37.8322,
+    "longitude": 34.9814
+  },
+  {
+    "id": "nigde-ciftlik",
+    "province": "Niğde",
+    "name": "Çiftlik",
+    "latitude": 38.1758,
+    "longitude": 34.4854
+  },
+  {
+    "id": "nigde-merkez",
+    "province": "Niğde",
+    "name": "Merkez",
+    "latitude": 37.974542,
+    "longitude": 34.678234
+  },
+  {
+    "id": "nigde-ulukisla",
+    "province": "Niğde",
+    "name": "Ulukışla",
+    "latitude": 37.5478,
+    "longitude": 34.4853
+  },
+  {
+    "id": "ordu-akkus",
+    "province": "Ordu",
+    "name": "Akkuş",
+    "latitude": 40.7931,
+    "longitude": 37.0164
+  },
+  {
+    "id": "ordu-altinordu",
+    "province": "Ordu",
+    "name": "Altınordu",
+    "latitude": 40.920285,
+    "longitude": 37.887021
+  },
+  {
+    "id": "ordu-aybasti",
+    "province": "Ordu",
+    "name": "Aybastı",
+    "latitude": 40.6867,
+    "longitude": 37.3992
+  },
+  {
+    "id": "ordu-camas",
+    "province": "Ordu",
+    "name": "Çamaş",
+    "latitude": 40.902,
+    "longitude": 37.5279
+  },
+  {
+    "id": "ordu-catalpinar",
+    "province": "Ordu",
+    "name": "Çatalpınar",
+    "latitude": 40.879,
+    "longitude": 37.4535
+  },
+  {
+    "id": "ordu-caybasi",
+    "province": "Ordu",
+    "name": "Çaybaşı",
+    "latitude": 41.0171,
+    "longitude": 37.098
+  },
+  {
+    "id": "ordu-fatsa",
+    "province": "Ordu",
+    "name": "Fatsa",
+    "latitude": 41.0278,
+    "longitude": 37.5014
+  },
+  {
+    "id": "ordu-golkoy",
+    "province": "Ordu",
+    "name": "Gölköy",
+    "latitude": 40.6869,
+    "longitude": 37.6154
+  },
+  {
+    "id": "ordu-gulyali",
+    "province": "Ordu",
+    "name": "Gülyalı",
+    "latitude": 40.9615,
+    "longitude": 38.0494
+  },
+  {
+    "id": "ordu-gurgentepe",
+    "province": "Ordu",
+    "name": "Gürgentepe",
+    "latitude": 40.7857,
+    "longitude": 37.5897
+  },
+  {
+    "id": "ordu-ikizce",
+    "province": "Ordu",
+    "name": "İkizce",
+    "latitude": 41.0583,
+    "longitude": 37.0803
+  },
+  {
+    "id": "ordu-kabaduz",
+    "province": "Ordu",
+    "name": "Kabadüz",
+    "latitude": 40.861,
+    "longitude": 37.8847
+  },
+  {
+    "id": "ordu-kabatas",
+    "province": "Ordu",
+    "name": "Kabataş",
+    "latitude": 40.75,
+    "longitude": 37.45
+  },
+  {
+    "id": "ordu-korgan",
+    "province": "Ordu",
+    "name": "Korgan",
+    "latitude": 40.8247,
+    "longitude": 37.3467
+  },
+  {
+    "id": "ordu-kumru",
+    "province": "Ordu",
+    "name": "Kumru",
+    "latitude": 40.8744,
+    "longitude": 37.2639
+  },
+  {
+    "id": "ordu-mesudiye",
+    "province": "Ordu",
+    "name": "Mesudiye",
+    "latitude": 40.4545,
+    "longitude": 37.7735
+  },
+  {
+    "id": "ordu-persembe",
+    "province": "Ordu",
+    "name": "Perşembe",
+    "latitude": 41.0656,
+    "longitude": 37.7714
+  },
+  {
+    "id": "ordu-ulubey",
+    "province": "Ordu",
+    "name": "Ulubey",
+    "latitude": 40.8686,
+    "longitude": 37.7541
+  },
+  {
+    "id": "ordu-unye",
+    "province": "Ordu",
+    "name": "Ünye",
+    "latitude": 41.1271,
+    "longitude": 37.2882
+  },
+  {
+    "id": "osmaniye-bahce",
+    "province": "Osmaniye",
+    "name": "Bahçe",
+    "latitude": 37.2011,
+    "longitude": 36.5775
+  },
+  {
+    "id": "osmaniye-duzici",
+    "province": "Osmaniye",
+    "name": "Düziçi",
+    "latitude": 37.2422,
+    "longitude": 36.4548
+  },
+  {
+    "id": "osmaniye-hasanbeyli",
+    "province": "Osmaniye",
+    "name": "Hasanbeyli",
+    "latitude": 37.1284,
+    "longitude": 36.5461
+  },
+  {
+    "id": "osmaniye-kadirli",
+    "province": "Osmaniye",
+    "name": "Kadirli",
+    "latitude": 37.3739,
+    "longitude": 36.0961
+  },
+  {
+    "id": "osmaniye-merkez",
+    "province": "Osmaniye",
+    "name": "Merkez",
+    "latitude": 37.073671,
+    "longitude": 36.255941
+  },
+  {
+    "id": "osmaniye-sumbas",
+    "province": "Osmaniye",
+    "name": "Sumbas",
+    "latitude": 37.4513,
+    "longitude": 36.0235
+  },
+  {
+    "id": "osmaniye-toprakkale",
+    "province": "Osmaniye",
+    "name": "Toprakkale",
+    "latitude": 37.0639,
+    "longitude": 36.1469
+  },
+  {
+    "id": "rize-ardesen",
+    "province": "Rize",
+    "name": "Ardeşen",
+    "latitude": 41.1911,
+    "longitude": 40.9875
+  },
+  {
+    "id": "rize-camlihemsin",
+    "province": "Rize",
+    "name": "Çamlıhemşin",
+    "latitude": 41.0477,
+    "longitude": 41
+  },
+  {
+    "id": "rize-cayeli",
+    "province": "Rize",
+    "name": "Çayeli",
+    "latitude": 41.0861,
+    "longitude": 40.7221
+  },
+  {
+    "id": "rize-derepazari",
+    "province": "Rize",
+    "name": "Derepazarı",
+    "latitude": 41.024,
+    "longitude": 40.4233
+  },
+  {
+    "id": "rize-findikli",
+    "province": "Rize",
+    "name": "Fındıklı",
+    "latitude": 41.1333,
+    "longitude": 41.0167
+  },
+  {
+    "id": "rize-guneysu",
+    "province": "Rize",
+    "name": "Güneysu",
+    "latitude": 40.9813,
+    "longitude": 40.6046
+  },
+  {
+    "id": "rize-hemsin",
+    "province": "Rize",
+    "name": "Hemşin",
+    "latitude": 41.0478,
+    "longitude": 40.8984
+  },
+  {
+    "id": "rize-ikizdere",
+    "province": "Rize",
+    "name": "İkizdere",
+    "latitude": 40.7748,
+    "longitude": 40.5523
+  },
+  {
+    "id": "rize-iyidere",
+    "province": "Rize",
+    "name": "İyidere",
+    "latitude": 41.0119,
+    "longitude": 40.3618
+  },
+  {
+    "id": "rize-kalkandere",
+    "province": "Rize",
+    "name": "Kalkandere",
+    "latitude": 40.9205,
+    "longitude": 40.4369
+  },
+  {
+    "id": "rize-merkez",
+    "province": "Rize",
+    "name": "Merkez",
+    "latitude": 41.031636,
+    "longitude": 40.555453
+  },
+  {
+    "id": "rize-pazar",
+    "province": "Rize",
+    "name": "Pazar",
+    "latitude": 41.1792,
+    "longitude": 40.8842
+  },
+  {
+    "id": "sakarya-adapazari",
+    "province": "Sakarya",
+    "name": "Adapazarı",
+    "latitude": 40.848053,
+    "longitude": 30.349143
+  },
+  {
+    "id": "sakarya-akyazi",
+    "province": "Sakarya",
+    "name": "Akyazı",
+    "latitude": 40.685,
+    "longitude": 30.6222
+  },
+  {
+    "id": "sakarya-arifiye",
+    "province": "Sakarya",
+    "name": "Arifiye",
+    "latitude": 40.7004,
+    "longitude": 30.3508
+  },
+  {
+    "id": "sakarya-erenler",
+    "province": "Sakarya",
+    "name": "Erenler",
+    "latitude": 40.755,
+    "longitude": 30.3934
+  },
+  {
+    "id": "sakarya-ferizli",
+    "province": "Sakarya",
+    "name": "Ferizli",
+    "latitude": 40.9408,
+    "longitude": 30.4858
+  },
+  {
+    "id": "sakarya-geyve",
+    "province": "Sakarya",
+    "name": "Geyve",
+    "latitude": 40.5075,
+    "longitude": 30.2925
+  },
+  {
+    "id": "sakarya-hendek",
+    "province": "Sakarya",
+    "name": "Hendek",
+    "latitude": 40.7994,
+    "longitude": 30.7481
+  },
+  {
+    "id": "sakarya-karapurcek",
+    "province": "Sakarya",
+    "name": "Karapürçek",
+    "latitude": 40.6419,
+    "longitude": 30.5394
+  },
+  {
+    "id": "sakarya-karasu",
+    "province": "Sakarya",
+    "name": "Karasu",
+    "latitude": 41.1044,
+    "longitude": 30.6966
+  },
+  {
+    "id": "sakarya-kaynarca",
+    "province": "Sakarya",
+    "name": "Kaynarca",
+    "latitude": 41.0308,
+    "longitude": 30.3075
+  },
+  {
+    "id": "sakarya-kocaali",
+    "province": "Sakarya",
+    "name": "Kocaali",
+    "latitude": 41.0534,
+    "longitude": 30.8528
+  },
+  {
+    "id": "sakarya-pamukova",
+    "province": "Sakarya",
+    "name": "Pamukova",
+    "latitude": 40.5081,
+    "longitude": 30.1673
+  },
+  {
+    "id": "sakarya-sapanca",
+    "province": "Sakarya",
+    "name": "Sapanca",
+    "latitude": 40.6914,
+    "longitude": 30.2674
+  },
+  {
+    "id": "sakarya-serdivan",
+    "province": "Sakarya",
+    "name": "Serdivan",
+    "latitude": 40.7738,
+    "longitude": 30.3801
+  },
+  {
+    "id": "sakarya-sogutlu",
+    "province": "Sakarya",
+    "name": "Söğütlü",
+    "latitude": 40.9059,
+    "longitude": 30.4745
+  },
+  {
+    "id": "sakarya-tarakli",
+    "province": "Sakarya",
+    "name": "Taraklı",
+    "latitude": 40.3969,
+    "longitude": 30.4928
+  },
+  {
+    "id": "samsun-19-mayis",
+    "province": "Samsun",
+    "name": "19 mayıs",
+    "latitude": 41.493638,
+    "longitude": 36.077888
+  },
+  {
+    "id": "samsun-alacam",
+    "province": "Samsun",
+    "name": "Alaçam",
+    "latitude": 41.61,
+    "longitude": 35.595
+  },
+  {
+    "id": "samsun-asarcik",
+    "province": "Samsun",
+    "name": "Asarcık",
+    "latitude": 41.0356,
+    "longitude": 36.2356
+  },
+  {
+    "id": "samsun-atakum",
+    "province": "Samsun",
+    "name": "Atakum",
+    "latitude": 41.335457,
+    "longitude": 36.131054
+  },
+  {
+    "id": "samsun-ayvacik",
+    "province": "Samsun",
+    "name": "Ayvacık",
+    "latitude": 40.9911,
+    "longitude": 36.6314
+  },
+  {
+    "id": "samsun-bafra",
+    "province": "Samsun",
+    "name": "Bafra",
+    "latitude": 41.5682,
+    "longitude": 35.9069
+  },
+  {
+    "id": "samsun-canik",
+    "province": "Samsun",
+    "name": "Canik",
+    "latitude": 41.174172,
+    "longitude": 36.285809
+  },
+  {
+    "id": "samsun-carsamba",
+    "province": "Samsun",
+    "name": "Çarşamba",
+    "latitude": 41.1989,
+    "longitude": 36.7219
+  },
+  {
+    "id": "samsun-havza",
+    "province": "Samsun",
+    "name": "Havza",
+    "latitude": 40.9706,
+    "longitude": 35.6622
+  },
+  {
+    "id": "samsun-ilkadim",
+    "province": "Samsun",
+    "name": "İlkadım",
+    "latitude": 41.230978,
+    "longitude": 36.18811
+  },
+  {
+    "id": "samsun-kavak",
+    "province": "Samsun",
+    "name": "Kavak",
+    "latitude": 41.0783,
+    "longitude": 36.0425
+  },
+  {
+    "id": "samsun-ladik",
+    "province": "Samsun",
+    "name": "Ladik",
+    "latitude": 40.9106,
+    "longitude": 35.8919
+  },
+  {
+    "id": "samsun-salipazari",
+    "province": "Samsun",
+    "name": "Salıpazarı",
+    "latitude": 41.084,
+    "longitude": 36.8304
+  },
+  {
+    "id": "samsun-tekkekoy",
+    "province": "Samsun",
+    "name": "Tekkeköy",
+    "latitude": 41.2117,
+    "longitude": 36.46
+  },
+  {
+    "id": "samsun-terme",
+    "province": "Samsun",
+    "name": "Terme",
+    "latitude": 41.2092,
+    "longitude": 36.9739
+  },
+  {
+    "id": "samsun-vezirkopru",
+    "province": "Samsun",
+    "name": "Vezirköprü",
+    "latitude": 41.1436,
+    "longitude": 35.4547
+  },
+  {
+    "id": "samsun-yakakent",
+    "province": "Samsun",
+    "name": "Yakakent",
+    "latitude": 41.6325,
+    "longitude": 35.5289
+  },
+  {
+    "id": "sanliurfa-akcakale",
+    "province": "Şanlıurfa",
+    "name": "Akçakale",
+    "latitude": 36.7108,
+    "longitude": 38.9478
+  },
+  {
+    "id": "sanliurfa-birecik",
+    "province": "Şanlıurfa",
+    "name": "Birecik",
+    "latitude": 37.0258,
+    "longitude": 37.9784
+  },
+  {
+    "id": "sanliurfa-bozova",
+    "province": "Şanlıurfa",
+    "name": "Bozova",
+    "latitude": 37.3625,
+    "longitude": 38.5267
+  },
+  {
+    "id": "sanliurfa-ceylanpinar",
+    "province": "Şanlıurfa",
+    "name": "Ceylanpınar",
+    "latitude": 36.9194,
+    "longitude": 39.905
+  },
+  {
+    "id": "sanliurfa-eyyubiye",
+    "province": "Şanlıurfa",
+    "name": "Eyyübiye",
+    "latitude": 37.008048,
+    "longitude": 39.015969
+  },
+  {
+    "id": "sanliurfa-halfeti",
+    "province": "Şanlıurfa",
+    "name": "Halfeti",
+    "latitude": 37.2453,
+    "longitude": 37.8687
+  },
+  {
+    "id": "sanliurfa-haliliye",
+    "province": "Şanlıurfa",
+    "name": "Haliliye",
+    "latitude": 37.219941,
+    "longitude": 39.140505
+  },
+  {
+    "id": "sanliurfa-harran",
+    "province": "Şanlıurfa",
+    "name": "Harran",
+    "latitude": 36.86,
+    "longitude": 39.0314
+  },
+  {
+    "id": "sanliurfa-hilvan",
+    "province": "Şanlıurfa",
+    "name": "Hilvan",
+    "latitude": 37.5869,
+    "longitude": 38.955
+  },
+  {
+    "id": "sanliurfa-karakopru",
+    "province": "Şanlıurfa",
+    "name": "Karaköprü",
+    "latitude": 37.2036,
+    "longitude": 38.7994
+  },
+  {
+    "id": "sanliurfa-siverek",
+    "province": "Şanlıurfa",
+    "name": "Siverek",
+    "latitude": 37.755,
+    "longitude": 39.3167
+  },
+  {
+    "id": "sanliurfa-suruc",
+    "province": "Şanlıurfa",
+    "name": "Suruç",
+    "latitude": 36.9761,
+    "longitude": 38.4253
+  },
+  {
+    "id": "sanliurfa-viransehir",
+    "province": "Şanlıurfa",
+    "name": "Viranşehir",
+    "latitude": 37.2306,
+    "longitude": 39.7653
+  },
+  {
+    "id": "siirt-baykan",
+    "province": "Siirt",
+    "name": "Baykan",
+    "latitude": 38.1575,
+    "longitude": 41.7733
+  },
+  {
+    "id": "siirt-eruh",
+    "province": "Siirt",
+    "name": "Eruh",
+    "latitude": 37.7418,
+    "longitude": 42.1742
+  },
+  {
+    "id": "siirt-kurtalan",
+    "province": "Siirt",
+    "name": "Kurtalan",
+    "latitude": 37.9253,
+    "longitude": 41.6849
+  },
+  {
+    "id": "siirt-merkez",
+    "province": "Siirt",
+    "name": "Merkez",
+    "latitude": 37.931282,
+    "longitude": 41.93984
+  },
+  {
+    "id": "siirt-pervari",
+    "province": "Siirt",
+    "name": "Pervari",
+    "latitude": 37.9357,
+    "longitude": 42.5493
+  },
+  {
+    "id": "siirt-sirvan",
+    "province": "Siirt",
+    "name": "Şirvan",
+    "latitude": 38.0625,
+    "longitude": 42.0252
+  },
+  {
+    "id": "siirt-tillo",
+    "province": "Siirt",
+    "name": "Tillo",
+    "latitude": 37.9449,
+    "longitude": 42.0072
+  },
+  {
+    "id": "sinop-ayancik",
+    "province": "Sinop",
+    "name": "Ayancık",
+    "latitude": 41.95,
+    "longitude": 34.5833
+  },
+  {
+    "id": "sinop-boyabat",
+    "province": "Sinop",
+    "name": "Boyabat",
+    "latitude": 41.4689,
+    "longitude": 34.7667
+  },
+  {
+    "id": "sinop-dikmen",
+    "province": "Sinop",
+    "name": "Dikmen",
+    "latitude": 41.65,
+    "longitude": 35.2667
+  },
+  {
+    "id": "sinop-duragan",
+    "province": "Sinop",
+    "name": "Durağan",
+    "latitude": 41.4158,
+    "longitude": 35.0544
+  },
+  {
+    "id": "sinop-erfelek",
+    "province": "Sinop",
+    "name": "Erfelek",
+    "latitude": 41.8793,
+    "longitude": 34.9184
+  },
+  {
+    "id": "sinop-gerze",
+    "province": "Sinop",
+    "name": "Gerze",
+    "latitude": 41.8036,
+    "longitude": 35.2011
+  },
+  {
+    "id": "sinop-merkez",
+    "province": "Sinop",
+    "name": "Merkez",
+    "latitude": 42.010904,
+    "longitude": 35.103219
+  },
+  {
+    "id": "sinop-sarayduzu",
+    "province": "Sinop",
+    "name": "Saraydüzü",
+    "latitude": 41.3287,
+    "longitude": 34.8469
+  },
+  {
+    "id": "sinop-turkeli",
+    "province": "Sinop",
+    "name": "Türkeli",
+    "latitude": 41.9476,
+    "longitude": 34.3386
+  },
+  {
+    "id": "sirnak-beytussebap",
+    "province": "Şırnak",
+    "name": "Beytüşşebap",
+    "latitude": 37.5632,
+    "longitude": 43.1658
+  },
+  {
+    "id": "sirnak-cizre",
+    "province": "Şırnak",
+    "name": "Cizre",
+    "latitude": 37.325,
+    "longitude": 42.1958
+  },
+  {
+    "id": "sirnak-guclukonak",
+    "province": "Şırnak",
+    "name": "Güçlükonak",
+    "latitude": 37.4696,
+    "longitude": 41.9059
+  },
+  {
+    "id": "sirnak-idil",
+    "province": "Şırnak",
+    "name": "İdil",
+    "latitude": 37.3348,
+    "longitude": 41.8894
+  },
+  {
+    "id": "sirnak-merkez",
+    "province": "Şırnak",
+    "name": "Merkez",
+    "latitude": 37.519248,
+    "longitude": 42.460566
+  },
+  {
+    "id": "sirnak-silopi",
+    "province": "Şırnak",
+    "name": "Silopi",
+    "latitude": 37.2438,
+    "longitude": 42.4634
+  },
+  {
+    "id": "sirnak-uludere",
+    "province": "Şırnak",
+    "name": "Uludere",
+    "latitude": 37.4407,
+    "longitude": 42.8524
+  },
+  {
+    "id": "sivas-akincilar",
+    "province": "Sivas",
+    "name": "Akıncılar",
+    "latitude": 40.0717,
+    "longitude": 38.3433
+  },
+  {
+    "id": "sivas-altinyayla",
+    "province": "Sivas",
+    "name": "Altınyayla",
+    "latitude": 39.2725,
+    "longitude": 36.751
+  },
+  {
+    "id": "sivas-divrigi",
+    "province": "Sivas",
+    "name": "Divriği",
+    "latitude": 39.3667,
+    "longitude": 38.1167
+  },
+  {
+    "id": "sivas-dogansar",
+    "province": "Sivas",
+    "name": "Doğanşar",
+    "latitude": 40.2084,
+    "longitude": 37.5312
+  },
+  {
+    "id": "sivas-gemerek",
+    "province": "Sivas",
+    "name": "Gemerek",
+    "latitude": 39.1834,
+    "longitude": 36.0719
+  },
+  {
+    "id": "sivas-golova",
+    "province": "Sivas",
+    "name": "Gölova",
+    "latitude": 40.0619,
+    "longitude": 38.6067
+  },
+  {
+    "id": "sivas-gurun",
+    "province": "Sivas",
+    "name": "Gürün",
+    "latitude": 38.7223,
+    "longitude": 37.271
+  },
+  {
+    "id": "sivas-hafik",
+    "province": "Sivas",
+    "name": "Hafik",
+    "latitude": 39.8564,
+    "longitude": 37.3864
+  },
+  {
+    "id": "sivas-imranli",
+    "province": "Sivas",
+    "name": "İmranlı",
+    "latitude": 39.8754,
+    "longitude": 38.1136
+  },
+  {
+    "id": "sivas-kangal",
+    "province": "Sivas",
+    "name": "Kangal",
+    "latitude": 39.2335,
+    "longitude": 37.3911
+  },
+  {
+    "id": "sivas-koyulhisar",
+    "province": "Sivas",
+    "name": "Koyulhisar",
+    "latitude": 40.3018,
+    "longitude": 37.8234
+  },
+  {
+    "id": "sivas-merkez",
+    "province": "Sivas",
+    "name": "Merkez",
+    "latitude": 39.750357,
+    "longitude": 37.014519
+  },
+  {
+    "id": "sivas-sarkisla",
+    "province": "Sivas",
+    "name": "Şarkışla",
+    "latitude": 39.3519,
+    "longitude": 36.4098
+  },
+  {
+    "id": "sivas-susehri",
+    "province": "Sivas",
+    "name": "Suşehri",
+    "latitude": 40.1601,
+    "longitude": 38.0841
+  },
+  {
+    "id": "sivas-ulas",
+    "province": "Sivas",
+    "name": "Ulaş",
+    "latitude": 39.4449,
+    "longitude": 37.039
+  },
+  {
+    "id": "sivas-yildizeli",
+    "province": "Sivas",
+    "name": "Yıldızeli",
+    "latitude": 39.8664,
+    "longitude": 36.5989
+  },
+  {
+    "id": "sivas-zara",
+    "province": "Sivas",
+    "name": "Zara",
+    "latitude": 39.8978,
+    "longitude": 37.7583
+  },
+  {
+    "id": "tekirdag-cerkezkoy",
+    "province": "Tekirdağ",
+    "name": "Çerkezköy",
+    "latitude": 41.285,
+    "longitude": 28.0003
+  },
+  {
+    "id": "tekirdag-corlu",
+    "province": "Tekirdağ",
+    "name": "Çorlu",
+    "latitude": 41.1597,
+    "longitude": 27.8028
+  },
+  {
+    "id": "tekirdag-ergene",
+    "province": "Tekirdağ",
+    "name": "Ergene",
+    "latitude": 41.295557,
+    "longitude": 27.649614
+  },
+  {
+    "id": "tekirdag-hayrabolu",
+    "province": "Tekirdağ",
+    "name": "Hayrabolu",
+    "latitude": 41.2131,
+    "longitude": 27.1069
+  },
+  {
+    "id": "tekirdag-kapakli",
+    "province": "Tekirdağ",
+    "name": "Kapaklı",
+    "latitude": 41.3333,
+    "longitude": 27.9667
+  },
+  {
+    "id": "tekirdag-malkara",
+    "province": "Tekirdağ",
+    "name": "Malkara",
+    "latitude": 40.89,
+    "longitude": 26.9011
+  },
+  {
+    "id": "tekirdag-marmaraereglisi",
+    "province": "Tekirdağ",
+    "name": "Marmaraereğlisi",
+    "latitude": 41.039951,
+    "longitude": 27.812351
+  },
+  {
+    "id": "tekirdag-muratli",
+    "province": "Tekirdağ",
+    "name": "Muratlı",
+    "latitude": 41.1722,
+    "longitude": 27.4992
+  },
+  {
+    "id": "tekirdag-saray",
+    "province": "Tekirdağ",
+    "name": "Saray",
+    "latitude": 41.4443,
+    "longitude": 27.9219
+  },
+  {
+    "id": "tekirdag-sarkoy",
+    "province": "Tekirdağ",
+    "name": "Şarköy",
+    "latitude": 40.614,
+    "longitude": 27.1156
+  },
+  {
+    "id": "tekirdag-suleymanpasa",
+    "province": "Tekirdağ",
+    "name": "Süleymanpaşa",
+    "latitude": 40.975662,
+    "longitude": 27.502848
+  },
+  {
+    "id": "tokat-almus",
+    "province": "Tokat",
+    "name": "Almus",
+    "latitude": 40.3758,
+    "longitude": 36.9044
+  },
+  {
+    "id": "tokat-artova",
+    "province": "Tokat",
+    "name": "Artova",
+    "latitude": 40.1158,
+    "longitude": 36.3001
+  },
+  {
+    "id": "tokat-basciftlik",
+    "province": "Tokat",
+    "name": "Başçiftlik",
+    "latitude": 40.5469,
+    "longitude": 37.1692
+  },
+  {
+    "id": "tokat-erbaa",
+    "province": "Tokat",
+    "name": "Erbaa",
+    "latitude": 40.6689,
+    "longitude": 36.5675
+  },
+  {
+    "id": "tokat-merkez",
+    "province": "Tokat",
+    "name": "Merkez",
+    "latitude": 40.32648,
+    "longitude": 36.55403
+  },
+  {
+    "id": "tokat-niksar",
+    "province": "Tokat",
+    "name": "Niksar",
+    "latitude": 40.5917,
+    "longitude": 36.9517
+  },
+  {
+    "id": "tokat-pazar",
+    "province": "Tokat",
+    "name": "Pazar",
+    "latitude": 40.2759,
+    "longitude": 36.2832
+  },
+  {
+    "id": "tokat-resadiye",
+    "province": "Tokat",
+    "name": "Reşadiye",
+    "latitude": 40.3919,
+    "longitude": 37.3375
+  },
+  {
+    "id": "tokat-sulusaray",
+    "province": "Tokat",
+    "name": "Sulusaray",
+    "latitude": 39.9939,
+    "longitude": 36.084
+  },
+  {
+    "id": "tokat-turhal",
+    "province": "Tokat",
+    "name": "Turhal",
+    "latitude": 40.3875,
+    "longitude": 36.0811
+  },
+  {
+    "id": "tokat-yesilyurt",
+    "province": "Tokat",
+    "name": "Yeşilyurt",
+    "latitude": 40.0064,
+    "longitude": 36.2207
+  },
+  {
+    "id": "tokat-zile",
+    "province": "Tokat",
+    "name": "Zile",
+    "latitude": 40.3031,
+    "longitude": 35.8864
+  },
+  {
+    "id": "trabzon-akcaabat",
+    "province": "Trabzon",
+    "name": "Akçaabat",
+    "latitude": 41.0212,
+    "longitude": 39.5715
+  },
+  {
+    "id": "trabzon-arakli",
+    "province": "Trabzon",
+    "name": "Araklı",
+    "latitude": 40.9385,
+    "longitude": 40.0584
+  },
+  {
+    "id": "trabzon-arsin",
+    "province": "Trabzon",
+    "name": "Arsin",
+    "latitude": 40.9527,
+    "longitude": 39.9267
+  },
+  {
+    "id": "trabzon-besikduzu",
+    "province": "Trabzon",
+    "name": "Beşikdüzü",
+    "latitude": 41.052,
+    "longitude": 39.2329
+  },
+  {
+    "id": "trabzon-carsibasi",
+    "province": "Trabzon",
+    "name": "Çarşıbaşı",
+    "latitude": 41.0828,
+    "longitude": 39.3828
+  },
+  {
+    "id": "trabzon-caykara",
+    "province": "Trabzon",
+    "name": "Çaykara",
+    "latitude": 40.7427,
+    "longitude": 40.2318
+  },
+  {
+    "id": "trabzon-dernekpazari",
+    "province": "Trabzon",
+    "name": "Dernekpazarı",
+    "latitude": 40.7966,
+    "longitude": 40.2446
+  },
+  {
+    "id": "trabzon-duzkoy",
+    "province": "Trabzon",
+    "name": "Düzköy",
+    "latitude": 40.8746,
+    "longitude": 39.4154
+  },
+  {
+    "id": "trabzon-hayrat",
+    "province": "Trabzon",
+    "name": "Hayrat",
+    "latitude": 40.8853,
+    "longitude": 40.365
+  },
+  {
+    "id": "trabzon-koprubasi",
+    "province": "Trabzon",
+    "name": "Köprübaşı",
+    "latitude": 40.8069,
+    "longitude": 40.1144
+  },
+  {
+    "id": "trabzon-macka",
+    "province": "Trabzon",
+    "name": "Maçka",
+    "latitude": 40.8186,
+    "longitude": 39.6136
+  },
+  {
+    "id": "trabzon-of",
+    "province": "Trabzon",
+    "name": "Of",
+    "latitude": 40.945,
+    "longitude": 40.2644
+  },
+  {
+    "id": "trabzon-ortahisar",
+    "province": "Trabzon",
+    "name": "Ortahisar",
+    "latitude": 41.001325,
+    "longitude": 39.706678
+  },
+  {
+    "id": "trabzon-salpazari",
+    "province": "Trabzon",
+    "name": "Şalpazarı",
+    "latitude": 40.9383,
+    "longitude": 39.1901
+  },
+  {
+    "id": "trabzon-surmene",
+    "province": "Trabzon",
+    "name": "Sürmene",
+    "latitude": 40.9059,
+    "longitude": 40.1279
+  },
+  {
+    "id": "trabzon-tonya",
+    "province": "Trabzon",
+    "name": "Tonya",
+    "latitude": 40.884,
+    "longitude": 39.2849
+  },
+  {
+    "id": "trabzon-vakfikebir",
+    "province": "Trabzon",
+    "name": "Vakfıkebir",
+    "latitude": 41.0458,
+    "longitude": 39.2764
+  },
+  {
+    "id": "trabzon-yomra",
+    "province": "Trabzon",
+    "name": "Yomra",
+    "latitude": 40.9533,
+    "longitude": 39.8555
+  },
+  {
+    "id": "tunceli-cemisgezek",
+    "province": "Tunceli",
+    "name": "Çemişgezek",
+    "latitude": 39.0554,
+    "longitude": 38.9075
+  },
+  {
+    "id": "tunceli-hozat",
+    "province": "Tunceli",
+    "name": "Hozat",
+    "latitude": 39.1003,
+    "longitude": 39.2082
+  },
+  {
+    "id": "tunceli-mazgirt",
+    "province": "Tunceli",
+    "name": "Mazgirt",
+    "latitude": 39.0178,
+    "longitude": 39.6006
+  },
+  {
+    "id": "tunceli-merkez",
+    "province": "Tunceli",
+    "name": "Merkez",
+    "latitude": 39.108063,
+    "longitude": 39.548197
+  },
+  {
+    "id": "tunceli-nazimiye",
+    "province": "Tunceli",
+    "name": "Nazımiye",
+    "latitude": 39.196412,
+    "longitude": 39.846561
+  },
+  {
+    "id": "tunceli-ovacik",
+    "province": "Tunceli",
+    "name": "Ovacık",
+    "latitude": 39.3586,
+    "longitude": 39.2164
+  },
+  {
+    "id": "tunceli-pertek",
+    "province": "Tunceli",
+    "name": "Pertek",
+    "latitude": 38.8657,
+    "longitude": 39.3227
+  },
+  {
+    "id": "tunceli-pulumur",
+    "province": "Tunceli",
+    "name": "Pülümür",
+    "latitude": 39.4845,
+    "longitude": 39.8953
+  },
+  {
+    "id": "usak-banaz",
+    "province": "Uşak",
+    "name": "Banaz",
+    "latitude": 38.7644,
+    "longitude": 29.7525
+  },
+  {
+    "id": "usak-esme",
+    "province": "Uşak",
+    "name": "Eşme",
+    "latitude": 38.3998,
+    "longitude": 28.969
+  },
+  {
+    "id": "usak-karahalli",
+    "province": "Uşak",
+    "name": "Karahallı",
+    "latitude": 38.3208,
+    "longitude": 29.5303
+  },
+  {
+    "id": "usak-merkez",
+    "province": "Uşak",
+    "name": "Merkez",
+    "latitude": 38.67087,
+    "longitude": 29.407359
+  },
+  {
+    "id": "usak-sivasli",
+    "province": "Uşak",
+    "name": "Sivaslı",
+    "latitude": 38.4994,
+    "longitude": 29.6836
+  },
+  {
+    "id": "usak-ulubey",
+    "province": "Uşak",
+    "name": "Ulubey",
+    "latitude": 38.4216,
+    "longitude": 29.2895
+  },
+  {
+    "id": "van-bahcesaray",
+    "province": "Van",
+    "name": "Bahçesaray",
+    "latitude": 38.1246,
+    "longitude": 42.7983
+  },
+  {
+    "id": "van-baskale",
+    "province": "Van",
+    "name": "Başkale",
+    "latitude": 38.0453,
+    "longitude": 44.0172
+  },
+  {
+    "id": "van-caldiran",
+    "province": "Van",
+    "name": "Çaldıran",
+    "latitude": 39.1419,
+    "longitude": 43.9139
+  },
+  {
+    "id": "van-catak",
+    "province": "Van",
+    "name": "Çatak",
+    "latitude": 38.0029,
+    "longitude": 43.0524
+  },
+  {
+    "id": "van-edremit",
+    "province": "Van",
+    "name": "Edremit",
+    "latitude": 38.4207,
+    "longitude": 43.2589
+  },
+  {
+    "id": "van-ercis",
+    "province": "Van",
+    "name": "Erciş",
+    "latitude": 39.0259,
+    "longitude": 43.3596
+  },
+  {
+    "id": "van-gevas",
+    "province": "Van",
+    "name": "Gevaş",
+    "latitude": 38.2921,
+    "longitude": 43.1019
+  },
+  {
+    "id": "van-gurpinar",
+    "province": "Van",
+    "name": "Gürpınar",
+    "latitude": 38.3269,
+    "longitude": 43.4133
+  },
+  {
+    "id": "van-ipekyolu",
+    "province": "Van",
+    "name": "İpekyolu",
+    "latitude": 38.492725,
+    "longitude": 43.37074
+  },
+  {
+    "id": "van-muradiye",
+    "province": "Van",
+    "name": "Muradiye",
+    "latitude": 38.9857,
+    "longitude": 43.7531
+  },
+  {
+    "id": "van-ozalp",
+    "province": "Van",
+    "name": "Özalp",
+    "latitude": 38.6546,
+    "longitude": 43.9887
+  },
+  {
+    "id": "van-saray",
+    "province": "Van",
+    "name": "Saray",
+    "latitude": 38.6469,
+    "longitude": 44.1612
+  },
+  {
+    "id": "van-tusba",
+    "province": "Van",
+    "name": "Tuşba",
+    "latitude": 38.522,
+    "longitude": 43.362221
+  },
+  {
+    "id": "yalova-altinova",
+    "province": "Yalova",
+    "name": "Altınova",
+    "latitude": 40.6949,
+    "longitude": 29.5099
+  },
+  {
+    "id": "yalova-armutlu",
+    "province": "Yalova",
+    "name": "Armutlu",
+    "latitude": 40.5194,
+    "longitude": 28.8281
+  },
+  {
+    "id": "yalova-ciftlikkoy",
+    "province": "Yalova",
+    "name": "Çiftlikköy",
+    "latitude": 40.6603,
+    "longitude": 29.3236
+  },
+  {
+    "id": "yalova-cinarcik",
+    "province": "Yalova",
+    "name": "Çınarcık",
+    "latitude": 40.6454,
+    "longitude": 29.1245
+  },
+  {
+    "id": "yalova-merkez",
+    "province": "Yalova",
+    "name": "Merkez",
+    "latitude": 40.655667,
+    "longitude": 29.272909
+  },
+  {
+    "id": "yalova-termal",
+    "province": "Yalova",
+    "name": "Termal",
+    "latitude": 40.6078,
+    "longitude": 29.1736
+  },
+  {
+    "id": "yozgat-akdagmadeni",
+    "province": "Yozgat",
+    "name": "Akdağmadeni",
+    "latitude": 39.6603,
+    "longitude": 35.8836
+  },
+  {
+    "id": "yozgat-aydincik",
+    "province": "Yozgat",
+    "name": "Aydıncık",
+    "latitude": 40.1273,
+    "longitude": 35.2877
+  },
+  {
+    "id": "yozgat-bogazliyan",
+    "province": "Yozgat",
+    "name": "Boğazlıyan",
+    "latitude": 39.1888,
+    "longitude": 35.2454
+  },
+  {
+    "id": "yozgat-candir",
+    "province": "Yozgat",
+    "name": "Çandır",
+    "latitude": 39.2445,
+    "longitude": 35.514
+  },
+  {
+    "id": "yozgat-cayiralan",
+    "province": "Yozgat",
+    "name": "Çayıralan",
+    "latitude": 39.3028,
+    "longitude": 35.6439
+  },
+  {
+    "id": "yozgat-cekerek",
+    "province": "Yozgat",
+    "name": "Çekerek",
+    "latitude": 40.0731,
+    "longitude": 35.4947
+  },
+  {
+    "id": "yozgat-kadisehri",
+    "province": "Yozgat",
+    "name": "Kadışehri",
+    "latitude": 39.9957,
+    "longitude": 35.7919
+  },
+  {
+    "id": "yozgat-merkez",
+    "province": "Yozgat",
+    "name": "Merkez",
+    "latitude": 39.820557,
+    "longitude": 34.809492
+  },
+  {
+    "id": "yozgat-saraykent",
+    "province": "Yozgat",
+    "name": "Saraykent",
+    "latitude": 39.6936,
+    "longitude": 35.5111
+  },
+  {
+    "id": "yozgat-sarikaya",
+    "province": "Yozgat",
+    "name": "Sarıkaya",
+    "latitude": 39.4936,
+    "longitude": 35.3769
+  },
+  {
+    "id": "yozgat-sefaatli",
+    "province": "Yozgat",
+    "name": "Şefaatli",
+    "latitude": 39.489267,
+    "longitude": 34.790831
+  },
+  {
+    "id": "yozgat-sorgun",
+    "province": "Yozgat",
+    "name": "Sorgun",
+    "latitude": 39.8101,
+    "longitude": 35.186
+  },
+  {
+    "id": "yozgat-yenifakili",
+    "province": "Yozgat",
+    "name": "Yenifakılı",
+    "latitude": 39.2114,
+    "longitude": 35.0004
+  },
+  {
+    "id": "yozgat-yerkoy",
+    "province": "Yozgat",
+    "name": "Yerköy",
+    "latitude": 39.6381,
+    "longitude": 34.4672
+  },
+  {
+    "id": "zonguldak-alapli",
+    "province": "Zonguldak",
+    "name": "Alaplı",
+    "latitude": 41.1814,
+    "longitude": 31.3851
+  },
+  {
+    "id": "zonguldak-caycuma",
+    "province": "Zonguldak",
+    "name": "Çaycuma",
+    "latitude": 41.4264,
+    "longitude": 32.0756
+  },
+  {
+    "id": "zonguldak-devrek",
+    "province": "Zonguldak",
+    "name": "Devrek",
+    "latitude": 41.2192,
+    "longitude": 31.9558
+  },
+  {
+    "id": "zonguldak-eregli",
+    "province": "Zonguldak",
+    "name": "Ereğli",
+    "latitude": 41.2583,
+    "longitude": 31.425
+  },
+  {
+    "id": "zonguldak-gokcebey",
+    "province": "Zonguldak",
+    "name": "Gökçebey",
+    "latitude": 41.3133,
+    "longitude": 32.1497
+  },
+  {
+    "id": "zonguldak-kilimli",
+    "province": "Zonguldak",
+    "name": "Kilimli",
+    "latitude": 41.4833,
+    "longitude": 31.8333
+  },
+  {
+    "id": "zonguldak-kozlu",
+    "province": "Zonguldak",
+    "name": "Kozlu",
+    "latitude": 41.4333,
+    "longitude": 31.75
+  },
+  {
+    "id": "zonguldak-merkez",
+    "province": "Zonguldak",
+    "name": "Merkez",
+    "latitude": 41.452467,
+    "longitude": 31.78846
+  }
+]

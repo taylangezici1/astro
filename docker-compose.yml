@@ -1,0 +1,83 @@
+# Single-host stack for Project Synastry: Postgres 16 + the NestJS API.
+# Full guide: docs/deployment.md
+#
+#   1. Put a JWT secret in ./.env (gitignored; compose reads it automatically):
+#        JWT_SECRET=<output of `openssl rand -hex 32`>
+#   2. docker compose up --build -d                  # db + api on :3000
+#   3. docker compose --profile seed run --rm seed   # districts + GlobalSky
+#        SEED_ARGS=--years=1 for a quick demo dataset (the full 40-year sky
+#        seed is ~1.4M rows and takes a long time)
+#
+# The Postgres credentials below are local defaults, not secrets. JWT_SECRET is
+# never hardcoded: compose refuses to run until it is set.
+
+name: synastry
+
+x-api-build: &api-build
+  build:
+    context: .
+    dockerfile: apps/api/Dockerfile
+  image: synastry-api:local
+
+x-database-url: &database-url "postgresql://synastry:synastry@db:5432/synastry?schema=public"
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: synastry
+      POSTGRES_PASSWORD: synastry
+      POSTGRES_DB: synastry
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # Not published to the host by default, because a local dev Postgres
+    # usually already owns 5432. Use `docker compose exec db psql -U synastry`,
+    # or uncomment:
+    # ports:
+    #   - "127.0.0.1:5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U synastry -d synastry"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  api:
+    <<: *api-build
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: *database-url
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required - add it to .env or the environment (see docs/deployment.md)}
+      PORT: "3000"
+    ports:
+      - "3000:3000"
+
+  # One-shot seeder: `docker compose --profile seed run --rm seed`.
+  # The image entrypoint applies migrations first, so this works against an
+  # empty database. Both seeders are idempotent (createMany + skipDuplicates).
+  seed:
+    <<: *api-build
+    profiles: ["seed"]
+    restart: "no"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: *database-url
+      # Extra args for the sky seeder. Empty = full 40-year window (~1.4M rows,
+      # slow). `--years=1` gives a ~35k-row demo dataset, or pass an explicit
+      # window: `--start=2000-01-01 --end=2001-01-01`.
+      SEED_ARGS: ${SEED_ARGS:-}
+    # `$$` escapes compose interpolation, so the container's shell expands
+    # $SEED_ARGS at runtime.
+    command:
+      - sh
+      - -c
+      - yarn workspace @synastry/database seed:districts && yarn workspace @synastry/database seed $$SEED_ARGS
+
+volumes:
+  pgdata:

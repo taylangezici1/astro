@@ -1,0 +1,21 @@
+{
+  "name": "@synastry/ephemeris",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@synastry/api-types": "*",
+    "sweph": "2.10.3-b-1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "~5.9.2",
+    "vitest": "^2.1.8"
+  }
+}

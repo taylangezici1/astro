@@ -1,0 +1,99 @@
+// Project Synastry — database schema
+// Strategy: "Sky-Earth split" (see workflow.md §1)
+//   - GlobalSky stores ephemeris-derived planetary degrees in 15-min steps.
+//   - UserProfile stores per-user natal positions, calculated once on signup.
+// Houses are intentionally NOT pre-computed; they are calculated on-the-fly
+// during Phase 3 refinement against Türkiye's ~973 districts.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// One row per 15-minute UTC tick. ~1.4M rows for a 40-year window.
+/// Degrees are 0–360 (ecliptic longitude).
+model GlobalSky {
+  id        Int      @id @default(autoincrement())
+  timestamp DateTime @unique
+
+  sun     Float
+  moon    Float
+  mercury Float
+  venus   Float
+  mars    Float
+  jupiter Float
+  saturn  Float
+
+  // Phase 2 ORs one range condition per rule ("partner's <planet> within
+  // ±orb of a target"), which Postgres serves as a BitmapOr of per-column
+  // index scans. Every planet a rule can target needs its own index, or a
+  // single unindexed branch forces a full scan. (A composite index only
+  // helps its leading column, so it was dropped.)
+  @@index([sun])
+  @@index([moon])
+  @@index([mercury])
+  @@index([venus])
+  @@index([mars])
+  @@index([jupiter])
+  @@index([saturn])
+}
+
+/// One Türkiye district (ilçe) used by Phase 3 refinement.
+/// Coordinates are decimal degrees (north positive, east positive).
+/// Sourced from serkanozbeykurucu/CoordinateLookup, normalised and committed
+/// to packages/database/seed-data/turkey-districts.json.
+model District {
+  id        String @id
+  name      String
+  province  String
+  latitude  Float
+  longitude Float
+
+  users User[]
+
+  @@index([province])
+}
+
+/// A user account.
+///
+/// Birth inputs are captured once at signup and cached as derived natal
+/// longitudes so the matching engine never recomputes them. Houses are still
+/// computed on-the-fly during Phase 3 because they depend on the candidate
+/// district, not the user's own birth place.
+model User {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  email        String   @unique
+  passwordHash String
+
+  // Raw birth inputs — stored so we can re-resolve the timezone or recompute
+  // the natal chart later if the ephemeris implementation changes.
+  birthLocalDate String   // YYYY-MM-DD
+  birthLocalTime String   // HH:MM
+  latitude       Float
+  longitude      Float
+
+  // Resolved at signup time.
+  birthTimezone String
+  birthUtc      DateTime
+
+  // Optional reference to a District row when the user picked a district from
+  // the catalogue. Free-form lat/lng signups don't get this.
+  districtId String?
+  district   District? @relation(fields: [districtId], references: [id])
+
+  // Cached natal positions, computed once at signup.
+  natalSun     Float
+  natalMoon    Float
+  natalMercury Float
+  natalVenus   Float
+  natalMars    Float
+  natalJupiter Float
+  natalSaturn  Float
+}
