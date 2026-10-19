@@ -14,6 +14,13 @@ import { PRISMA, type PrismaInstance } from "../prisma/prisma.module";
 // Re-export so existing imports from this module keep working.
 export type { District };
 
+/**
+ * Every district in the catalogue is in Türkiye, which has a single timezone.
+ * Use this rather than a coordinate lookup, which puts border and island
+ * districts (Hopa, Ayvalık, Gökçeada, Saray…) in neighbouring countries.
+ */
+export const DISTRICT_TIMEZONE = "Europe/Istanbul";
+
 @Injectable()
 export class DistrictsService implements OnModuleInit {
   private readonly logger = new Logger(DistrictsService.name);
@@ -32,6 +39,11 @@ export class DistrictsService implements OnModuleInit {
   /** Return the full sorted list. */
   all(): readonly District[] {
     return this.districts;
+  }
+
+  /** Look up one district by id. */
+  byId(id: string): District | undefined {
+    return this.districts.find((d) => d.id === id);
   }
 
   /**

@@ -9,7 +9,8 @@
     "build": "tsc -p tsconfig.build.json",
     "lint": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:e2e": "vitest run -c vitest.e2e.config.ts"
   },
   "dependencies": {
     "@nestjs/cache-manager": "^2.3.0",
@@ -19,6 +20,7 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.4.15",
+    "@nestjs/throttler": "~6.4.0",
     "@synastry/api-types": "*",
     "@synastry/database": "*",
     "@synastry/ephemeris": "*",

@@ -26,7 +26,7 @@ import {
   type RefinementResult,
 } from "@synastry/api-types";
 
-import { DistrictsService } from "../districts/districts.service";
+import { DISTRICT_TIMEZONE, DistrictsService } from "../districts/districts.service";
 import { compatibility, scoreHouses, type HouseScore } from "../matching/scoring";
 import { TimezoneService } from "../timezone/timezone.service";
 
@@ -110,11 +110,7 @@ export class RefinementService {
 
     const top: RefinementHit[] = hits.slice(0, TOP_N).map((hit) => ({
       ...hit,
-      ...this.timezone.toLocal(
-        new Date(hit.timestamp),
-        hit.district.latitude,
-        hit.district.longitude,
-      ),
+      ...this.timezone.toLocal(new Date(hit.timestamp), DISTRICT_TIMEZONE),
     }));
     const elapsedMs = Date.now() - t0;
     const pairsEvaluated = input.candidates.length * searched.length;

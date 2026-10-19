@@ -22,6 +22,14 @@ import { JwtStrategy } from "./jwt.strategy";
             "JWT_SECRET is not set. Add it to apps/api/.env before starting the API.",
           );
         }
+        if (
+          process.env.NODE_ENV === "production" &&
+          (secret.length < 32 || secret === "change-me")
+        ) {
+          throw new Error(
+            "JWT_SECRET is too weak for production. Use at least 32 random characters (openssl rand -hex 32).",
+          );
+        }
         return {
           secret,
           signOptions: { expiresIn: "30d" },

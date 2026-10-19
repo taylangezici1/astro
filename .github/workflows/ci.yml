@@ -1,7 +1,10 @@
 name: CI
 
+# Pushes to main, plus every pull request (a feature branch with an open PR
+# would otherwise run twice per push).
 on:
   push:
+    branches: [main]
   pull_request:
 
 # A newer push to the same branch/PR cancels the in-flight run.
@@ -39,9 +42,12 @@ jobs:
           --health-timeout 5s
           --health-retries 10
     env:
-      # CI-only value so code paths that need a secret (and future e2e tests)
-      # can run. Never use it anywhere else.
+      # CI-only value so code paths that need a secret can run. Never use it
+      # anywhere else.
       JWT_SECRET: ci-only-insecure-jwt-secret
+      # The e2e suite wipes and reseeds this schema; it refuses any URL that
+      # isn't ?schema=e2e or a *_test database.
+      E2E_DATABASE_URL: postgresql://synastry:synastry@localhost:5432/synastry?schema=e2e
     steps:
       - uses: actions/checkout@v5
 
@@ -77,6 +83,11 @@ jobs:
 
       - name: Typecheck mobile app
         run: npx tsc --noEmit -p apps/mobile
+
+      # Boots the real API against the Postgres service and exercises auth +
+      # matching over HTTP (apps/api/test/e2e).
+      - name: End-to-end API tests
+        run: yarn workspace @synastry/api test:e2e
 
   docker:
     name: Docker image (build + boot smoke test)
@@ -145,16 +156,18 @@ jobs:
               echo "::error::API container exited during startup"
               exit 1
             fi
-            code=$(curl -s -o "$body" -w '%{http_code}' 'http://127.0.0.1:3000/districts?limit=1' || true)
+            code=$(curl -s -o /dev/null -w '%{http_code}' 'http://127.0.0.1:3000/health' || true)
             if [ "$code" != "000" ]; then break; fi
             sleep 2
           done
 
-          echo "GET /districts?limit=1 -> HTTP $code"
+          echo "GET /health -> HTTP $code"
           if [ "$code" != "200" ]; then
-            echo "::error::expected HTTP 200 from the API"
+            echo "::error::expected HTTP 200 from /health (API up and Postgres reachable)"
             exit 1
           fi
+
+          curl -sf -o "$body" 'http://127.0.0.1:3000/districts?limit=1'
           cat "$body"; echo
           if ! grep -q '"districts":\[{' "$body"; then
             echo "::error::API returned no districts (DB not reachable or not seeded?)"

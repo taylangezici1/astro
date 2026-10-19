@@ -65,7 +65,9 @@ docker run -p 3000:3000 \
 | `DATABASE_URL`    | yes      | none           | Postgres connection string, read by Prisma (the API, migrations and the seeders). |
 | `JWT_SECRET`      | yes      | none           | Signs auth tokens. The API refuses to boot without it. Generate a long random value (`openssl rand -hex 32`) and keep it stable: rotating it logs every user out. |
 | `PORT`            | no       | `3000`         | HTTP port. The API binds `0.0.0.0`. |
-| `NODE_ENV`        | no       | `production`   | Set by the image. |
+| `NODE_ENV`        | no       | `production`   | Set by the image. In production the API also refuses a `JWT_SECRET` shorter than 32 characters. |
+| `TRUST_PROXY`     | no       | unset          | Number of reverse-proxy hops in front of the API (usually `1`). Needed so rate limiting sees client IPs instead of the proxy's. |
+| `CORS_ORIGINS`    | no       | any origin     | Comma-separated allowlist. Native apps send no Origin; only the Expo web build needs this. |
 | `SKIP_MIGRATIONS` | no       | unset          | Container only. `1` skips the `prisma migrate deploy` that runs on start. |
 | `SEED_ARGS`       | no       | empty          | Compose `seed` service only. Extra arguments for the sky seeder. |
 
@@ -118,9 +120,8 @@ or seed the older range explicitly with
   the unprivileged `node` user. Arguments passed to the container replace the
   server command (migrations still run first), e.g.
   `docker run --rm -e DATABASE_URL=... synastry-api yarn workspace @synastry/database seed:districts`.
-- **Healthcheck:** Node's built-in `fetch` against `GET /health`. A 5xx or no
-  response counts as unhealthy; a 404 is tolerated until the `/health` route
-  exists.
+- **Healthcheck:** Node's built-in `fetch` against `GET /health`, which
+  answers 200 when the API is up and Postgres responds (503 otherwise).
 
 ## Scaling: single instance for now
 
@@ -129,6 +130,9 @@ or seed the older range explicitly with
   own cold cache, with no sharing or coordinated invalidation, and memory use
   multiplies. Run **one** API instance until the cache moves to Redis (planned,
   see `roadmap.md`). Restarting the container also clears the cache.
+- **Rate limits are in-memory too** (`@nestjs/throttler`: 120 req/min per IP
+  overall, 10/min for login, signup and account deletion, 20/min for `/match`).
+  With several replicas each enforces its own count.
 - **Migrations on boot** suit a single instance. `prisma migrate deploy` holds
   a Postgres advisory lock, so concurrent starts are safe, but for
   multi-instance or zero-downtime deploys run it once as a release step and
@@ -138,7 +142,7 @@ or seed the older range explicitly with
 
 ## CI
 
-`.github/workflows/ci.yml` runs on every push and pull request:
+`.github/workflows/ci.yml` runs on pushes to `main` and on every pull request:
 
 - **`check`** (Node 22, Postgres 16 service): runs
   `yarn install --frozen-lockfile`, then `yarn db:generate`, then
@@ -146,9 +150,10 @@ or seed the older range explicitly with
   `prisma migrate diff --exit-code` that `schema.prisma` matches the migrations,
   runs `yarn turbo run lint test` (all workspace typechecks, `expo lint`, and
   the vitest suites), and finally typechecks the mobile app with
-  `npx tsc --noEmit -p apps/mobile`. `DATABASE_URL` and a CI-only `JWT_SECRET`
-  are exported for future e2e tests.
+  `npx tsc --noEmit -p apps/mobile`. Finally it runs the end-to-end suite
+  (`yarn workspace @synastry/api test:e2e`), which boots the API against an
+  `e2e` schema of the same Postgres and exercises auth + matching over HTTP.
 - **`docker`**: builds `apps/api/Dockerfile` with Buildx and the GitHub Actions
   layer cache, without pushing. It then runs the image against a Postgres 16
   service: migrations, both seeders over a one-day sky window, and API boot,
-  and asserts that `GET /districts` returns data.
+  and asserts that `GET /health` is 200 and `GET /districts` returns data.

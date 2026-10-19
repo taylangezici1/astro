@@ -17,6 +17,8 @@ const DISTRICTS: District[] = [
   { id: "ankara-cankaya", name: "Çankaya", province: "Ankara", latitude: 39.92, longitude: 32.85 },
   { id: "van-ipekyolu", name: "İpekyolu", province: "Van", latitude: 38.5, longitude: 43.38 },
   { id: "hakkari-merkez", name: "Merkez", province: "Hakkari", latitude: 37.58, longitude: 43.74 },
+  // tz-lookup puts Hopa in Asia/Tbilisi; it must still report Türkiye's zone.
+  { id: "artvin-hopa", name: "Hopa", province: "Artvin", latitude: 41.39, longitude: 41.42 },
 ];
 
 const fakeDistricts = { all: () => DISTRICTS } as unknown as DistrictsService;
@@ -125,6 +127,25 @@ describe("RefinementService.refine", () => {
     const result = await refine([candidate("2000-06-15T12:00:00Z", 0.9)], SELF_ONLY);
     expect(result.best?.timezone).toBe("Europe/Istanbul");
     expect(result.best?.localISO).toBe("2000-06-15T15:00:00");
+  });
+
+  it("uses Türkiye's timezone even where a coordinate lookup would not", async () => {
+    const hopaOnly = { all: () => DISTRICTS.filter((d) => d.id === "artvin-hopa") };
+    const service = new RefinementService(
+      hopaOnly as unknown as DistrictsService,
+      new TimezoneService(),
+    );
+    const result = await service.refine({
+      selfNatal: USER_NATAL,
+      selfBirthTimestamp: USER_BIRTH,
+      selfLatitude: USER_LAT,
+      selfLongitude: USER_LNG,
+      candidates: [candidate("2020-06-15T12:00:00Z", 0.9)],
+      rules: SELF_ONLY,
+    });
+    expect(result.best?.district.id).toBe("artvin-hopa");
+    expect(result.best?.timezone).toBe("Europe/Istanbul");
+    expect(result.best?.localISO).toBe("2020-06-15T15:00:00");
   });
 
   it("returns no hits when Phase 2 found no candidates", async () => {

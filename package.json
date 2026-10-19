@@ -30,7 +30,8 @@
     "db:migrate": "yarn workspace @synastry/database migrate",
     "db:deploy": "yarn workspace @synastry/database migrate:deploy",
     "db:seed": "yarn workspace @synastry/database seed",
-    "mobile": "yarn workspace mobile start"
+    "mobile": "yarn workspace @synastry/mobile dev",
+    "test:e2e": "yarn workspace @synastry/api test:e2e"
   },
   "devDependencies": {
     "turbo": "^2.3.3",

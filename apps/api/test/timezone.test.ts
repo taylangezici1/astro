@@ -66,6 +66,19 @@ describe("TimezoneService.resolveLocalInstant", () => {
     ).toThrow(BadRequestException);
   });
 
+  it("uses a caller-supplied zone instead of the coordinate lookup", () => {
+    // Hopa, Artvin: tz-lookup says Asia/Tbilisi (UTC+4); Türkiye is UTC+3.
+    const result = tz.resolveLocalInstant({
+      localDate: "2020-06-15",
+      localTime: "15:00",
+      latitude: 41.39,
+      longitude: 41.42,
+      timezone: "Europe/Istanbul",
+    });
+    expect(result.timezone).toBe("Europe/Istanbul");
+    expect(result.utcISO).toBe("2020-06-15T12:00:00.000Z");
+  });
+
   it("tags a DST-gap rejection with a machine-readable code", () => {
     try {
       tz.resolveLocalInstant({

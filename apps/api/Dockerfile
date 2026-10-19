@@ -121,12 +121,10 @@ USER node
 
 EXPOSE 3000
 
-# Liveness: the process answers HTTP on /health. A 5xx (e.g. the planned
-# /health reporting the DB as down) or no answer counts as unhealthy. A 404 is
-# tolerated so the image stays healthy until the /health route exists.
-# No curl/wget in slim images, so use Node's built-in fetch.
+# GET /health answers 200 when the API is up and Postgres responds, 503
+# otherwise. No curl/wget in slim images, so use Node's built-in fetch.
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-  CMD ["node", "-e", "fetch('http://127.0.0.1:' + (process.env.PORT || 3000) + '/health', { signal: AbortSignal.timeout(4000) }).then((r) => process.exit(r.status < 500 ? 0 : 1), () => process.exit(1))"]
+  CMD ["node", "-e", "fetch('http://127.0.0.1:' + (process.env.PORT || 3000) + '/health', { signal: AbortSignal.timeout(4000) }).then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]
 
 # The entrypoint applies pending migrations (set SKIP_MIGRATIONS=1 to opt out),
 # then starts the API. Any arguments replace the server command, e.g.:

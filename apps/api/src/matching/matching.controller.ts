@@ -1,4 +1,5 @@
 import { Body, Controller, HttpCode, Post, Req, UseGuards } from "@nestjs/common";
+import { Throttle } from "@nestjs/throttler";
 import type { Request } from "express";
 import type { User as PrismaUser } from "@synastry/database";
 
@@ -20,6 +21,9 @@ export class MatchingController {
    */
   @Post()
   @HttpCode(200)
+  // Uncached matches cost ~0.7 s of DB + CPU; 20/min per IP is plenty for a
+  // person tweaking settings and stops one client from hogging the server.
+  @Throttle({ default: { limit: 20, ttl: 60_000 } })
   async match(
     @Req() req: Request,
     @Body() dto: MatchRequestDto,

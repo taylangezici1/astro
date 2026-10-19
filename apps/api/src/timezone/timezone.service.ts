@@ -24,6 +24,11 @@ export interface LocalBirthInstant {
   localTime: string;
   latitude: number;
   longitude: number;
+  /**
+   * Known IANA zone for the place, when the caller has one (e.g. a catalogue
+   * district). Skips the coordinate lookup, which is coarse near borders.
+   */
+  timezone?: string;
 }
 
 export interface ResolvedBirthInstant {
@@ -46,7 +51,11 @@ export class TimezoneService {
    */
   private readonly tzCache = new Map<string, string>();
 
-  /** Resolve a (lat, lng) to an IANA timezone name. */
+  /**
+   * Resolve a (lat, lng) to an IANA timezone name. tz-lookup's borders are
+   * coarse (13 of Türkiye's 972 districts land in a neighbour's zone), so
+   * prefer a known zone when there is one — see `LocalBirthInstant.timezone`.
+   */
   resolveZone(latitude: number, longitude: number): string {
     // Round to 4 decimal places (~11 m precision) for cache key stability.
     const key = `${latitude.toFixed(4)},${longitude.toFixed(4)}`;
@@ -84,7 +93,7 @@ export class TimezoneService {
       );
     }
 
-    const zone = this.resolveZone(input.latitude, input.longitude);
+    const zone = input.timezone ?? this.resolveZone(input.latitude, input.longitude);
     const localISO = `${input.localDate}T${input.localTime}:00`;
 
     const dt = DateTime.fromISO(localISO, { zone });
@@ -120,12 +129,11 @@ export class TimezoneService {
   }
 
   /**
-   * The inverse: the wall-clock time at (lat, lng) for a UTC instant, as
-   * "YYYY-MM-DDTHH:mm:ss" (no offset) plus the IANA zone. Historical offsets
-   * are honoured — Türkiye used UTC+2 with DST until 2016.
+   * The inverse: the wall-clock time in `timezone` for a UTC instant, as
+   * "YYYY-MM-DDTHH:mm:ss" (no offset). Historical offsets are honoured —
+   * Türkiye used UTC+2 with DST until 2016.
    */
-  toLocal(utc: Date, latitude: number, longitude: number): { localISO: string; timezone: string } {
-    const timezone = this.resolveZone(latitude, longitude);
+  toLocal(utc: Date, timezone: string): { localISO: string; timezone: string } {
     const localISO = DateTime.fromJSDate(utc, { zone: timezone }).toFormat("yyyy-MM-dd'T'HH:mm:ss");
     return { localISO, timezone };
   }

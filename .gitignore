@@ -50,3 +50,6 @@ app-example
 
 # prisma
 packages/database/src/generated/
+
+# Claude Code agent worktrees
+.claude/worktrees/

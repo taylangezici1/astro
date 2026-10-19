@@ -1,4 +1,4 @@
-import { Global, Module } from "@nestjs/common";
+import { Global, Inject, Module, type OnApplicationShutdown } from "@nestjs/common";
 import { prisma } from "@synastry/database";
 
 /** Injection token for the shared Prisma client. */
@@ -10,4 +10,11 @@ export type PrismaInstance = typeof prisma;
   providers: [{ provide: PRISMA, useValue: prisma }],
   exports: [PRISMA],
 })
-export class PrismaModule {}
+export class PrismaModule implements OnApplicationShutdown {
+  constructor(@Inject(PRISMA) private readonly client: PrismaInstance) {}
+
+  /** Close the connection pool on SIGTERM (requires enableShutdownHooks). */
+  async onApplicationShutdown(): Promise<void> {
+    await this.client.$disconnect();
+  }
+}
