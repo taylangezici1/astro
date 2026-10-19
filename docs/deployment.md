@@ -85,25 +85,17 @@ migrations first, so it works on an empty database. Both seeders are idempotent
 | Data | Command (inside the image / a dev checkout) | Size | Duration |
 | ---- | ------------------------------------------- | ---- | -------- |
 | Türkiye districts | `yarn workspace @synastry/database seed:districts` | 972 rows | Seconds. |
-| Sky, full window (default) | `yarn workspace @synastry/database seed` | ~1.4M rows (40 years of 15-minute ticks) | **Long.** Every tick is computed with Swiss Ephemeris and batch-inserted into an indexed table. Budget tens of minutes or more, depending on CPU and disk. The seeder prints throughput and an ETA every 2,000 ticks. |
+| Sky, full window (default) | `yarn workspace @synastry/database seed` | ~1.4M rows (40 years of 15-minute ticks) | **Long.** Every tick is computed with Swiss Ephemeris and batch-inserted into an indexed table. Budget tens of minutes or more, depending on CPU and disk. The seeder logs progress after every 30-day chunk. |
 | Sky, demo (`SEED_ARGS=--years=1`) | `... seed --years=1` (also `yarn workspace @synastry/database seed:small`) | ~35k rows (last 12 months) | About 1/40 of the full run. |
 | Sky, custom window | `... seed --start=2000-01-01 --end=2001-01-01` | ~35k rows per year | Proportional to the window. |
 
 Matching only considers candidate birth moments inside the seeded sky window,
 so with demo data every candidate is from the last 12 months.
 
-The sky seeder resumes from the **latest** timestamp already stored in the
-requested window. If you seed the 1-year demo first and later run the full
-40-year seed, it only fills in ticks newer than the demo data. To get the full
-history, either truncate first:
-
-```sh
-docker compose exec db psql -U synastry -d synastry -c 'TRUNCATE "GlobalSky"'
-```
-
-or seed the older range explicitly with
-`SEED_ARGS="--start=<40 years ago> --end=<first day of the demo window>"`
-(dates as `YYYY-MM-DD`, UTC).
+The sky seeder works through the window in 30-day chunks and skips chunks
+that are already complete, so re-running it is cheap and safe: it resumes an
+interrupted run and fills any gaps. Seeding the 1-year demo first and the full
+40-year window later works — the older 39 years get filled in.
 
 ## Image notes
 

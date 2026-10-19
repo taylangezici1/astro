@@ -5,8 +5,8 @@
  *   - Walk every 15-minute UTC tick from --start to --end (default: last 40 years).
  *   - For each tick, ask Swiss Ephemeris for the ecliptic longitude of the seven
  *     visible planets (Sun..Saturn).
- *   - Batch-insert into GlobalSky with `skipDuplicates`, so re-running the
- *     seeder is safe and resumable.
+ *   - Work in 30-day chunks, skipping chunks that are already complete, so
+ *     re-running is cheap and any gaps get filled (see sky-seeder.ts).
  *
  * Usage:
  *   yarn workspace @synastry/database seed                 # full 40-year window
@@ -15,20 +15,10 @@
  */
 
 import "dotenv/config";
-import {
-  calcChart,
-  closeEphemeris,
-  initEphemeris,
-  PLANETS,
-  type PlanetaryChart,
-} from "@synastry/ephemeris";
+import { calcChart, closeEphemeris, initEphemeris } from "@synastry/ephemeris";
 
 import { prisma } from "../src/index";
-
-type SkyRow = { timestamp: Date } & PlanetaryChart;
-
-const STEP_MINUTES = 15;
-const BATCH_SIZE = 2_000;
+import { STEP_MS, seedSky } from "./sky-seeder";
 
 // ---------- arg parsing ----------
 
@@ -51,10 +41,8 @@ function parseArgs(): Args {
     if (m) map.set(m[1], m[2]);
   }
 
-  const now = new Date();
-  // Snap "now" down to the nearest 15-minute boundary so the loop terminates cleanly.
-  now.setUTCSeconds(0, 0);
-  now.setUTCMinutes(now.getUTCMinutes() - (now.getUTCMinutes() % STEP_MINUTES));
+  // Snap "now" down to a 15-minute boundary so the window ends on the grid.
+  const now = new Date(Math.floor(Date.now() / STEP_MS) * STEP_MS);
 
   let start: Date;
   let end: Date;
@@ -95,69 +83,26 @@ async function main() {
   const { start, end } = parseArgs();
   initEphemeris();
 
-  const totalSteps = Math.floor(
-    (end.getTime() - start.getTime()) / (STEP_MINUTES * 60_000),
-  );
+  const totalTicks = Math.floor((end.getTime() - start.getTime()) / STEP_MS);
   console.log(
     `Seeding GlobalSky: ${start.toISOString()} → ${end.toISOString()} ` +
-      `(${totalSteps.toLocaleString()} ticks @ ${STEP_MINUTES}-min steps)`,
+      `(${totalTicks.toLocaleString()} ticks @ 15-min steps)`,
   );
 
-  // Resume support: skip ticks we've already seeded.
-  const existing = await prisma.globalSky.findFirst({
-    where: { timestamp: { gte: start, lt: end } },
-    orderBy: { timestamp: "desc" },
-    select: { timestamp: true },
-  });
-  let cursor = new Date(start);
-  if (existing) {
-    cursor = new Date(existing.timestamp.getTime() + STEP_MINUTES * 60_000);
-    console.log(`  resuming from ${cursor.toISOString()}`);
-  }
-
-  let buffer: SkyRow[] = [];
-  let inserted = 0;
-  let processed = 0;
   const t0 = Date.now();
+  const summary = await seedSky(start, end, {
+    countExisting: (from, to) =>
+      prisma.globalSky.count({ where: { timestamp: { gte: from, lt: to } } }),
+    insert: async (rows) =>
+      (await prisma.globalSky.createMany({ data: rows, skipDuplicates: true })).count,
+    chartAt: calcChart,
+    log: (message) => console.log(message),
+  });
 
-  const flush = async () => {
-    if (buffer.length === 0) return;
-    const result = await prisma.globalSky.createMany({
-      data: buffer,
-      skipDuplicates: true,
-    });
-    inserted += result.count;
-    buffer = [];
-  };
-
-  while (cursor < end) {
-    const chart = calcChart(cursor);
-    buffer.push({ timestamp: cursor, ...chart });
-    processed++;
-
-    if (buffer.length >= BATCH_SIZE) {
-      await flush();
-      const elapsed = (Date.now() - t0) / 1000;
-      const rate = processed / elapsed;
-      const remaining = totalSteps - processed;
-      const etaMin = rate > 0 ? remaining / rate / 60 : 0;
-      console.log(
-        `  ${processed.toLocaleString()}/${totalSteps.toLocaleString()} ticks ` +
-          `(${inserted.toLocaleString()} inserted, ${rate.toFixed(0)}/s, eta ${etaMin.toFixed(1)}m)`,
-      );
-    }
-
-    cursor = new Date(cursor.getTime() + STEP_MINUTES * 60_000);
-  }
-
-  await flush();
   console.log(
-    `Done. ${inserted.toLocaleString()} new rows in ${((Date.now() - t0) / 1000).toFixed(1)}s.`,
+    `Done. ${summary.inserted.toLocaleString()} new rows in ${((Date.now() - t0) / 1000).toFixed(1)}s ` +
+      `(${summary.chunksSeeded} chunks seeded, ${summary.chunksSkipped} already complete).`,
   );
-
-  // PLANETS is exported only for the seeder side-channel; reference it so the
-  // re-export survives unused-import linters in the future.
-  void PLANETS;
 }
 
 main()
