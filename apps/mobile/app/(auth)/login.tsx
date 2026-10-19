@@ -18,6 +18,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { useT } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { ApiError } from "@/lib/api";
+import { describeError } from "@/lib/errors";
 
 export default function LoginScreen() {
   const theme = useTheme();
@@ -44,7 +45,7 @@ export default function LoginScreen() {
       if (err instanceof ApiError && err.status === 401) {
         setError(t.auth.login.errorInvalid);
       } else {
-        setError(t.auth.login.errorGeneric);
+        setError(describeError(err, t));
       }
     } finally {
       setLoading(false);

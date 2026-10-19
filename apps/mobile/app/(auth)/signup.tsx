@@ -21,6 +21,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { useT } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { ApiError, type District } from "@/lib/api";
+import { describeError } from "@/lib/errors";
 import { DistrictPicker } from "@/features/match/district-picker";
 
 const IS_WEB = Platform.OS === "web";
@@ -88,8 +89,10 @@ export default function SignupScreen() {
     } catch (err) {
       if (err instanceof ApiError && err.status === 409) {
         setError(t.auth.signup.errorEmailTaken);
+      } else if (err instanceof ApiError && err.status === 400 && !err.code) {
+        setError(t.auth.signup.errorInvalid);
       } else {
-        setError(t.auth.signup.errorGeneric);
+        setError(describeError(err, t));
       }
     } finally {
       setLoading(false);

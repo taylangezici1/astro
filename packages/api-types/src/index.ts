@@ -107,6 +107,10 @@ export interface District {
 export interface RefinementHit {
   /** ISO-8601 UTC timestamp string. */
   timestamp: string;
+  /** Wall-clock birth time in the district, "YYYY-MM-DDTHH:mm:ss" (no offset). */
+  localISO: string;
+  /** IANA timezone of the district, e.g. "Europe/Istanbul". */
+  timezone: string;
   natal: PlanetaryChart;
   district: District;
   /**
@@ -189,6 +193,28 @@ export interface AuthResponse {
   token: string;
   user: User;
 }
+
+/** PATCH /auth/me — replace the birth details; the server recomputes the chart. */
+export interface UpdateBirthRequest {
+  birthLocalDate: string;
+  birthLocalTime: string;
+  latitude: number;
+  longitude: number;
+  districtId?: string;
+}
+
+/** DELETE /auth/me — the password is re-checked before anything is deleted. */
+export interface DeleteAccountRequest {
+  password: string;
+}
+
+/**
+ * Machine-readable `code` on error response bodies, for errors a client
+ * should explain specifically rather than generically.
+ */
+export type ApiErrorCode =
+  /** The local birth time was skipped by a daylight-saving jump. */
+  "BIRTH_TIME_IN_DST_GAP";
 
 // ---------- /match request + response ----------
 

@@ -1,10 +1,55 @@
+import type { AspectName, PlanetKey } from "@/lib/api";
 import type { Translations } from "./strings";
+
+const PLANETS: Record<PlanetKey, string> = {
+  sun: "Güneş",
+  moon: "Ay",
+  mercury: "Merkür",
+  venus: "Venüs",
+  mars: "Mars",
+  jupiter: "Jüpiter",
+  saturn: "Satürn",
+};
+
+// Possessive forms follow vowel harmony, so they're spelled out per planet
+// rather than built with a generic suffix.
+/** "Eşinizin Venüs'ü" — the partner's planet. */
+const THEIR: Record<PlanetKey, string> = {
+  sun: "Güneş'i",
+  moon: "Ay'ı",
+  mercury: "Merkür'ü",
+  venus: "Venüs'ü",
+  mars: "Mars'ı",
+  jupiter: "Jüpiter'i",
+  saturn: "Satürn'ü",
+};
+
+/** "Venüs'ünüz" — the user's planet. */
+const YOUR: Record<PlanetKey, string> = {
+  sun: "Güneş'iniz",
+  moon: "Ay'ınız",
+  mercury: "Merkür'ünüz",
+  venus: "Venüs'ünüz",
+  mars: "Mars'ınız",
+  jupiter: "Jüpiter'iniz",
+  saturn: "Satürn'ünüz",
+};
+
+const ASPECTS: Record<AspectName, string> = {
+  conjunction: "kavuşum",
+  sextile: "altmışlık",
+  square: "kare",
+  trine: "üçgen",
+  opposition: "karşıt",
+};
 
 export const tr: Translations = {
   common: {
     cancel: "İptal",
     done: "Tamam",
     remove: "Sil",
+    retry: "Tekrar dene",
+    save: "Kaydet",
   },
   nav: {
     match: "Eşleşme",
@@ -13,11 +58,11 @@ export const tr: Translations = {
   home: {
     eyebrow: "PROJE",
     title: "Synastry",
-    tagline: "Teorik mükemmel eşinizin hangi anda doğduğunu bulun.",
+    tagline: "Teorik mükemmel eşinizin doğduğu anı bulun.",
   },
   form: {
-    title: "Bize kendinizden bahsedin",
-    hint: "Doğum tarih ve saatinizi günlük konuşmadaki gibi girin — saat dilimini seçtiğiniz ilçeden biz çözeriz.",
+    title: "Eşleşmenizi bulun",
+    hint: "Size en uygun kişinin doğduğu anı bulmak için 40 yıllık gökyüzünü tarıyoruz.",
     fields: {
       birthDateWeb: "Doğum tarihi (YYYY-AA-GG)",
       birthDateNative: "Doğum tarihi",
@@ -28,119 +73,128 @@ export const tr: Translations = {
     placeholders: {
       birthDate: "1994-10-12",
       birthTime: "17:15",
+      pickDate: "Tarih seçin",
+      pickTime: "Saat seçin",
       districtTrigger: "Bir ilçe seçin…",
-      districtSearch: "İlçe veya il ile arayın…",
+      districtSearch: "İlçe veya il adıyla arayın…",
     },
     button: "✨  Eşimi bul",
     errors: {
-      pickDistrict: "Bir doğum ilçesi seçin.",
       addRule: "En az bir kozmik hizalanma ekleyin.",
-      dateFormat: "Doğum tarihi YYYY-AA-GG biçiminde olmalı.",
-      timeFormat: "Doğum saati SS:DD biçiminde olmalı.",
-      latRange: "Enlem -90 ile 90 arasında olmalı.",
-      lngRange: "Boylam -180 ile 180 arasında olmalı.",
-      apiPrefix: "Sunucu hatası",
-      apiUnknown: "Sunucuya ulaşılamadı.",
     },
+  },
+  errors: {
+    network: "Sunucuya ulaşılamıyor. Bağlantınızı kontrol edip tekrar deneyin.",
+    sessionExpired: "Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın.",
+    rateLimited: "Çok fazla istek gönderildi. Bir dakika bekleyip tekrar deneyin.",
+    server: "Bizim tarafımızda bir sorun oluştu. Lütfen tekrar deneyin.",
+    invalidBirth:
+      "Bu doğum saati saat diliminizde yok — yaz saati uygulamasında saatler bu anı atlamış. Lütfen saati kontrol edin.",
+    generic: "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
   },
   districts: {
     title: "Doğum ilçesi",
-    empty: "Eşleşme yok.",
-    loadFailed: "İlçeler yüklenemedi.",
+    empty: "Sonuç yok.",
+    loadFailed: "İlçe listesi yüklenemedi.",
   },
   advanced: {
     header: "EŞLEŞMEYİ İNCE AYARLA",
     summary: (orb, count) => `±${orb}° · ${count} hizalanma`,
     intro:
-      "Kozmik hizalanmalar, anlamlı açılarla duran gezegen çiftleridir. Hangi hizalanmaların önemli olduğunu ve eşleşmenin ne kadar sıkı olacağını seçin.",
+      "Kozmik hizalanmalar, birbirine anlamlı açılarla duran gezegen çiftleridir. Hangi hizalanmaların önemli olduğunu ve eşleşmenin ne kadar sıkı olacağını seçin.",
+    reset: "Varsayılanlara dön",
     orb: {
       title: "Ne kadar sıkı?",
       hintLine1: "Her hedef derecenin etrafındaki esneme payı.",
       hintLine2:
-        "Geniş = daha çok eşleşme ama gevşek; dar = daha az ama daha sıkı.",
+        "Geniş = daha çok hizalanma sayılır ama gevşek; dar = yalnızca tama yakın hizalanmalar sayılır.",
     },
     rules: {
       title: "Kozmik hizalanmalar",
       hint: {
-        their: "onların gezegeni",
-        your: "sizin gezegeniniz",
-        tail: " ile bu açıda durur. Tüm hizalanmalar aynı anda sağlanmalıdır.",
+        their: "Eşinizin gezegeni",
+        tail: "sizinkine bu açıyla durur. Eşleşmeler, tüm hizalanmalara ne kadar yaklaştıklarına göre sıralanır.",
       },
       ruleTitle: (n) => `Hizalanma ${n}`,
       add: "＋ Hizalanma ekle",
     },
     chips: {
-      their: "Onların",
+      their: "Eşinizin",
       at: "açısı",
       toYour: "sizin",
     },
   },
   results: {
     hero: {
-      labelPhase3: "✨ Teorik mükemmel eşiniz şu anda doğdu",
-      placePrefix: "İlçe:",
-      metaPhase3: (matched, total, pairs, ms) =>
-        `${total} kozmik hizalanmadan ${matched}'i sağlandı  ·  ${pairs} olasılık ${ms} ms'de tarandı`,
-      labelPhase2: "En yakın eşleşme (şehir sabitlenmedi)",
-      metaPhase2: (matched, total, orb) =>
-        `${total} hizalanmadan ${matched}'i eşleşti · ±${orb}° tolerans`,
+      label: "✨ Teorik mükemmel eşiniz şu tarihte doğdu",
+      placePrefix: "📍",
+      summary: (aMet, aTotal, hMet, hTotal) =>
+        `${aMet}/${aTotal} hizalanma · ${hMet}/${hTotal} ev yerleşimi`,
+      fit: (percent) => `Uyum puanı ${percent}/100`,
+      hint: "Ayrıntılar için dokunun",
     },
     empty: {
       title: "Eşleşme bulunamadı",
-      hint: "Tolerans aralığını genişletmeyi, kuralları gevşetmeyi veya daha geniş bir tarih aralığını veriye eklemeyi deneyin.",
+      hint: "40 yıllık gökyüzünde bu hizalanmalara yaklaşan bir an yok. Daha geniş bir tolerans ya da farklı hizalanmalar deneyin.",
     },
     why: {
       title: "NEDEN BU EŞLEŞME",
-      subtitle:
-        "Eşinizin gezegenleri, sizin astrolojik haritanıza yansıtıldığında bu anlamlı yerlere düşüyor.",
+      subtitle: "Eşinizin gezegenlerinin sizinkilerle nasıl hizalandığı.",
     },
-    places: {
-      title: (count) => `DİĞER GÜÇLÜ YERLER (${count})`,
-      subtitle: "Bu ilçeler de aynı anda haritanızla iyi eşleşiyor.",
-      score: (n) => `puan ${n}`,
+    others: {
+      title: (count) => `DİĞER GÜÇLÜ EŞLEŞMELER (${count})`,
+      subtitle: "Gökyüzünün önerdiği diğer kişiler — her biri kendisine en uygun doğum yerinde.",
     },
     sky: {
-      title: "DOĞDUĞUNUZ GÖKYÜZÜ",
+      title: "DOĞDUĞUNUZ ANDAKİ GÖKYÜZÜ",
       subtitle: (localISO, tz) =>
-        `Doğduğunuz an her gezegenin nerede olduğunu gösterir — çözüm: ${localISO} (${tz}).`,
+        `Doğduğunuz anda her gezegenin nerede olduğu — ${localISO} (${tz}) olarak hesaplandı.`,
     },
     looking: {
       title: "NE ARIYORUZ",
       subtitle:
-        "Bunlar, seçtiğiniz kurallara göre haritanızla kozmik hizalanma yaratacak partner-gezegen konumlarıdır.",
+        "Seçtiğiniz her hizalanmayı oluşturacak partner gezegeni konumları.",
       separator: "  ya da  ",
     },
-    moments: {
-      title: (count) => `DİĞER ANLAR (${count})`,
-      subtitle: "Seçtiğiniz hizalanmaları sağlayan diğer doğum anları.",
-      score: (n) => `puan ${n}`,
-    },
+    footer: (days, pairs, ms) =>
+      `40 yıllık gökyüzünden ${days} aday gün sıralandı, ardından ${pairs} doğum yeri kombinasyonu ${ms} ms'de kontrol edildi.`,
   },
   detail: {
     backLabel: "Sonuçlar",
     heroLabel: "Eşleşme detayı",
+    notFound: "Bu eşleşme artık mevcut değil. Aramayı tekrar çalıştırın.",
+    fit: {
+      title: "UYUM PUANI",
+      overall: "Genel",
+      aspects: "Hizalanmalar",
+      houses: "Ev yerleşimleri",
+      explain:
+        "Sağlanan her hizalanma veya yerleşim puanının yarısını kazanır; kalanı ne kadar tam olduğuna bağlıdır. Hizalanmalar puanın %60'ını, ev yerleşimleri %40'ını oluşturur.",
+    },
+    aspects: {
+      title: "HİZALANMALAR",
+      subtitle: "Seçtiğiniz hizalanmalar ve bu eşleşmenin her birine ne kadar yaklaştığı.",
+    },
+    houses: {
+      title: "EV YERLEŞİMLERİ",
+      subtitle: "Bu eşleşmede gerçekleşen klasik sinastri yerleşimleri.",
+      none: "Bu eşleşmede ev yerleşimlerinin hiçbiri gerçekleşmiyor — sıralaması hizalanmalarına dayanıyor.",
+    },
     matchChart: {
       title: "EŞİNİZİN GÖKYÜZÜ",
-      subtitle: "Bu an doğan birinin natal haritası.",
+      subtitle: "Bu anda doğan birinin doğum haritası.",
     },
     yourChart: {
       title: "SİZİN GÖKYÜZÜNÜZ",
-      subtitle: "Karşılaştırma için sizin natal haritanız.",
-    },
-    rulesMatched: {
-      title: "SAĞLANAN KURALLAR",
-      subtitle: "Eşinizin haritasında sağlanan sinastri kuralları.",
+      subtitle: "Karşılaştırma için sizin doğum haritanız.",
     },
     location: {
-      title: "KONUM",
+      title: "DOĞUM",
       district: "İlçe",
       coordinates: "Koordinatlar",
+      localTime: "Yerel doğum saati",
+      timezone: "Saat dilimi",
     },
-    score: {
-      title: "PUAN",
-      value: (n) => `${n} / toplam`,
-    },
-    phase2Note: "Bu bir Faz 2 eşleşmesidir — henüz ilçeye sabitlenmemiş, yalnızca zamana dayalı.",
   },
   auth: {
     login: {
@@ -154,26 +208,40 @@ export const tr: Translations = {
       switchToSignup: "Hesabınız yok mu? Kayıt olun",
       errorMissingFields: "E-posta ve şifre gereklidir.",
       errorInvalid: "E-posta veya şifre hatalı.",
-      errorGeneric: "Giriş yapılamadı. Sunucuya ulaşılamıyor.",
     },
     signup: {
-      title: "Hesap oluştur",
-      tagline:
-        "Doğum bilgilerinizi bir kez girersiniz, sonra eşleşmek tek tıkla.",
+      title: "Hesap oluşturun",
+      tagline: "Doğum bilgilerinizi bir kez girin, sonrası tek dokunuş.",
       sectionAccount: "HESAP",
       sectionBirth: "DOĞUM BİLGİLERİ",
       birthHint:
-        "Doğum tarih ve saatinizi günlük konuşmadaki gibi girin — saat dilimini ilçeden çözeriz.",
+        "Doğum tarihinizi ve saatinizi bildiğiniz gibi girin — saat dilimini ilçenizden biz buluruz.",
       submit: "Hesap oluştur",
       switchToLogin: "Zaten hesabınız var mı? Giriş yapın",
       errorMissingFields: "Lütfen tüm alanları doldurun.",
       errorPasswordTooShort: "Şifre en az 8 karakter olmalı.",
       errorEmailTaken: "Bu e-posta zaten kayıtlı. Giriş yapın.",
+      errorPickBirth: "Doğum tarihinizi ve saatinizi seçin.",
       errorPickDistrict: "Bir doğum ilçesi seçin.",
-      errorGeneric: "Hesap oluşturulamadı. Sunucuya ulaşılamıyor.",
+      errorInvalid: "Lütfen e-posta adresinizi ve doğum bilgilerinizi kontrol edin.",
     },
     logout: "Çıkış yap",
     loggedInAs: "Giriş yapıldı:",
+  },
+  account: {
+    title: "HESAP",
+    editBirth: "Doğum bilgilerini düzenle",
+    deleteTitle: "Hesabı sil",
+    deleteWarning:
+      "Bu işlem hesabınızı ve doğum bilgilerinizi kalıcı olarak siler. Geri alınamaz.",
+    deletePasswordLabel: "Onaylamak için şifrenizi girin",
+    deleteConfirm: "Hesabımı kalıcı olarak sil",
+    wrongPassword: "Şifre hatalı.",
+  },
+  profile: {
+    title: "Doğum bilgileri",
+    subtitle: "Eşleşmeleriniz bu bilgilerden hesaplanır. Kaydettiğinizde haritanız yeniden hesaplanır.",
+    saved: "Kaydedildi — haritanız güncellendi.",
   },
   about: {
     eyebrow: "HAKKINDA",
@@ -181,27 +249,27 @@ export const tr: Translations = {
     tagline:
       "Astrolojik mükemmel eşinizin doğduğu anı — ve yeri — bulan teorik bir eşleştirme motoru.",
     pipeline: {
-      title: "İŞ AKIŞI",
+      title: "NASIL ÇALIŞIR",
       step1: {
         title: "Küresel Gökyüzü",
-        body: "Son 40 yılın 15 dakikalık adımlarla her gezegen konumunu içeren 1,4 milyon satırlık bir Postgres tablosu — Swiss Ephemeris ile bir kez hesaplanır.",
+        body: "Son 40 yılda her gezegenin 15 dakikalık adımlarla konumunu tutan 1,4 milyon satırlık bir tablo — Swiss Ephemeris ile bir kez hesaplanır.",
       },
       step2: {
         title: "Altın Dereceler",
-        body: "Doğum haritanızdan, klasik sinastri açılarını (üçgen, altmışlık, kavuşum) ±5° tolerans içinde sağlayacak partner-gezegen boylamlarını hesaplarız.",
+        body: "Doğum haritanızdan, bir partnerin gezegenlerinin sizinkilerle klasik sinastri açıları oluşturması için nerede olması gerektiğini hesaplarız; sonra bu 40 yıldaki her anı bu konumlara ne kadar yaklaştığına göre puanlarız. ±3° içi sayılır; tam açı en yüksek puanı alır.",
       },
       step3: {
         title: "Yerel İyileştirme",
-        body: "En iyi aday anlar için Türkiye'nin 972 ilçesini gezeriz ve partnerin gezegenlerinin sizin ev sisteminizdeki en uyumlu yerini bulmak için Placidus ev cüsplerini hesaplarız.",
+        body: "En iyi 30 gün için Türkiye'nin 972 ilçesini tek tek gezer, her birinde partnerin Placidus evlerini hesaplar ve evleri haritanıza en iyi uyan doğum yerini seçeriz.",
       },
     },
     howToRead: {
       title: "SONUCUNUZU NASIL OKURSUNUZ",
       bullets: [
-        "Üstteki kart, en iyi eşleşmenizin tarihi ve ilçesini gösterir.",
-        '"Çözüm" satırı, sunucunun ilçenizden seçtiği IANA saat dilimini gösterir. Doğru göründüğünden emin olun.',
-        '"Neden bu eşleşme" listesi, eşinizin sağladığı sinastri kurallarını listeler.',
-        "Diğer yerler ve diğer anlar, ikinci en iyi eşleşmeleri gösterir.",
+        "Üstteki kart en iyi eşleşmenizi gösterir: ne zaman ve nerede doğduğunu, kaç hizalanma ve ev yerleşiminin tuttuğunu.",
+        "Eşleşmeler elenmez, sıralanır: tüm hizalanmaları gevşek sağlayan biri, yalnızca birini tam sağlayan birinin önüne geçebilir.",
+        "Tüm ayrıntılar için herhangi bir eşleşmeye dokunun — her hizalanmanın tam açıdan ne kadar saptığını ve hangi ev yerleşimlerinin tuttuğunu görürsünüz.",
+        '"Hesaplandı" satırı, doğum ilçenizden seçtiğimiz saat dilimini gösterir. Doğru göründüğünden emin olun.',
       ],
     },
     sources: {
@@ -217,22 +285,8 @@ export const tr: Translations = {
       en: "English",
     },
   },
-  planets: {
-    sun: "Güneş",
-    moon: "Ay",
-    mercury: "Merkür",
-    venus: "Venüs",
-    mars: "Mars",
-    jupiter: "Jüpiter",
-    saturn: "Satürn",
-  },
-  aspects: {
-    conjunction: "kavuşum",
-    sextile: "altmışlık",
-    square: "kare",
-    trine: "üçgen",
-    opposition: "karşıt",
-  },
+  planets: PLANETS,
+  aspects: ASPECTS,
   zodiac: [
     "Koç",
     "Boğa",
@@ -247,8 +301,26 @@ export const tr: Translations = {
     "Kova",
     "Balık",
   ],
-  // "sizin venüsünüz onların 7. evinde" / "onların güneşi sizin 1. evinizde"
-  houseRule: ({ planet, house, planetOwner, houseOwner }) =>
-    `${planetOwner} ${planet}'i ${houseOwner} ${house}. evinde`,
+  // "Eşinizin Venüs'ü 7. evinizde" / "Güneş'iniz eşinizin 7. evinde"
+  houseRule: ({ planetOf, planet, houseOf, house }) => {
+    const subject = planetOf === "other" ? `Eşinizin ${THEIR[planet]}` : YOUR[planet];
+    const where =
+      houseOf === "self"
+        ? `${house}. evinizde`
+        : planetOf === "other"
+          ? `kendi ${house}. evinde`
+          : `eşinizin ${house}. evinde`;
+    return `${subject} ${where}`;
+  },
+  // "Eşinizin Ay'ı ile Güneş'iniz arasında üçgen açı"
+  aspectRule: ({ self, aspect, other }) => {
+    const angle = aspect === "conjunction" ? ASPECTS.conjunction : `${ASPECTS[aspect]} açı`;
+    return `Eşinizin ${THEIR[other]} ile ${YOUR[self]} arasında ${angle}`;
+  },
+  aspectDistance: (degrees, inOrb) => {
+    const deg = degrees.toFixed(1).replace(".", ",");
+    if (!inOrb) return `${deg}° uzakta — tolerans dışında`;
+    return degrees < 0.05 ? "tam açı" : `tam açıdan ${deg}° sapma`;
+  },
   localeTag: "tr-TR",
 };

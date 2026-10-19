@@ -28,6 +28,7 @@ import {
 
 import { DistrictsService } from "../districts/districts.service";
 import { compatibility, scoreHouses, type HouseScore } from "../matching/scoring";
+import { TimezoneService } from "../timezone/timezone.service";
 
 // Re-export so existing imports from this module keep compiling.
 export type { District, RefinementHit, RefinementResult };
@@ -64,7 +65,10 @@ const TOP_N = 10;
 export class RefinementService {
   private readonly logger = new Logger(RefinementService.name);
 
-  constructor(private readonly districtsService: DistrictsService) {}
+  constructor(
+    private readonly districtsService: DistrictsService,
+    private readonly timezone: TimezoneService,
+  ) {}
 
   async refine(input: RefinementInput): Promise<RefinementResult> {
     const rules = input.rules ?? DEFAULT_HOUSE_RULES;
@@ -82,7 +86,7 @@ export class RefinementService {
       input.selfLongitude,
     );
 
-    const hits: RefinementHit[] = [];
+    const hits: Omit<RefinementHit, "localISO" | "timezone">[] = [];
     for (const candidate of input.candidates) {
       const best = bestDistrict(rules, input.selfNatal, selfHouses, candidate, searched);
       if (best) {
@@ -104,7 +108,14 @@ export class RefinementService {
       (a, b) => b.compatibility - a.compatibility || a.timestamp.localeCompare(b.timestamp),
     );
 
-    const top = hits.slice(0, TOP_N);
+    const top: RefinementHit[] = hits.slice(0, TOP_N).map((hit) => ({
+      ...hit,
+      ...this.timezone.toLocal(
+        new Date(hit.timestamp),
+        hit.district.latitude,
+        hit.district.longitude,
+      ),
+    }));
     const elapsedMs = Date.now() - t0;
     const pairsEvaluated = input.candidates.length * searched.length;
 

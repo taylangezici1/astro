@@ -12,6 +12,7 @@
 
 import { Injectable, BadRequestException } from "@nestjs/common";
 import { DateTime } from "luxon";
+import type { ApiErrorCode } from "@synastry/api-types";
 // tz-lookup is a CommonJS module; the default export is the function itself.
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const tzLookup: (lat: number, lng: number) => string = require("tz-lookup");
@@ -99,10 +100,14 @@ export class TimezoneService {
     // charts — refuse the input instead.
     const roundTrip = dt.toFormat("yyyy-MM-dd'T'HH:mm:ss");
     if (roundTrip !== localISO) {
-      throw new BadRequestException(
-        `Local instant ${localISO} does not exist in ${zone} ` +
+      throw new BadRequestException({
+        statusCode: 400,
+        error: "Bad Request",
+        code: "BIRTH_TIME_IN_DST_GAP" satisfies ApiErrorCode,
+        message:
+          `Local instant ${localISO} does not exist in ${zone} ` +
           `(likely a DST forward jump). Closest valid instant would be ${roundTrip}.`,
-      );
+      });
     }
 
     const utc = dt.toUTC();
@@ -112,5 +117,16 @@ export class TimezoneService {
       localISO,
       utcISO: utc.toISO() ?? "",
     };
+  }
+
+  /**
+   * The inverse: the wall-clock time at (lat, lng) for a UTC instant, as
+   * "YYYY-MM-DDTHH:mm:ss" (no offset) plus the IANA zone. Historical offsets
+   * are honoured — Türkiye used UTC+2 with DST until 2016.
+   */
+  toLocal(utc: Date, latitude: number, longitude: number): { localISO: string; timezone: string } {
+    const timezone = this.resolveZone(latitude, longitude);
+    const localISO = DateTime.fromJSDate(utc, { zone: timezone }).toFormat("yyyy-MM-dd'T'HH:mm:ss");
+    return { localISO, timezone };
   }
 }

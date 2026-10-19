@@ -16,11 +16,12 @@ import { useAuth } from "@/lib/auth";
 import { MatchForm, type MatchFormValues } from "@/features/match/match-form";
 import { MatchResults } from "@/features/match/match-results";
 import { ApiError, postMatch, type MatchResult } from "@/lib/api";
+import { describeError } from "@/lib/errors";
 
 export default function HomeScreen() {
   const theme = useTheme();
   const t = useT();
-  const { token, user } = useAuth();
+  const { token, user, logout } = useAuth();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [result, setResult] = useState<MatchResult | null>(null);
@@ -29,29 +30,24 @@ export default function HomeScreen() {
 
   const handleSubmit = useCallback(
     async (values: MatchFormValues) => {
-      if (!token) {
-        setError(t.form.errors.apiUnknown);
-        return;
-      }
+      if (!token) return;
       setLoading(true);
       setError(null);
       try {
-        const next = await postMatch(values, token);
-        setResult(next);
+        setResult(await postMatch(values, token));
       } catch (err) {
-        if (err instanceof ApiError) {
-          setError(`${t.form.errors.apiPrefix} (${err.status}).`);
-        } else if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError(t.form.errors.apiUnknown);
+        if (err instanceof ApiError && err.status === 401) {
+          // Token expired or the account is gone — back to the login screen.
+          await logout();
+          return;
         }
-        setResult(null);
+        // Keep the previous result on screen; the banner explains the failure.
+        setError(describeError(err, t));
       } finally {
         setLoading(false);
       }
     },
-    [t, token],
+    [t, token, logout],
   );
 
   return (

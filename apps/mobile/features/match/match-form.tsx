@@ -1,14 +1,21 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ActivityIndicator, Pressable, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { Fonts, type Theme } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { useT } from "@/lib/i18n";
-import type { MatchRequest, SynastryRule } from "@/lib/api";
+import {
+  DEFAULT_ORB,
+  DEFAULT_SYNASTRY_RULES,
+  type MatchRequest,
+  type SynastryRule,
+} from "@/lib/api";
+import { loadJSON, saveJSON } from "@/lib/persist";
 import { AdvancedControls } from "./advanced-controls";
+import { ASPECT_GLYPHS, PLANET_GLYPHS } from "./glyphs";
 
-export interface MatchFormValues extends MatchRequest {}
+export type MatchFormValues = MatchRequest;
 
 interface Props {
   onSubmit: (values: MatchFormValues) => void;
@@ -16,19 +23,18 @@ interface Props {
   error?: string | null;
 }
 
-/**
- * Server-side defaults, mirrored on the client so collapsed-and-untouched
- * matches the unauthenticated baseline.
- */
-const DEFAULT_ORB = 5;
-const DEFAULT_RULES: SynastryRule[] = [
-  { self: "venus", aspect: "trine", other: "mars" },
-  { self: "sun", aspect: "trine", other: "moon" },
-];
+interface Settings {
+  orb: number;
+  rules: SynastryRule[];
+}
+
+const SETTINGS_KEY = "synastry.matchSettings.v1";
+
+const DEFAULTS: Settings = { orb: DEFAULT_ORB, rules: [...DEFAULT_SYNASTRY_RULES] };
 
 /**
- * Match form, post-auth edition. Birth data is captured at signup, so this
- * screen only carries the matching tunables and the submit button.
+ * Match form. Birth data is captured at signup, so this screen only carries
+ * the matching tunables (remembered between launches) and the submit button.
  */
 export function MatchForm({ onSubmit, loading, error }: Props) {
   const theme = useTheme();
@@ -36,17 +42,31 @@ export function MatchForm({ onSubmit, loading, error }: Props) {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [advancedOpen, setAdvancedOpen] = useState(false);
-  const [orb, setOrb] = useState<number>(DEFAULT_ORB);
-  const [rules, setRules] = useState<SynastryRule[]>(DEFAULT_RULES);
+  const [settings, setSettings] = useState<Settings>(DEFAULTS);
   const [validationError, setValidationError] = useState<string | null>(null);
 
+  useEffect(() => {
+    let cancelled = false;
+    loadJSON(SETTINGS_KEY, isSettings).then((saved) => {
+      if (saved && !cancelled) setSettings(saved);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const update = (next: Settings) => {
+    setSettings(next);
+    void saveJSON(SETTINGS_KEY, next);
+  };
+
   const handleSubmit = () => {
-    if (rules.length === 0) {
+    if (settings.rules.length === 0) {
       setValidationError(t.form.errors.addRule);
       return;
     }
     setValidationError(null);
-    onSubmit({ orb, rules });
+    onSubmit({ orb: settings.orb, rules: settings.rules });
   };
 
   const displayedError = validationError ?? error ?? null;
@@ -63,10 +83,11 @@ export function MatchForm({ onSubmit, loading, error }: Props) {
       <AdvancedControls
         open={advancedOpen}
         onToggle={() => setAdvancedOpen((v) => !v)}
-        orb={orb}
-        onOrbChange={setOrb}
-        rules={rules}
-        onRulesChange={setRules}
+        orb={settings.orb}
+        onOrbChange={(orb) => update({ ...settings, orb })}
+        rules={settings.rules}
+        onRulesChange={(rules) => update({ ...settings, rules })}
+        onReset={() => update(DEFAULTS)}
       />
 
       {displayedError ? (
@@ -92,6 +113,20 @@ export function MatchForm({ onSubmit, loading, error }: Props) {
         )}
       </Pressable>
     </View>
+  );
+}
+
+function isSettings(value: unknown): value is Settings {
+  const v = value as Settings | null;
+  return (
+    typeof v?.orb === "number" &&
+    v.orb > 0 &&
+    v.orb <= 10 &&
+    Array.isArray(v.rules) &&
+    v.rules.length > 0 &&
+    v.rules.every(
+      (r) => r?.self in PLANET_GLYPHS && r?.other in PLANET_GLYPHS && r?.aspect in ASPECT_GLYPHS,
+    )
   );
 }
 

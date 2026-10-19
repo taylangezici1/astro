@@ -10,24 +10,28 @@
  * re-exported below) so the rest of the mobile app can keep importing from
  * "@/lib/api" without caring about the package boundary.
  *
- * Auth: most calls take an optional `token` argument. The auth provider in
- * `lib/auth` owns the lifecycle of the token; this file just stamps it into
- * the Authorization header when it's present.
+ * Errors: a request that reaches the server but fails throws `ApiError`
+ * (with the HTTP status and the server's machine-readable `code`, if any); a
+ * request that never gets a response throws `NetworkError`. `lib/errors`
+ * turns either into a user-facing sentence.
  */
 
 import type {
   AuthResponse,
+  DeleteAccountRequest,
   District,
   DistrictsResponse,
   LoginRequest,
   MatchRequest,
   MatchResult,
   SignupRequest,
+  UpdateBirthRequest,
   User,
 } from "@synastry/api-types";
 
 // Re-export so existing imports from "@/lib/api" keep working unchanged.
 export type {
+  AspectHit,
   AspectName,
   AuthResponse,
   District,
@@ -47,10 +51,14 @@ export type {
   SignupRequest,
   SkyMatch,
   SynastryRule,
+  UpdateBirthRequest,
   User,
 } from "@synastry/api-types";
+export { DEFAULT_ORB, DEFAULT_SYNASTRY_RULES } from "@synastry/api-types";
 
-const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://localhost:3010";
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://localhost:3000";
+/** Matching can take a couple of seconds uncached; anything past this is stuck. */
+const TIMEOUT_MS = 30_000;
 
 // ---------- client ----------
 
@@ -62,89 +70,88 @@ export class ApiError extends Error {
   ) {
     super(message);
   }
-}
 
-async function parseResponse(res: Response): Promise<unknown> {
-  const text = await res.text();
-  if (!text) return null;
-  try {
-    return JSON.parse(text);
-  } catch {
-    return text;
+  /** Machine-readable error code from the server body, e.g. "BIRTH_TIME_IN_DST_GAP". */
+  get code(): string | undefined {
+    const code = (this.body as { code?: unknown } | null)?.code;
+    return typeof code === "string" ? code : undefined;
   }
 }
 
-function authHeaders(token?: string | null): Record<string, string> {
-  return token ? { Authorization: `Bearer ${token}` } : {};
+/** The request never got a response: offline, DNS, timeout, server down. */
+export class NetworkError extends Error {}
+
+async function request<T>(
+  method: "GET" | "POST" | "PATCH" | "DELETE",
+  path: string,
+  options: { body?: unknown; token?: string | null } = {},
+): Promise<T> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+  let res: Response;
+  try {
+    res = await fetch(`${BASE_URL}${path}`, {
+      method,
+      headers: {
+        ...(options.body !== undefined ? { "Content-Type": "application/json" } : {}),
+        ...(options.token ? { Authorization: `Bearer ${options.token}` } : {}),
+      },
+      body: options.body !== undefined ? JSON.stringify(options.body) : undefined,
+      signal: controller.signal,
+    });
+  } catch (err) {
+    throw new NetworkError(`${method} ${path}: ${(err as Error).message}`);
+  } finally {
+    clearTimeout(timer);
+  }
+
+  const text = await res.text();
+  let parsed: unknown = null;
+  if (text) {
+    try {
+      parsed = JSON.parse(text);
+    } catch {
+      parsed = text;
+    }
+  }
+  if (!res.ok) {
+    throw new ApiError(`${method} ${path} failed (${res.status})`, res.status, parsed);
+  }
+  return parsed as T;
 }
 
 // ---------- public endpoints ----------
 
 export async function getDistricts(): Promise<District[]> {
-  const res = await fetch(`${BASE_URL}/districts`);
-  const parsed = await parseResponse(res);
-  if (!res.ok) {
-    throw new ApiError(`GET /districts failed (${res.status})`, res.status, parsed);
-  }
-  return ((parsed as DistrictsResponse | null)?.districts ?? []).slice();
+  const res = await request<DistrictsResponse | null>("GET", "/districts");
+  return (res?.districts ?? []).slice();
 }
 
 // ---------- auth ----------
 
-export async function postSignup(body: SignupRequest): Promise<AuthResponse> {
-  const res = await fetch(`${BASE_URL}/auth/signup`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  const parsed = await parseResponse(res);
-  if (!res.ok) {
-    throw new ApiError(`POST /auth/signup failed (${res.status})`, res.status, parsed);
-  }
-  return parsed as AuthResponse;
+export function postSignup(body: SignupRequest): Promise<AuthResponse> {
+  return request("POST", "/auth/signup", { body });
 }
 
-export async function postLogin(body: LoginRequest): Promise<AuthResponse> {
-  const res = await fetch(`${BASE_URL}/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  const parsed = await parseResponse(res);
-  if (!res.ok) {
-    throw new ApiError(`POST /auth/login failed (${res.status})`, res.status, parsed);
-  }
-  return parsed as AuthResponse;
+export function postLogin(body: LoginRequest): Promise<AuthResponse> {
+  return request("POST", "/auth/login", { body });
 }
 
-export async function getMe(token: string): Promise<User> {
-  const res = await fetch(`${BASE_URL}/auth/me`, {
-    headers: { ...authHeaders(token) },
-  });
-  const parsed = await parseResponse(res);
-  if (!res.ok) {
-    throw new ApiError(`GET /auth/me failed (${res.status})`, res.status, parsed);
-  }
-  return parsed as User;
+export function getMe(token: string): Promise<User> {
+  return request("GET", "/auth/me", { token });
+}
+
+export function patchMe(body: UpdateBirthRequest, token: string): Promise<User> {
+  return request("PATCH", "/auth/me", { body, token });
+}
+
+export function deleteMe(body: DeleteAccountRequest, token: string): Promise<void> {
+  return request("DELETE", "/auth/me", { body, token });
 }
 
 // ---------- /match ----------
 
-export async function postMatch(
-  request: MatchRequest,
-  token: string,
-): Promise<MatchResult> {
-  const res = await fetch(`${BASE_URL}/match`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      ...authHeaders(token),
-    },
-    body: JSON.stringify(request),
-  });
-  const parsed = await parseResponse(res);
-  if (!res.ok) {
-    throw new ApiError(`POST /match failed (${res.status})`, res.status, parsed);
-  }
-  return parsed as MatchResult;
+export function postMatch(body: MatchRequest, token: string): Promise<MatchResult> {
+  return request("POST", "/match", { body, token });
 }

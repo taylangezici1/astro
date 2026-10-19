@@ -33,16 +33,25 @@ export function planetLabel(planet: PlanetKey, t: Translations): string {
   return t.planets[planet];
 }
 
-/** "October 12, 1994 · 14:15 UTC" or the Turkish equivalent. */
-export function formatMatchTimestamp(iso: string, t: Translations): string {
-  const d = new Date(iso);
-  const date = d.toLocaleDateString(t.localeTag, {
+/**
+ * "May 4, 2022 · 04:00" from a wall-clock "YYYY-MM-DDTHH:mm:ss" string. The
+ * server already converted to the right timezone, so no timezone math here —
+ * formatting the date as UTC just stops the device's own zone shifting it.
+ */
+export function formatLocalDateTime(localISO: string, t: Translations): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(localISO);
+  if (!m) return localISO;
+  const date = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])));
+  const day = date.toLocaleDateString(t.localeTag, {
     year: "numeric",
     month: "long",
     day: "numeric",
     timeZone: "UTC",
   });
-  const hh = d.getUTCHours().toString().padStart(2, "0");
-  const mm = d.getUTCMinutes().toString().padStart(2, "0");
-  return `${date} · ${hh}:${mm} UTC`;
+  return `${day} · ${m[4]}:${m[5]}`;
+}
+
+/** A 0..1 fit as a whole number out of 100. */
+export function toScore(fit: number): number {
+  return Math.round(fit * 100);
 }

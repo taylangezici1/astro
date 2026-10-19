@@ -20,6 +20,20 @@ interface Props {
   onChange: (district: District) => void;
 }
 
+/**
+ * The district list is ~80 KB and effectively static, so it's fetched once
+ * per app session and shared by every picker (signup, edit birth details).
+ */
+let cachedDistricts: Promise<District[]> | null = null;
+
+function loadDistricts(): Promise<District[]> {
+  cachedDistricts ??= getDistricts().catch((err: unknown) => {
+    cachedDistricts = null; // let the next attempt retry
+    throw err;
+  });
+  return cachedDistricts;
+}
+
 export function DistrictPicker({ value, onChange }: Props) {
   const theme = useTheme();
   const t = useT();
@@ -27,24 +41,24 @@ export function DistrictPicker({ value, onChange }: Props) {
 
   const [open, setOpen] = useState(false);
   const [districts, setDistricts] = useState<District[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [failed, setFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   const [query, setQuery] = useState("");
 
   useEffect(() => {
     let cancelled = false;
-    getDistricts()
+    setFailed(false);
+    loadDistricts()
       .then((all) => {
         if (!cancelled) setDistricts(all);
       })
-      .catch((err: unknown) => {
-        if (!cancelled) {
-          setError(err instanceof Error ? err.message : t.districts.loadFailed);
-        }
+      .catch(() => {
+        if (!cancelled) setFailed(true);
       });
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [attempt]);
 
   const filtered = useMemo(() => {
     if (!districts) return [];
@@ -103,9 +117,12 @@ export function DistrictPicker({ value, onChange }: Props) {
             style={styles.search}
           />
 
-          {error ? (
+          {failed ? (
             <View style={styles.errorBanner}>
-              <ThemedText style={styles.errorText}>{error}</ThemedText>
+              <ThemedText style={styles.errorText}>{t.districts.loadFailed}</ThemedText>
+              <Pressable onPress={() => setAttempt((n) => n + 1)} hitSlop={8}>
+                <ThemedText style={styles.retry}>{t.common.retry}</ThemedText>
+              </Pressable>
             </View>
           ) : !districts ? (
             <View style={styles.center}>
@@ -244,9 +261,14 @@ function createStyles(theme: Theme) {
       backgroundColor: theme.danger + "22",
       borderRadius: 12,
       padding: 14,
+      gap: 8,
     },
     errorText: {
       color: theme.danger,
+    },
+    retry: {
+      color: theme.accent,
+      fontWeight: "700",
     },
     row: {
       flexDirection: "row",

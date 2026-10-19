@@ -4,6 +4,7 @@ import { calcChart, calcHouses } from "@synastry/ephemeris";
 
 import { scoreHouses } from "../src/matching/scoring";
 import type { DistrictsService } from "../src/districts/districts.service";
+import { TimezoneService } from "../src/timezone/timezone.service";
 import {
   RefinementService,
   bestDistrict,
@@ -31,7 +32,7 @@ function candidate(iso: string, aspectFit: number): RefinementCandidate {
 }
 
 async function refine(candidates: RefinementCandidate[], rules: HouseRule[]) {
-  return new RefinementService(fakeDistricts).refine({
+  return new RefinementService(fakeDistricts, new TimezoneService()).refine({
     selfNatal: USER_NATAL,
     selfBirthTimestamp: USER_BIRTH,
     selfLatitude: USER_LAT,
@@ -117,6 +118,13 @@ describe("RefinementService.refine", () => {
     expect(result.best).not.toBeNull();
     expect(result.best!.houseFit).toBeLessThanOrEqual(0.5);
     expect(result.best!.compatibility).toBeGreaterThan(0);
+  });
+
+  it("reports the partner's local birth time in the district's timezone", async () => {
+    // 2000-06-15 12:00 UTC is 15:00 in Türkiye (UTC+2, plus summer time).
+    const result = await refine([candidate("2000-06-15T12:00:00Z", 0.9)], SELF_ONLY);
+    expect(result.best?.timezone).toBe("Europe/Istanbul");
+    expect(result.best?.localISO).toBe("2000-06-15T15:00:00");
   });
 
   it("returns no hits when Phase 2 found no candidates", async () => {

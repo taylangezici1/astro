@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
@@ -7,34 +7,21 @@ import { ThemedText } from "@/components/themed-text";
 import { Fonts, type Theme } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { useT } from "@/lib/i18n";
-import type { MatchResult, PlanetKey, RefinementHit, SkyMatch } from "@/lib/api";
-import type { Translations } from "@/lib/i18n/strings";
-import { setDetailPayload } from "@/lib/match-detail-store";
+import type { MatchResult, RefinementHit } from "@/lib/api";
+import { rememberResult } from "@/lib/match-detail-store";
 
-import {
-  formatDegreeAsSign,
-  formatMatchTimestamp,
-  planetLabel,
-  PLANET_ORDER,
-} from "./format";
-import { formatHouseRule } from "./format-house-rule";
-import {
-  PLANET_GLYPHS,
-  PLANET_COLORS,
-  ZODIAC_GLYPHS,
-  ZODIAC_COLORS,
-  signIndex,
-  ASPECT_GLYPHS,
-} from "./glyphs";
+import { formatDegreeAsSign, formatLocalDateTime, planetLabel, PLANET_ORDER, toScore } from "./format";
+import { ASPECT_GLYPHS, PLANET_GLYPHS } from "./glyphs";
+import { PlanetRow, Row, Section } from "./ui";
 
 interface Props {
   result: MatchResult;
 }
 
 /**
- * Renders the Phase 2 + Phase 3 output: a hero "soulmate" card on top, then
- * supporting sections (natal chart, golden degrees, satisfied house rules,
- * runner-up districts).
+ * Renders a /match result: a hero card for the best match, why it matches,
+ * the runners-up (each a different person), then the user's own chart and
+ * the target degrees we searched for.
  */
 export function MatchResults({ result }: Props) {
   const theme = useTheme();
@@ -42,112 +29,80 @@ export function MatchResults({ result }: Props) {
   const router = useRouter();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const phase3Best = result.refinement.best;
-  const phase2Top = result.matches[0];
+  const { best, top, rules: houseRules, stats } = result.refinement;
 
-  const openPhase3 = useCallback(
+  const open = useCallback(
     (hit: RefinementHit) => {
-      setDetailPayload({ kind: "phase3", hit, result });
-      router.push("/result-detail" as never);
+      rememberResult(result);
+      router.push({ pathname: "/result-detail", params: { ts: hit.timestamp } } as never);
     },
     [result, router],
   );
 
-  const openPhase2 = useCallback(
-    (match: SkyMatch) => {
-      setDetailPayload({ kind: "phase2", match, result });
-      router.push("/result-detail" as never);
-    },
-    [result, router],
-  );
+  if (!best) {
+    return (
+      <View style={styles.empty}>
+        <ThemedText type="subtitle">{t.results.empty.title}</ThemedText>
+        <ThemedText style={styles.emptyHint}>{t.results.empty.hint}</ThemedText>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      {phase3Best ? (
-        <Pressable onPress={() => openPhase3(phase3Best)}>
-          <LinearGradient
-            colors={[theme.gradientFrom, theme.gradientTo]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.hero}>
-            <ThemedText style={styles.heroLabel}>
-              {t.results.hero.labelPhase3}
-            </ThemedText>
-            <ThemedText style={styles.heroDate}>
-              {formatMatchTimestamp(phase3Best.timestamp, t)}
-            </ThemedText>
-            <ThemedText style={styles.heroPlace}>
-              {t.results.hero.placePrefix} {phase3Best.district.name},{" "}
-              {phase3Best.district.province}
-            </ThemedText>
-            <View style={styles.heroDivider} />
-            <ThemedText style={styles.heroMeta}>
-              {t.results.hero.metaPhase3(
-                phase3Best.score,
-                result.refinement.rules.length,
-                result.refinement.stats.pairsEvaluated.toLocaleString(t.localeTag),
-                result.refinement.stats.elapsedMs,
-              )}
-            </ThemedText>
-          </LinearGradient>
-        </Pressable>
-      ) : phase2Top ? (
-        <Pressable onPress={() => openPhase2(phase2Top)}>
-          <LinearGradient
-            colors={[theme.gradientFrom, theme.gradientTo]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.hero}>
-            <ThemedText style={styles.heroLabel}>
-              {t.results.hero.labelPhase2}
-            </ThemedText>
-            <ThemedText style={styles.heroDate}>
-              {formatMatchTimestamp(phase2Top.timestamp, t)}
-            </ThemedText>
-            <ThemedText style={styles.heroMeta}>
-              {t.results.hero.metaPhase2(
-                phase2Top.score,
-                result.bands.length,
-                result.orb,
-              )}
-            </ThemedText>
-          </LinearGradient>
-        </Pressable>
-      ) : (
-        <View style={styles.empty}>
-          <ThemedText type="subtitle">{t.results.empty.title}</ThemedText>
-          <ThemedText style={styles.emptyHint}>{t.results.empty.hint}</ThemedText>
-        </View>
-      )}
+      <Pressable onPress={() => open(best)} accessibilityRole="button">
+        <LinearGradient
+          colors={[theme.gradientFrom, theme.gradientTo]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.hero}>
+          <ThemedText style={styles.heroLabel}>{t.results.hero.label}</ThemedText>
+          <ThemedText style={styles.heroDate}>{formatLocalDateTime(best.localISO, t)}</ThemedText>
+          <ThemedText style={styles.heroPlace}>
+            {t.results.hero.placePrefix} {best.district.name}, {best.district.province}
+          </ThemedText>
+          <View style={styles.heroDivider} />
+          <ThemedText style={styles.heroMeta}>
+            {t.results.hero.summary(
+              best.aspects.filter((a) => a.inOrb).length,
+              best.aspects.length,
+              best.satisfiedRules.length,
+              houseRules.length,
+            )}
+          </ThemedText>
+          <ThemedText style={styles.heroMeta}>
+            {t.results.hero.fit(toScore(best.compatibility))} · {t.results.hero.hint}
+          </ThemedText>
+        </LinearGradient>
+      </Pressable>
 
-      {phase3Best && phase3Best.satisfiedRules.length > 0 ? (
-        <Section
-          title={t.results.why.title}
-          subtitle={t.results.why.subtitle}
-          theme={theme}>
-          {phase3Best.satisfiedRules.map((rule, i) => (
-            <Row
-              theme={theme}
-              key={i}
-              label={formatHouseRule(rule, t)}
-              value="✓"
-              accent
-            />
-          ))}
-        </Section>
-      ) : null}
+      <Section title={t.results.why.title} subtitle={t.results.why.subtitle} theme={theme}>
+        {best.aspects.map((a, i) => (
+          <Row
+            key={`a${i}`}
+            theme={theme}
+            label={t.aspectRule(a.rule)}
+            value={t.aspectDistance(a.distance, a.inOrb)}
+            accent={a.inOrb}
+          />
+        ))}
+        {best.satisfiedRules.map((rule, i) => (
+          <Row key={`h${i}`} theme={theme} label={t.houseRule(rule)} value="✓" accent />
+        ))}
+      </Section>
 
-      {result.refinement.top.length > 1 ? (
+      {top.length > 1 ? (
         <Section
-          title={t.results.places.title(result.refinement.top.length - 1)}
-          subtitle={t.results.places.subtitle}
+          title={t.results.others.title(top.length - 1)}
+          subtitle={t.results.others.subtitle}
           theme={theme}>
-          {result.refinement.top.slice(1).map((hit, i) => (
-            <Pressable key={i} onPress={() => openPhase3(hit)}>
+          {top.slice(1).map((hit) => (
+            <Pressable key={hit.timestamp} onPress={() => open(hit)} accessibilityRole="button">
               <Row
                 theme={theme}
-                label={`${hit.district.name}, ${hit.district.province}`}
-                value={t.results.places.score(hit.score)}
+                label={formatLocalDateTime(hit.localISO, t)}
+                sublabel={`${hit.district.name}, ${hit.district.province}`}
+                value={`${toScore(hit.compatibility)}/100`}
               />
             </Pressable>
           ))}
@@ -169,10 +124,7 @@ export function MatchResults({ result }: Props) {
         ))}
       </Section>
 
-      <Section
-        title={t.results.looking.title}
-        subtitle={t.results.looking.subtitle}
-        theme={theme}>
+      <Section title={t.results.looking.title} subtitle={t.results.looking.subtitle} theme={theme}>
         {result.bands.map((band, i) => (
           <Row
             theme={theme}
@@ -185,158 +137,16 @@ export function MatchResults({ result }: Props) {
         ))}
       </Section>
 
-      {result.matches.length > 1 ? (
-        <Section
-          title={t.results.moments.title(result.matches.length - 1)}
-          subtitle={t.results.moments.subtitle}
-          theme={theme}>
-          {result.matches.slice(1, 6).map((m) => (
-            <Pressable key={m.id} onPress={() => openPhase2(m)}>
-              <Row
-                theme={theme}
-                label={formatMatchTimestamp(m.timestamp, t)}
-                value={t.results.moments.score(m.score)}
-              />
-            </Pressable>
-          ))}
-        </Section>
-      ) : null}
-    </View>
-  );
-}
-
-// ---------- helpers ----------
-
-function PlanetRow({
-  planet,
-  longitude,
-  theme,
-  t,
-}: {
-  planet: PlanetKey;
-  longitude: number;
-  theme: Theme;
-  t: Translations;
-}) {
-  const si = signIndex(longitude);
-  const color = PLANET_COLORS[planet];
-  const s = rowStyles(theme);
-  return (
-    <View style={s.row}>
-      <View style={{ flexDirection: "row", alignItems: "center", flex: 1, gap: 8 }}>
-        <ThemedText style={{ fontSize: 18, color }}>{PLANET_GLYPHS[planet]}</ThemedText>
-        <ThemedText style={s.label}>{planetLabel(planet, t)}</ThemedText>
-      </View>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-        <ThemedText style={{ fontSize: 16, color: ZODIAC_COLORS[si] }}>
-          {ZODIAC_GLYPHS[si]}
-        </ThemedText>
-        <ThemedText style={s.value}>
-          {formatDegreeAsSign(longitude, t)}
-        </ThemedText>
-      </View>
-    </View>
-  );
-}
-
-function Section({
-  title,
-  subtitle,
-  children,
-  theme,
-}: {
-  title: string;
-  subtitle?: string;
-  children: React.ReactNode;
-  theme: Theme;
-}) {
-  const styles = sectionStyles(theme);
-  return (
-    <View style={styles.card}>
-      <View style={styles.headerBlock}>
-        <ThemedText style={styles.title}>{title}</ThemedText>
-        {subtitle ? (
-          <ThemedText style={styles.subtitle}>{subtitle}</ThemedText>
-        ) : null}
-      </View>
-      <View style={styles.body}>{children}</View>
-    </View>
-  );
-}
-
-function Row({
-  label,
-  value,
-  theme,
-  accent,
-}: {
-  label: string;
-  value: string;
-  theme: Theme;
-  accent?: boolean;
-}) {
-  const styles = rowStyles(theme);
-  return (
-    <View style={styles.row}>
-      <ThemedText style={styles.label}>{label}</ThemedText>
-      <ThemedText style={[styles.value, accent && { color: theme.accent }]}>
-        {value}
+      <ThemedText style={styles.footer}>
+        {t.results.footer(
+          result.matches.length,
+          stats.pairsEvaluated.toLocaleString(t.localeTag),
+          stats.elapsedMs,
+        )}
       </ThemedText>
     </View>
   );
 }
-
-const sectionStyles = (theme: Theme) =>
-  StyleSheet.create({
-    card: {
-      padding: 18,
-      borderRadius: 18,
-      backgroundColor: theme.surface,
-      borderWidth: 1,
-      borderColor: theme.border,
-      gap: 12,
-    },
-    headerBlock: {
-      gap: 4,
-    },
-    title: {
-      fontSize: 11,
-      fontWeight: "700",
-      letterSpacing: 0.8,
-      textTransform: "uppercase",
-      color: theme.muted,
-    },
-    subtitle: {
-      fontSize: 13,
-      lineHeight: 18,
-      color: theme.muted,
-    },
-    body: {
-      gap: 8,
-    },
-  });
-
-const rowStyles = (theme: Theme) =>
-  StyleSheet.create({
-    row: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      paddingVertical: 6,
-    },
-    label: {
-      flex: 1,
-      fontSize: 13,
-      color: theme.muted,
-      paddingRight: 8,
-    },
-    value: {
-      fontSize: 14,
-      fontVariant: ["tabular-nums"],
-      color: theme.text,
-      fontWeight: "600",
-    },
-  });
 
 function createStyles(theme: Theme) {
   return StyleSheet.create({
@@ -380,7 +190,7 @@ function createStyles(theme: Theme) {
     },
     heroMeta: {
       color: "#ffffff",
-      opacity: 0.8,
+      opacity: 0.85,
       fontSize: 12,
     },
     empty: {
@@ -394,6 +204,13 @@ function createStyles(theme: Theme) {
     emptyHint: {
       fontSize: 13,
       color: theme.muted,
+    },
+    footer: {
+      fontSize: 12,
+      lineHeight: 17,
+      color: theme.muted,
+      textAlign: "center",
+      paddingHorizontal: 8,
     },
   });
 }

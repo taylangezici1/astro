@@ -66,6 +66,23 @@ describe("TimezoneService.resolveLocalInstant", () => {
     ).toThrow(BadRequestException);
   });
 
+  it("tags a DST-gap rejection with a machine-readable code", () => {
+    try {
+      tz.resolveLocalInstant({
+        localDate: "2022-03-13",
+        localTime: "02:30",
+        latitude: NEW_YORK.latitude,
+        longitude: NEW_YORK.longitude,
+      });
+      expect.unreachable();
+    } catch (err) {
+      expect((err as BadRequestException).getResponse()).toMatchObject({
+        statusCode: 400,
+        code: "BIRTH_TIME_IN_DST_GAP",
+      });
+    }
+  });
+
   it("rejects malformed local date strings", () => {
     expect(() =>
       tz.resolveLocalInstant({

@@ -2,10 +2,8 @@
  * Advanced matching controls — orb tolerance + the synastry rule set.
  *
  * Surfaced as a collapsible section under the main form. The state lives in
- * MatchForm; this component is purely presentational. Defaults mirror the
- * server (`@synastry/api/src/matching/golden-degree.ts` DEFAULT_RULES, and
- * `matching.service.ts` DEFAULT_ORB) so collapsed-and-untouched produces the
- * same query as no advanced state at all.
+ * MatchForm (which starts from the shared defaults in @synastry/api-types);
+ * this component is purely presentational.
  */
 
 import { useMemo } from "react";
@@ -24,6 +22,7 @@ interface Props {
   onOrbChange: (next: number) => void;
   rules: SynastryRule[];
   onRulesChange: (next: SynastryRule[]) => void;
+  onReset: () => void;
 }
 
 const ORB_MIN = 0.5;
@@ -38,6 +37,7 @@ export function AdvancedControls({
   onOrbChange,
   rules,
   onRulesChange,
+  onReset,
 }: Props) {
   const theme = useTheme();
   const t = useT();
@@ -211,6 +211,10 @@ export function AdvancedControls({
               </Pressable>
             ) : null}
           </View>
+
+          <Pressable onPress={onReset} accessibilityRole="button" style={styles.resetButton}>
+            <ThemedText style={styles.resetButtonText}>{t.advanced.reset}</ThemedText>
+          </Pressable>
         </View>
       ) : null}
     </View>
@@ -465,5 +469,7 @@ function createStyles(theme: Theme) {
       fontWeight: "700",
       fontSize: 14,
     },
+    resetButton: { alignSelf: "center", paddingVertical: 6, paddingHorizontal: 12 },
+    resetButtonText: { color: theme.muted, fontSize: 13, fontWeight: "600" },
   });
 }
